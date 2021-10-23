@@ -3,6 +3,7 @@ from django.db import models
 from django.conf import settings
 import os
 from django.core.files.storage import FileSystemStorage
+from django.db.models.fields import IntegerField
 
 
 
@@ -25,7 +26,7 @@ class User(models.Model):
     registerd_date = models.DateTimeField(
         auto_now_add=True, verbose_name='가입시간')
     image = models.ImageField(
-        default="face-recognition.png", verbose_name='이미지', storage=OverwriteStorage())
+        default="face-recognition.png", upload_to="profile", verbose_name='이미지', storage=OverwriteStorage())
     role = models.CharField(max_length=10, verbose_name="신분")        # teacher, student
     check = models.BooleanField(default=False)        # 앱 인증 완료시 true
 
