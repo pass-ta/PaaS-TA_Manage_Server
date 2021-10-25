@@ -1,0 +1,265 @@
+.makeroom{
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+}
+.back{
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    display: inline;
+}
+.back:hover{
+    content: url(/static/assets/images/previous\ \(1\).png);
+}
+.makeroom #main-text{
+    font-size: 25px;
+    color: #33ccc5;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+}
+.makeroom form{
+    padding: 0 0 0 50px;
+    width: 100%;
+    height: 80%;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+.make-input label{
+    font-size: large;
+    font-weight: 600;
+    margin-left: 150px;
+    margin-bottom: 5px;
+}
+.room-name{
+    margin-top: 40px;
+    margin-left: 10px;
+    width: 300px;
+    height: 35px;
+    background-color: #f1f3f5;
+    border: 3px solid #adb5bd;
+    text-align: center;
+}
+.room-name:hover{
+    border: 3px solid #088ec3;
+}
+.room-password{
+    margin-left: 14px;
+    border: none;
+    margin-top: 40px;
+    width: 300px;
+    height: 35px;
+    background-color: #f1f3f5;
+    border-bottom: 3px solid #adb5bd;
+    font-size: large;
+    text-align: center;
+}
+.makeroom form .input-password{
+    margin-left: 19px;
+}
+
+.makeroom input:focus{
+    outline: none;
+    border-color: #088ec3;
+}
+.makeroom input::placeholder{  
+    opacity: 0.5;
+}
+.makeroom input:focus::placeholder{  /*  클릭시 text 없어짐 */
+    color: transparent;
+}
+
+.mode{
+    font-size: large;
+    font-weight: 600;
+    margin-left: 100px;
+    margin-top: 60px;
+}
+.checkbox{
+    font-size: 30px;
+}
+input[type="checkbox"]{
+   margin-left: 20px; 
+   width: 30px;
+   height: 30px;
+   position: relative;
+   top: 4px;
+}
+#file{
+    margin-top: 40px;
+    margin-left: 290px;
+    font-size: large;
+    width: 290px;
+    height: 33px;
+}
+.file-js{
+    display: none;
+}
+.file-js a{
+    margin-top: 46px;
+    width: 175px;
+    height: 25px;
+    border-bottom: 1px solid #0d6efd;
+}
+
+button.creat{
+    margin-top: 90px;
+    margin-left: 320px;
+    width: 180px;
+    height: 50px;
+    background-color: #4771cb;
+    font-weight: 400;
+    font-size: large;
+    color: #fff;
+    margin-top: 40px;
+    text-transform: capitalize;
+    padding: 12px 25px;
+    border-radius: 23px;
+    letter-spacing: 0.25px;
+    border-bottom: 3px solid #33ccc5!important;
+    transition: all .3s;
+}
+button.creat:hover{
+    background-color: #33ccc5;
+    border-bottom: 3px solid #4771cb!important;
+}
+#error1-animation, #error2-animation, #error3-animation, #error4-animation{
+    display: inline-block;
+}
+#error{
+    color: red;
+    opacity: 0.7;
+    margin-left: 15px;
+}
+
+#file-error{
+    color: red;
+    opacity: 0.7;
+    margin-left: 250px;
+    margin-top: 20px;
+}
+
+/* make_success STRAT */
+.success{
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+}
+.success #success-main-text{
+    margin-top: 20px;
+    font-size: 30px;
+    color: #33ccc5;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+.rn,.rm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 70px;
+    margin-top: 30px;
+}
+.rm{
+    margin-left: 40px;
+}
+.success img{
+    width: 64px;
+    height: 64px;
+}
+.success #mode-img{
+    margin-bottom: 5px;
+}
+.success .img-background{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 84px;
+    height: 84px;
+    background-color: rgb(229, 229, 229);
+    border-radius: 50%;
+}
+
+.sub-text1,.sub-text2,.sub-text3,.sub-text4{
+    font-size: large;
+    color:#868e96;
+    margin-left: 20px;
+}
+.main-text1,.main-text2,.main-text3{
+    font-size: 25px;
+    color:#212529;
+    font-weight: 650;
+    margin-left: 10px
+}
+.main-text4{
+    font-size: 20px;
+    color:#212529;
+    font-weight: 650;
+    margin-left: 10px
+}
+.main-text1{
+    margin-right: 50px;
+}
+.main-text2{
+    margin-right: 50px;
+}
+.main-text3{
+    margin-right: 125px;
+}
+
+.sub-text3{
+    margin-left: 40px;
+}
+
+.success input{
+    margin-left: 190px;
+    width: 220px;
+    height: 60px;
+    display: inline-block;
+    background-color: #4771cb;
+    font-weight: 400;
+    font-size: 25px;
+    color: #fff;
+    text-transform: capitalize;
+    padding: 12px 25px;
+    border-radius: 23px;
+    letter-spacing: 0.25px;
+    border-bottom: 3px solid #33ccc5!important;
+    transition: all .3s;
+}
+.success input:hover{
+    background-color: #33ccc5;
+    border-bottom: 3px solid #4771cb!important;
+}
+.success button{
+    margin-left: 100px;
+    width: 220px;
+    height: 60px;
+    display: inline-block;
+    background-color: #33ccc5;
+    font-weight: 400;
+    font-size: 25px;
+    color: #fff;
+    text-transform: capitalize;
+    padding: 12px 25px;
+    border-radius: 23px;
+    letter-spacing: 0.25px;
+    border-bottom: 3px solid #4771cb!important;
+    transition: all 1s;
+}
+.success button:hover{
+    background-color: #4771cb;
+    border-bottom: 3px solid #33ccc5!important;
+    transform: scale(1.2);
+}
+
+.success .move-home{
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+/* make_success END */
+

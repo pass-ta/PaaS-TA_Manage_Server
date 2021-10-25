@@ -1,0 +1,365 @@
+    /* enter STRAT */
+
+    .enteroom{
+        width: 100%;
+        height: 100%;
+        padding: 30px;
+    }
+    .enteroom #enter-main-text{
+        font-size: 30px;
+        color: #33ccc5;
+        font-weight: 700;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    .enteroom form{
+        padding: 0 50px 0 50px;
+        width: 100%;
+        height: 100%;
+        /* display: flex;
+        justify-content: center;
+        align-items: center; */
+    }
+    .enter-input label{
+        font-size: large;
+        font-weight: 600;
+        margin-bottom: 5px;
+        margin-left: 131px;
+    }
+    .enteroom input{
+        border: none;
+        margin-left: 10px;
+        margin-top: 50px;
+        width: 330px;
+        height: 40px;
+        background-color: #f1f3f5;
+        border-bottom: 3px solid #adb5bd;
+        font-size: large;
+        text-align: center;
+    }
+    .enteroom form .input-password{
+        margin-left: 19px;
+    }
+    
+    .enteroom input:focus{
+        outline: none;
+        border-color: #088ec3;
+    }
+    .enteroom input::placeholder{  
+        opacity: 0.5;
+    }
+    .enteroom input:focus::placeholder{  /*  클릭시 text 없어짐 */
+        color: transparent;
+    }
+    .enter{
+        margin-top: 80px;
+        margin-left: 300px;
+        width: 220px;
+        height: 60px;
+        display: inline-block;
+        background-color: #4771cb;
+        font-weight: 400;
+        font-size: 25px;
+        color: #fff;
+        margin-top: 40px;
+        text-transform: capitalize;
+        padding: 12px 25px;
+        border-radius: 23px;
+        letter-spacing: 0.25px;
+        border-bottom: 3px solid #33ccc5!important;
+        transition: all .3s;
+    }
+    button.enter:hover{
+        background-color: #33ccc5;
+        border-bottom: 3px solid #4771cb!important;
+    }
+    .enter-div{
+        margin-top: 50px;
+    }
+    
+    /* enter END */
+    
+    /* enter_exam1 START */
+    .enter_exam1{
+        width: 100%;
+        height: 100%;
+        padding: 20px
+    }
+
+    #enter1-text{
+        font-size: 30px;
+        color: #33ccc5;
+        font-weight: 600;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 5px;
+    }
+    .progress-icon img{
+        width: 83px;
+        height: 83px;
+    }
+    .down-arrow img{
+        width: 12px;
+        height: 17px;
+        margin-left: 255px;
+    }
+    .down-arrow2 img{
+        width: 12px;
+        height: 17px;
+        margin-left: 465px;
+    }
+    .down-arrow3 img{
+        width: 12px;
+        height: 17px;
+        margin-left: 685px;
+    }
+
+    .down-arrow4 img{
+        width: 12px;
+        height: 17px;
+        margin-left: 360px;
+    }
+    .down-arrow5 img{
+        width: 12px;
+        height: 17px;
+        margin-left: 580px;
+    }
+    .border{
+        /* border-bottom: 1px solid black; */
+        display: inline-block;
+        background-color: black;
+        width: 80px;
+        margin: 0 20px 0 20px;
+    }
+    .progress-icon{
+        margin-top: 5px;
+        text-align: center;
+    }
+
+    .enter_exam1 .explain{
+        font-size: 26px;
+        font-weight: 700;
+        text-align: center;
+        margin-top: 100px;
+    }
+    .form-next{
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .enter_exam1 .next{
+        margin-top: 80px;
+        width: 220px;
+        height: 60px;
+        display: inline-block;
+        background-color: #4771cb;
+        font-weight: 400;
+        font-size: 25px;
+        color: #fff;
+        margin-top: 40px;
+        text-transform: capitalize;
+        padding: 12px 25px;
+        border-radius: 23px;
+        letter-spacing: 0.25px;
+        border-bottom: 3px solid #33ccc5!important;
+        transition: all .3s;
+    }
+
+    .check{
+        color: red;
+        opacity: 0.7;
+    }
+    #check{
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .enter_exam1 .next:hover{
+        background-color: #33ccc5;
+        border-bottom: 3px solid #4771cb!important;
+        transform: scale(1.2);
+    }
+
+    /* enter_exam1 END */
+
+
+    /* enter_exam2 START */
+    .progress-icon2 img{
+        width: 53px;
+        height: 53px;
+    }
+    .progress-icon2{
+        text-align: center;
+        margin-top: 5px;
+    }
+
+    .main-data{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+    }
+    .main-camera{
+        display: inline-block;
+        margin-right: 50px;
+    }
+
+    .next2{
+        width: 220px;
+        height: 60px;
+        display: inline-block;
+        background-color: #4771cb;
+        font-weight: 400;
+        font-size: 25px;
+        color: #fff;
+        text-transform: capitalize;
+        padding: 12px 25px;
+        border-radius: 23px;
+        letter-spacing: 0.25px;
+        border-bottom: 3px solid #33ccc5!important;
+        transition: all .3s;
+    }
+    #recapture{
+        margin: 0 40px 0 0;
+        width: 120px;
+        height: 60px;
+        display: none;
+        background-color: #4771cb;
+        font-weight: 370;
+        font-size: 26px;
+        color: #fff;
+        text-transform: capitalize;
+        border-radius: 23px;
+        letter-spacing: 0.25px;
+        border-bottom: 3px solid #33ccc5!important;
+        transition: all .3s;
+    }
+    #recapture:hover, .next2:hover{
+        background-color: #33ccc5;
+        border-bottom: 3px solid #4771cb!important;
+    }
+    .main-input{
+        display: none;
+    }
+    .main-input label{
+        font-size: large;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    .main-input input{
+        border: none;
+        margin-left: 10px;
+        margin-top: 50px;
+        width: 200px;
+        height: 40px;
+        background-color: #f1f3f5;
+        border-bottom: 3px solid #adb5bd;
+        font-size: large;
+        text-align: center;
+    }
+
+    .main-input-name label{
+        margin-left: 88px;
+    }
+    .main-input-name{
+        margin-bottom: 60px;
+    }
+
+    .main-input input:focus{
+        border-bottom: 3px solid #4771cb;
+    }
+
+    .exam2-btn{
+        width: 100%;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #lotties{
+        display: none;
+    }
+    /* enter_exam2 END */
+
+
+    /* roomout START */
+    .roomout{
+        width: 100%;
+        height: 100%;
+        padding: 70px;
+    }
+    #roomout-text1{
+        font-size: 30px;
+        color: #33ccc5;
+        font-weight: 700;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 50px;
+    }
+    .roomout-text2{
+        font-size: 27px;
+        font-weight: 700;
+        display: flex;
+        justify-content: center;
+        margin: 100px 0 50px 0;
+        line-height: 4rem;
+    }
+    .roomout-btn{
+        display: flex;
+        justify-content: center;
+    }
+
+    .toAnalytics{
+        width: 210px;
+        height: 60px;
+        display: inline-block;
+        background-color: #4771cb;
+        font-weight: 400;
+        font-size: 25px;
+        color: #fff;
+        margin-top: 40px;
+        text-transform: capitalize;
+        padding: 12px 25px;
+        border-radius: 23px;
+        letter-spacing: 0.25px;
+        border-bottom: 3px solid #33ccc5!important;
+        transition: all .3s;
+    }
+    .toAnalytics:hover{
+        background-color: #33ccc5;
+        border-bottom: 3px solid #4771cb!important;
+    }
+    /* roomout END */
+
+    /* roomout-success START */
+    #roomout-suc-text1{
+        font-size: 30px;
+        color: #33ccc5;
+        font-weight: 700;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 50px;
+    }
+    .roomout-suc-text2{
+        font-size: 27px;
+        font-weight: 700;
+        display: none;
+        justify-content: center;
+        margin: 130px 0 50px 0;
+    }
+    .roomout-suc-btn{
+        display: flex;
+        justify-content: center;
+    } 
+    .roomout-success{
+        display: flex;
+        justify-content: center;
+    }
+    .fireworks{
+        display: none;
+    }
+    /* roomout-success END */
