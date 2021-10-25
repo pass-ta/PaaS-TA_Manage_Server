@@ -156,7 +156,7 @@ body {
 .section-heading h6 {
   font-size: 25px;
   font-weight: 700;
-  color: #33ccc5;
+  color: #f8c018;
   text-transform: uppercase;
   margin-bottom: 15px;
   display: flex;
@@ -176,12 +176,12 @@ body {
 }
 
 .section-heading h2 span {
-  color: #088ec3;
+  color: #e67700;
 }
 
 .main-blue-button a {
   display: inline-block;
-  background-color: #4771cb;
+  background-color: #e67700;
   font-size: 15px;
   font-weight: 400;
   color: #fff;
@@ -195,13 +195,13 @@ body {
 
 .main-blue-button a:hover {
   background-color: #fff!important;
-  color: #4771cb!important;
-  border-bottom: 2px solid #4771cb!important;
+  color: #e67700!important;
+  border-bottom: 2px solid #e67700!important;
 }
 
 .main-green-button a {
   display: inline-block;
-  background-color: #4771cb;
+  background-color: #e67700;
   font-size: 15px;
   font-weight: 400;
   color: #fff;
@@ -227,7 +227,7 @@ header
 */
 
 .background-header {
-  background-color: #33ccc5!important;
+  background-color: #f8c018!important;
   height: 80px!important;
   position: fixed!important;
   top: 0px;
@@ -262,7 +262,7 @@ header
 }
 
 .header-area {  
-  background-color: #228be6;
+  background-color: #f59f00;
   border-bottom: 1px solid rgba(204,204,204, 0.7);
   box-shadow: 0 0  1px rgba(0,0,0, 0.7);
   position: absolute;
@@ -832,7 +832,11 @@ Banner Style
   box-shadow: 0 0  5px rgba(0,0,0, 0.7); */
 }
 #sub_text{
-  color: #eee;
+  color: black;
+}
+
+.main-text{
+  margin-left: 300px;
 }
 
 .main-banner .left-content {
@@ -840,14 +844,16 @@ Banner Style
 }
 
 .main-banner .left-content h2 {
-  border-top: 1px solid #eee;
+  border-top: 1px solid black;
+  color: black;
   margin-top: 30px;
   padding-top: 20px;
   margin-bottom: 45px;
   font-size: 60px;
-  font-weight: 700;
+  font-weight: 500;
+  font-family: 'Courier New', Courier, monospace;
   line-height: 72px;
-  background:#eee;
+  background:black;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -1157,8 +1163,8 @@ Services Style
 }
 
 .service-item h4 {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 600;
   color: #2a2a2a;
   margin-bottom: 15px;
 }
@@ -1176,7 +1182,7 @@ contact
 .contact-us {
   margin-top: 90px;
   padding: 120px 0px;
-  background-image: url(../images/contact-bg.jpg);
+  background-image: url(/static/assets/images/background.jpg);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -1224,7 +1230,7 @@ form#contact {
   position: relative;
   background-color: #fff;
   padding: 60px 80px;
-  border-radius: 50px;
+  border-radius: 10px;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -1235,7 +1241,7 @@ form#contact input {
   width: 50%;
   height: 46px;
   border-radius: 5px;
-  background-color: transparent;
+  background-color: white;
   border: 2px solid #efefef;
   outline: none;
   font-size: 15px;
@@ -1246,7 +1252,7 @@ form#contact input {
 }
 
 form#contact input::placeholder {
-  color: #aaa;
+  color: gray;
 }
 
 form#contact textarea {
@@ -1275,7 +1281,7 @@ form#contact button {
   width: 200px;
   height: 50px;
   display: inline-block;
-  background-color: #33ccc5;
+  background-color: #f8c018;
   font-size: 15px;
   font-weight: 400;
   color: #fff;
@@ -1284,16 +1290,16 @@ form#contact button {
   padding: 12px 25px;
   border-radius: 23px;
   letter-spacing: 0.25px;
-  border-bottom: 2px solid #4771cb!important;
+  border-bottom: 2px solid #f59f00!important;
   transition: all .3s;
   outline: none;
   border: none;
 }
 
 form#contact button:hover {
-  background-color: #4771cb!important;
+  background-color: #e67700!important;
   color: #fff!important;
-  border-bottom: 2px solid #33ccc5!important;
+  border-bottom: 2px solid #f59f00!important;
 }
 
 /* 
@@ -1308,12 +1314,9 @@ footer p {
 }
 
 footer p a {
-  color: #33ccc5;
+  font-weight: 900;
+  color: #f8c018;
   transition: all .5s;
-}
-
-footer p a:hover {
-  color: #4771cb;
 }
 
 /* 

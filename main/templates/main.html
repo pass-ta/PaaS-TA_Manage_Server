@@ -10,27 +10,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-    <title>AuTo Watch</title>
+    <title>HiClass</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="/static/assets/css/fontawesome.css">
-    <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css">
+    <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after?after?after">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="/static/assets/css/owl.css">
 
 <style>
   .main-banner{
-    background-image: url(/static/assets/images/cloud.png);
+    background-image: url(/static/assets/images/4028065.jpg);
     border-bottom: 1px solid rgba(204,204,204, 0.7);
     box-shadow: 0 0  5px rgba(0,0,0, 0.7);
+  }
+  .hiclass_logo{
+    width: 80px;
+    height: 80px;
   }
   /* .auto_logo{
     width: 100px;
     height: 50px;
   } */
-  .main-img{
+  /* .main-img{
    width: 500px;
    height: 350px;
    border: #dee2e6;
@@ -40,7 +44,7 @@
    background-image: url(static/assets/images/main_img.png);
    background-repeat: no-repeat;
    margin-left: 50px;
-  }
+  } */
   form#contact input:focus{
     border-color: #088ec3;
   } 
@@ -56,11 +60,19 @@
   form#contact {
     width: 800px;
     height: 600px;
-    margin-left: 250px;
+    background: #087f5b;
+    border: 20px;
+    border-style:groove;
+    border-color: #803900;
     display: block;
   }
   form#contact button{
     width: 200px;
+  }
+  .form_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .error{
     font-size: medium;
@@ -80,7 +92,8 @@
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
             <a href="/" class="logo">
-              <h4>Auto Watch <img src="static/assets/images/자동감시로고_-removebg-preview.png" alt="" class="auto_logo"></h4>
+              <!-- <h4>HiClass <img src="static/assets/images/자동감시로고_-removebg-preview.png" alt="" class="auto_logo"></h4> -->
+              <h4>HiClass</h4>
             </a>
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
@@ -105,37 +118,32 @@
 
   <div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
     <div class="container">
-      <div class="row">
+     
         <div class="col-lg-12">
-          <div class="row">
-            <div class="col-lg-6 align-self-center">
+            <div class="col-lg-6 main-text">
               <div class="left-content header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
                 <div class="row">
                   <div class="col-lg-12">
                     <div class="info-stat">
-                      <h3 id="sub_text">Base On Kuburnetes</h3>
+                      <h3 id="sub_text">Base On Paas-Ta</h3>
                     </div>
                   </div>
                   <div class="col-lg-12">
-                    <h2>자동감독 서비스 &nbsp; Auto Watch</h2>
+                    <h2>학습관리 서비스<div><img src="/static/assets/images/hiclass-img.png" alt="" class="hiclass_logo">HiClass</div></h2>
                   </div>
                   <div class="col-lg-12">
-                    <div class="main-green-button scroll-to-section">
-                      <a href="/login">Login</a>
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
+            <!-- <div class="col-lg-6">
               <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
                 <div class="main-img">
                 </div>
               </div>
-            </div>
-          </div>
+            </div> -->
         </div>
-      </div>
+  
     </div>
   </div>
    <!-- about-us -->
@@ -148,7 +156,7 @@
           </div>
         </div>
         <div class="left-image wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.5s" id="outline-div">
-          <img src="static/assets/images/outline.png" alt="">
+          <img src="/static/assets/images/timeline.png" alt="">
         </div>
       </div>
     </div>
@@ -207,7 +215,7 @@
                   <div class="icon"></div>
                   <h4>Cloud</h4>
                   <div class="line-dec"></div>
-                  <p style="font-size: 20px;"><br>Kubernetes, &nbsp; AWS <br><br><br></p>
+                  <p style="font-size: 20px;"><br>Paas-Ta, &nbsp; AWS <br><br><br></p>
                 </div>
               </div>
             </div>
@@ -230,7 +238,7 @@
     </div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.3s">
               <div class="icon">
                 <img src="static/assets/images/online-learning.png" alt="">
@@ -240,17 +248,17 @@
               </div>
             </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
           <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.4s">
                 <div class="icon">
                   <img src="static/assets/images/awareness.png" alt="">
                 </div>
                 <div class="right-content">
-                  <h4>자리 이탈 확인</h4>
+                  <h4>얼굴인식을 통한 출석체크</h4>
                 </div>
           </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
           <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.5s">
                 <div class="icon">
                   <img src="static/assets/images/mobile.png" alt="">
@@ -260,33 +268,53 @@
                 </div>
           </div>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-3">
+          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                <div class="icon">
+                  <img src="static/assets/images/mobile.png" alt="">
+                </div>
+                <div class="right-content">
+                  <h4>자리 이탈 감지</h4>
+                </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.6s">
+                <div class="icon">
+                  <img src="static/assets/images/analytics.png" alt="">
+                </div>
+                <div class="right-content">
+                  <h4>수업 번역 & 자막 제공</h4>
+                </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.7s">
+                <div class="icon">
+                  <img src="static/assets/images/eye.png" alt="">
+                </div>
+                <div class="right-content">
+                  <h4>필기 노트</h4>
+                </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.8s">
+                <div class="icon">
+                  <img src="static/assets/images/face-recognition.png" alt="">
+                </div>
+                <div class="right-content">
+                  <h4>Quiz</h4>
+                </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
           <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.6s">
                 <div class="icon">
                   <img src="static/assets/images/analytics.png" alt="">
                 </div>
                 <div class="right-content">
                   <h4>집중도 및 참여 통계 결과</h4>
-                </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.7s">
-                <div class="icon">
-                  <img src="static/assets/images/eye.png" alt="">
-                </div>
-                <div class="right-content">
-                  <h4>Eye-Tracking</h4>
-                </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.8s">
-                <div class="icon">
-                  <img src="static/assets/images/face-recognition.png" alt="">
-                </div>
-                <div class="right-content">
-                  <h4>본인 확인</h4>
                 </div>
           </div>
         </div>
@@ -299,27 +327,29 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.25s">
-          <form id="contact" action="" method="POST">
-            {% csrf_token %}
-            <div class="section-heading">
-              <h6>Sign Up</h6>
-              <h2>회원가입 후 <span>AutoWatch</span> 를 이용해 보세요!</h2>
-            </div>
-            <div class="sign_up_input">
-              <input type="email" id="email" name="email" placeholder="Email" autocomplete="off">
-              <input type="text" id="username"  name="username" placeholder="이름" autocomplete="off">
-              <input type="password" id="password"  name="password" placeholder="비밀번호" autocomplete="off">
-              <input type="password" id="re-password" name="re-password" placeholder="비밀번호 확인" autocomplete="off">
-            </div>
-            <div class="animate__animated animate__shakeX animate__delay-2s">
-              <div class="error">
-                  {{error}}
+          <div class="form_container">
+            <form id="contact" action="" method="POST">
+              {% csrf_token %}
+              <div class="section-heading">
+                <h6>Sign Up</h6>
+                <h2>회원가입 후 <span>HiClass</span> 를 이용해 보세요!</h2>
               </div>
-            </div>
-            <div class="sign_up_btn">
-                <button type="submit" id="form-submit" class="main-button ">Sign Up</button>
-            </div>
-          </form>
+              <div class="sign_up_input">
+                <input type="email" id="email" name="email" placeholder="Email" autocomplete="off">
+                <input type="text" id="username"  name="username" placeholder="이름" autocomplete="off">
+                <input type="password" id="password"  name="password" placeholder="비밀번호" autocomplete="off">
+                <input type="password" id="re-password" name="re-password" placeholder="비밀번호 확인" autocomplete="off">
+              </div>
+              <div class="animate__animated animate__shakeX animate__delay-2s">
+                <div class="error">
+                    {{error}}
+                </div>
+              </div>
+              <div class="sign_up_btn">
+                  <button type="submit" id="form-submit" class="main-button ">Sign Up</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -329,7 +359,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <p class="footer_text">제3회 <span style="color: #4771cb;">오픈 인프라 개발 경진 대회</span> 
+          <p class="footer_text"><span style="color:#f59f00; font-weight: 900;">파스-타 기반 서비스 개발 공모전</span> 
           <br>Made by 해몽유식 <a class="footer_a" rel="">한국외국어대학교 정보통신공학과</a>
           <br><span>황한식, 김유림, 김준영, 김혜원</span>
           </p>
