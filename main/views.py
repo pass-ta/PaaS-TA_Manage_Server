@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -6,6 +6,60 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.http.response import HttpResponse
 from django.core.files.storage import FileSystemStorage
 import simplejson
+
+
+def main(request):
+    res_data = {}
+    if request.method == 'GET':
+        return render(request, 'main.html')
+    elif request.method == 'POST':
+        email = request.POST.get('email', None)
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        re_password = request.POST.get('re-password', None)
+
+        if password != re_password:
+            res_data['error'] = '비밀번호가 다릅니다.'
+            return render(request, 'main.html', res_data)
+        else:  # 아이디 중복 체크
+            try:
+                user = User.objects.get(email=email)    # 아이디가 있는지 확인 해보고
+            except User.DoesNotExist:                   # 아이디가 없어서 DoesNotExist이면 저장한다.
+                user = User(email=email, username=username,
+                            password=make_password(password))
+                user.save()
+                return redirect('/')
+            if(user):
+                res_data['error'] = '존재하는 Email 입니다.'
+                return render(request, 'home.html', res_data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @method_decorator(csrf_exempt, name='dispatch')

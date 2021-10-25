@@ -1,0 +1,180 @@
+.wapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.list{
+    width: 50%;
+    height: 100%;
+    border: 5px dashed rgba(204,204,204, 0.7);
+    display: inline-block;
+    text-align: center;
+}
+.list:hover{
+    border-color: #228be6;
+}
+.list img{
+    margin-top: 180px;
+    width: 104px;
+}
+
+.list span{
+    font-size: 55px;
+    font-weight: 600;
+}
+
+/* 룸list START */
+.list-wapper{
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
+}
+
+.room-list{
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.room-list img{
+    width: 74px;
+    height: 74px;
+}
+.list-sub-text{
+    font-size: large;
+    color: #868e96;
+    font-weight: 700;
+    margin-left: 30px;
+}
+.list-main-text{
+    font-size: 23px;
+    color: #212529;
+    font-weight: 650;
+    margin-left: 5px;
+}
+.over{
+    margin-left: 10px;
+}
+.under{
+    margin-left: 50px;
+}
+
+
+
+
+#noroom{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    color: #33ccc5;
+    font-weight: 700;
+    text-align: center;
+}
+#noroom img{
+    margin-left: 10px;
+    width: 58px;
+    height: 58px;
+}
+
+/* 룸list END */
+
+/* 집중도 list START */
+.analytics-list{
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0 20px 0;
+}
+.analytics-list img{
+    width: 74px;
+    height: 74px;
+}
+.analytics-list button{
+    width: 90px;
+    height: 30px;
+    background-color: #868e96;
+    box-shadow: 0 0  5px rgba(0,0,0, 0.7);
+    color: white;
+    font-size: small;
+    margin-left: 50px;
+}
+.analytics-list button:hover{
+    transform: scale(1.2);
+    background-color: #33ccc5;
+}
+
+.list-sub-text-anal{
+    margin-left: 50px;
+    font-size: large;
+    color: #868e96;
+    font-weight: 700;
+}
+.list-main-text-date{
+    font-size: 20px;
+    color: #212529;
+    font-weight: 650;
+    margin-left: 5px;
+}
+/* 집중도 list END */
+
+/* 집중도 list detail START */
+.list-detail-wapper{
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    padding: 30px;
+}
+.list-detail{
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+}
+.list-detail-text{
+    display: grid;
+}
+.list-detail-text1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.list-detail-text2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.list-detail-main{
+    margin-top: 100px;
+    margin-right: 20px;
+    font-size: 20px;
+    font-weight: 550;
+    color: #33ccc5;
+}
+.list-detail-sub{
+    margin-top: 100px;
+    margin-right: 20px;
+    font-size: 15px;
+}
+#detail-explain{
+    font-size: 25px;
+    color: #33ccc5;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.cancel{
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    display: inline;
+}
+.cancel:hover{
+    content: url(/static/assets/images/cancel\ \(6\).png);
+}
+/* 집중도 list detail END */
