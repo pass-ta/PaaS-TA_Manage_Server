@@ -33,7 +33,7 @@ span#login-text{
     color: #343a40;
     font-weight: 500;
     opacity: 0.8;
-    margin-left: 30px;
+    margin-left: 90px;
     position: relative;
     top: 30px;
 }
@@ -68,7 +68,7 @@ form input{
 }
 input:focus{
     outline: none;
-    border-color: #088ec3;
+    border-color: #f59f00;
 }
 input:focus::placeholder{  /*  클릭시 text 없어짐 */
     color: transparent;
@@ -92,7 +92,7 @@ form button{
     color: #212529;
 }
 form button:hover{
-    background-color: #228be6;
+    background-color: #f59f00;
     color: #e9ecef;
 }
 .to-sign-up{

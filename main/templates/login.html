@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HiClass</title>
+    <link rel="stylesheet" href="../../static/assets/css/login.css?after?after">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+    <div class="login">
+        <div class="animate__animated animate__zoomIn animate__delay-0.8s">
+            <div class="container">
+                <div class="image">
+                    <img src="../../static/assets/images/logo_login.png" alt="" onclick="location.href='/'">
+                </div>
+                <div class="inner">
+                    <div class="login-text">
+                        <span id="login-text">Login to HiClass</span>
+                    </div>
+                    <form id="login" action="" method="POST">
+                        {% csrf_token %}
+                        <!-- 크로스 도메인을 막기 위해 사용하느 코드 -->
+                        <div class="email-input">
+                            <img src="../../static/assets/images/mail.png" alt="">
+                            <input type="email" id="email" name="email" placeholder="Email">
+                        </div>
+                        <div class="password-input">
+                            <img src="../../static/assets/images/key.png" alt="">
+                            <input type="password" id="password" name="password" placeholder="password">
+                        </div>
+                        <div class="animate__animated animate__shakeX animate__delay-1s">
+                            <div class="error">
+                                {{error}}
+                            </div>
+                        </div>
+                        <button>Login</button>
+                    </form>
+                    <div class="to-sign-up">
+                        <span>Don't you have ID? <a href="/#contact">Sign up</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="login-footer">
+        <span><span style="margin-left: 70px;">제3회 오픈 인프라 개발 경진 대회</span><span> <br>
+        Made by 해몽유식 <span style="color: #33ccc5;">한국외국어대학교 정보통신공학과</span></span>
+    </div>
+</body>
+</html>
