@@ -17,18 +17,27 @@ def main(request):
         username = request.POST.get('username', None)
         password = request.POST.get('password', None)
         re_password = request.POST.get('re-password', None)
+        student = request.POST.getlist('student')
+        teacher = request.POST.getlist('teacher')
 
         if password != re_password:
             res_data['error'] = '비밀번호가 다릅니다.'
             return render(request, 'main.html', res_data)
+        elif not(student) and not(teacher):
+            res_data['error'] = 'CheckBox를 선택해 주세요.'
+            return render(request, 'main.html', res_data)
         else:  # 아이디 중복 체크
             try:
                 user = User.objects.get(email=email)    # 아이디가 있는지 확인 해보고
-            except User.DoesNotExist:                   # 아이디가 없어서 DoesNotExist이면 저장한다.
-                user = User(email=email, username=username,
-                            password=make_password(password))
+            except User.DoesNotExist:   # 아이디가 없어서 DoesNotExist이면 저장한다.
+                if student and not(teacher):                   
+                    user = User(email=email, username=username,
+                                password=make_password(password),role ="student")
+                elif teacher and not (student):
+                    user = User(email=email, username=username,
+                                password=make_password(password),role ="teacher")
                 user.save()
-                return redirect('/')
+                return redirect('/login')
             if(user):
                 res_data['error'] = '존재하는 Email 입니다.'
                 return render(request, 'home.html', res_data)

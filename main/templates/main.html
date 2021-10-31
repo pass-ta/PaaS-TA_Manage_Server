@@ -16,7 +16,7 @@
     <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="/static/assets/css/fontawesome.css">
-    <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after?after?after">
+    <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after?after?after?after">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="/static/assets/css/owl.css">
 
@@ -30,21 +30,6 @@
     width: 80px;
     height: 80px;
   }
-  /* .auto_logo{
-    width: 100px;
-    height: 50px;
-  } */
-  /* .main-img{
-   width: 500px;
-   height: 350px;
-   border: #dee2e6;
-   border-radius: 20px;
-   border-bottom: 1px solid rgba(204,204,204, 0.7);
-   box-shadow: 0 0  5px rgba(0,0,0, 0.7);
-   background-image: url(static/assets/images/main_img.png);
-   background-repeat: no-repeat;
-   margin-left: 50px;
-  } */
   form#contact input:focus{
     border-color: #088ec3;
   } 
@@ -58,6 +43,7 @@
     margin-top: 20px;
   }
   form#contact {
+    padding: 30px;
     width: 800px;
     height: 600px;
     background: #087f5b;
@@ -335,10 +321,14 @@
                 <h2>회원가입 후 <span>HiClass</span> 를 이용해 보세요!</h2>
               </div>
               <div class="sign_up_input">
-                <input type="email" id="email" name="email" placeholder="Email" autocomplete="off">
-                <input type="text" id="username"  name="username" placeholder="이름" autocomplete="off">
-                <input type="password" id="password"  name="password" placeholder="비밀번호" autocomplete="off">
-                <input type="password" id="re-password" name="re-password" placeholder="비밀번호 확인" autocomplete="off">
+                <input type="email" id="email" name="email" placeholder="Email" autocomplete="off" class="form_input">
+                <input type="text" id="username"  name="username" placeholder="이름" autocomplete="off" class="form_input">
+                <input type="password" id="password"  name="password" placeholder="비밀번호" autocomplete="off" class="form_input">
+                <input type="password" id="re-password" name="re-password" placeholder="비밀번호 확인" autocomplete="off" class="form_input">
+                <div>
+                  <label class="checkbox_label"><input type="checkbox" class="checkbox" id="student" name="student">Student</label>
+                  <label class="checkbox_label"><input type="checkbox" class="checkbox" id="teacher" name="teacher">Teacher</label>
+                </div>
               </div>
               <div class="animate__animated animate__shakeX animate__delay-2s">
                 <div class="error">
@@ -368,14 +358,25 @@
     </div>
   </footer>
   <script>
-    // let error = JSON.parse("{{ error|escapejs }}");
-    // console.log(error);
-    // if (error =='비밀번호가 다릅니다.'){
-    //   window.scrollTo(1000,3100);
-    // }
-    // if(Request.method == 'POST'){
-    //   window.scrollTo(1000,3100);
-    // }
+      // 체크박스 이벤트
+  function checkbox(e) {
+    var obj = document.getElementsByClassName("checkbox");
+    for (var i = 0; i < obj.length; i++) {
+      if (obj[i] != e) {
+        obj[i].checked = false;
+      }
+    }
+  }
+  var student = document.getElementById('student');
+  var teacher = document.getElementById('teacher');
+  student.addEventListener('click', function () {
+    checkbox(this);
+  });
+  teacher.addEventListener('click', function () {
+    checkbox(this);
+  });
+
+  // 체크박스 이벤트
     let a = "{{error}}"
     if(a){
       window.scrollTo(1000,3090);

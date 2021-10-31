@@ -297,7 +297,7 @@ header
     color: #fff;
     line-height: 100px;
     float: left;
-    width: 300px;
+    width: 400px;
     -webkit-transition: all 0.3s ease 0s;
     -moz-transition: all 0.3s ease 0s;
     -o-transition: all 0.3s ease 0s;
@@ -305,9 +305,11 @@ header
 }
 
 .header-area .main-nav .logo h4 img {
-  margin-top: 10px;
-  width: 80px;
-  height: 80px;
+  margin-top: 0px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  width: 70px;
+  height: 70px;
 }
 
 .background-header .main-nav .logo h4 {
@@ -1094,7 +1096,7 @@ About Us Style
 }
 
 .about-us .section-heading {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .about-us .left-image {
@@ -1237,7 +1239,7 @@ form#contact {
   align-items: center;
 }
 
-form#contact input {
+.form_input{
   width: 50%;
   height: 46px;
   border-radius: 5px;
@@ -1250,7 +1252,15 @@ form#contact input {
   padding: 0px 20px;
   margin-bottom: 20px;
 }
-
+.checkbox_label{
+  font-size: 25px;
+  margin-right: 10px;
+}
+.checkbox_label input{
+  width: 25px;
+  height: 25px;
+  margin-right: 10px;
+}
 form#contact input::placeholder {
   color: gray;
 }
