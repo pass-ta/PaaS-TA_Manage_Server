@@ -14,7 +14,7 @@
 }
 .makeroom #main-text{
     font-size: 25px;
-    color: #33ccc5;
+    color:  #f8c018;
     font-weight: 700;
     display: flex;
     justify-content: center;
@@ -43,7 +43,7 @@
     text-align: center;
 }
 .room-name:hover{
-    border: 3px solid #088ec3;
+    border: 3px solid #f59f00;
 }
 .room-password{
     margin-left: 14px;
@@ -62,7 +62,7 @@
 
 .makeroom input:focus{
     outline: none;
-    border-color: #088ec3;
+    border-color: #f59f00;
 }
 .makeroom input::placeholder{  
     opacity: 0.5;
@@ -88,14 +88,11 @@ input[type="checkbox"]{
    top: 4px;
 }
 #file{
-    margin-top: 40px;
-    margin-left: 290px;
+    margin-left: 40px;
+    margin-bottom: 40px;
     font-size: large;
     width: 290px;
     height: 33px;
-}
-.file-js{
-    display: none;
 }
 .file-js a{
     margin-top: 46px;
@@ -109,7 +106,7 @@ button.creat{
     margin-left: 320px;
     width: 180px;
     height: 50px;
-    background-color: #4771cb;
+    background-color: #f59f00;
     font-weight: 400;
     font-size: large;
     color: #fff;
@@ -118,12 +115,12 @@ button.creat{
     padding: 12px 25px;
     border-radius: 23px;
     letter-spacing: 0.25px;
-    border-bottom: 3px solid #33ccc5!important;
+    border-bottom: 3px solid #e67700!important;
     transition: all .3s;
 }
 button.creat:hover{
-    background-color: #33ccc5;
-    border-bottom: 3px solid #4771cb!important;
+    background-color: #e67700;
+    border-bottom: 3px solid #f59f00!important;
 }
 #error1-animation, #error2-animation, #error3-animation, #error4-animation{
     display: inline-block;
@@ -150,21 +147,23 @@ button.creat:hover{
 .success #success-main-text{
     margin-top: 20px;
     font-size: 30px;
-    color: #33ccc5;
+    color: #f8c018;
     font-weight: 700;
     display: flex;
     justify-content: center;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
-.rn,.rm{
+.rn{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 70px;
-    margin-top: 30px;
+    margin-bottom: 20px;
 }
-.rm{
-    margin-left: 40px;
+.r2{
+    margin-right: 30px;
+}
+.r3{
+    margin-bottom: 40px;
 }
 .success img{
     width: 64px;
@@ -219,7 +218,7 @@ button.creat:hover{
     width: 220px;
     height: 60px;
     display: inline-block;
-    background-color: #4771cb;
+    background-color: #e67700;
     font-weight: 400;
     font-size: 25px;
     color: #fff;
@@ -227,19 +226,19 @@ button.creat:hover{
     padding: 12px 25px;
     border-radius: 23px;
     letter-spacing: 0.25px;
-    border-bottom: 3px solid #33ccc5!important;
+    border-bottom: 3px solid #f59f00!important;
     transition: all .3s;
 }
 .success input:hover{
-    background-color: #33ccc5;
-    border-bottom: 3px solid #4771cb!important;
+    background-color: #f59f00;
+    border-bottom: 3px solid #e67700!important;
 }
 .success button{
     margin-left: 100px;
     width: 220px;
     height: 60px;
     display: inline-block;
-    background-color: #33ccc5;
+    background-color: #f59f00;
     font-weight: 400;
     font-size: 25px;
     color: #fff;
@@ -247,12 +246,12 @@ button.creat:hover{
     padding: 12px 25px;
     border-radius: 23px;
     letter-spacing: 0.25px;
-    border-bottom: 3px solid #4771cb!important;
+    border-bottom: 3px solid #e67700!important;
     transition: all 1s;
 }
 .success button:hover{
-    background-color: #4771cb;
-    border-bottom: 3px solid #33ccc5!important;
+    background-color: #e67700;
+    border-bottom: 3px solid #f59f00!important;
     transform: scale(1.2);
 }
 
