@@ -53,7 +53,27 @@
         <div class="success">
             <span id="success-main-text" class="animate__animated animate__heartBeat animate__delay-1s">{{username}} 님의
                 Class!</span>
-            <div class="rn r1">
+              <div class="rn">
+                <div class="img-background">
+                    <img src="/static/assets/images/door_name.png" alt="">
+                </div>
+                <div class="section1"><div><span class="sub-text1">Class ID: </span></div><div><span class="main-text1">{{room_id}}</span></div></div>
+                <div class="img-background">
+                    <img src="/static/assets/images/keys.png" alt="">
+                </div>
+                <div class="section2"><div><span class="sub-text2">Class Password: </span></div><div><span class="main-text2">{{room_password}}</span></div></div>
+            </div>
+            <div class="rm">
+                <div class="img-background">
+                    <img src="/static/assets/images/open-book.png" alt="" id="mode-img">
+                </div>
+                <div class="section3"><div><span class="sub-text3">Class Name: </span></div><div><span class="main-text3">{{room_name}}</span></div></div>
+                <div class="img-background">
+                    <img src="/static/assets/images/name.png" alt="">
+                </div>
+                <div class="section4"><div><span class="sub-text4">Class Owner: </span></div><div><span class="main-text4">{{maker}}</span></div></div>
+            </div>
+            <!-- <div class="rn r1">
                 <div class="img-background">
                     <img src="/static/assets/images/door_name.png" alt="">
                 </div>
@@ -70,7 +90,7 @@
                     <img src="/static/assets/images/name.png" alt="">
                 </div>
                 <span class="sub-text4">ID: </span><span class="main-text4">{{maker}}</span>
-            </div>
+            </div> -->
             <div class="success-btn">
                 <form method="POST">
                     {% csrf_token %}

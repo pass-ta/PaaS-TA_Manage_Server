@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/static/assets/css/fontawesome.css">
     <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after">
     <link rel="stylesheet" href="/static/assets/css/home.css">
-    <link rel="stylesheet" href="/static/assets/css/makeroom.css?after?after?after">
+    <link rel="stylesheet" href="/static/assets/css/makeroom.css?after?after?after?after?after">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="/static/assets/css/list.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -51,23 +51,18 @@
     <div class="main">
       <div class="inner">
         <div class="makeroom">
-            <img src="/static/assets/images/previous.png" alt="" class="back" onclick="location.href='/main'">
-            <span class="animate__animated animate__rubberBand" id="main-text">Make Your Class!</span>
+            <img src="/static/assets/images/previous.png" alt="" class="back" onclick="location.href='/home'">
+            <span class="animate__animated animate__rubberBand" id="main-text">Create Your Class!</span>
             <form method="POST" id="makeroom" name="makeroom"  enctype="multipart/form-data">
               {% csrf_token %}
                     <!-- 크로스 도메인을 막기 위해 사용하느 코드 -->
                     <div class="make-input">
-                        <label for="">Room name
-                            <input type="text" value="{{string}}" class="room-name" id="room-name" name="room-name" readonly> 
+                        <label for="" class="label-1">Class ID
+                            <input type="text" value="{{string}}" class="room-name" id="room-id" name="room-id" readonly> 
                         </label>
-                        <div class="animate__animated animate__shakeX animate__delay-1s" id="error1-animation">
-                          <span class="" id="error">
-                            {{name_error}}
-                          </span>
-                        </div>
                         <div class="input-password">
-                            <label for="">Password
-                                <input type="text" placeholder="Room 비밀번호를 입력하세요." class="room-password" id="room-password" name="room-password" autocomplete="off">
+                            <label class="label-2">Password
+                                <input type="text" placeholder="Class 비밀번호를 입력하세요." class="room-password" id="room-password" name="room-password" autocomplete="off">
                             </label>
                             <div class="animate__animated animate__shakeX animate__delay-1s" id="error2-animation">
                               <span class="" id="error">
@@ -75,6 +70,16 @@
                               </span>
                             </div>
                         </div>
+                        <div class="input-name">
+                          <label class="label-2">Class Name
+                              <input type="text" placeholder="Class의 이름을 지정하세요 ." class="room-password" id="room-name" name="room-name" autocomplete="off">
+                          </label>
+                          <div class="animate__animated animate__shakeX animate__delay-1s" id="error2-animation">
+                            <span class="" id="error">
+                              {{name_error}}
+                            </span>
+                          </div>
+                      </div>
                     </div>
                     <div class="file">
                       <div class="file-js" id="file-js" name="file-js">
@@ -82,7 +87,10 @@
                         <input type="file" id="file" name="file" accept=".xlsx">
                         <a href="/media/room/회원명단양식.xlsx">회원 명단 양식 다운로드</a>
                       </div>
-                      <div class="file-form">
+                      <div class="animate__animated animate__shakeX animate__delay-1s" id="error2-animation">
+                        <span class="file_error_text">
+                          {{file_error}}
+                        </span>
                       </div>
                     </div>
                     <button class="creat">Create</button>

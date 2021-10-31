@@ -27,10 +27,17 @@
     justify-content: center;
     align-items: center; */
 }
-.make-input label{
+
+.make-input .label-2{
     font-size: large;
     font-weight: 600;
     margin-left: 150px;
+    margin-bottom: 5px;
+}
+.label-1{
+    font-size: large;
+    font-weight: 600;
+    margin-left: 190px;
     margin-bottom: 5px;
 }
 .room-name{
@@ -89,7 +96,7 @@ input[type="checkbox"]{
 }
 #file{
     margin-left: 40px;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
     font-size: large;
     width: 290px;
     height: 33px;
@@ -102,7 +109,7 @@ input[type="checkbox"]{
 }
 
 button.creat{
-    margin-top: 90px;
+    margin-top: 50px;
     margin-left: 320px;
     width: 180px;
     height: 50px;
@@ -131,11 +138,11 @@ button.creat:hover{
     margin-left: 15px;
 }
 
-#file-error{
+.file_error_text{
+    margin-left: 320px;
     color: red;
     opacity: 0.7;
-    margin-left: 250px;
-    margin-top: 20px;
+ 
 }
 
 /* make_success STRAT */
@@ -153,7 +160,7 @@ button.creat:hover{
     justify-content: center;
     margin-bottom: 40px;
 }
-.rn{
+/* .rn{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -164,6 +171,16 @@ button.creat:hover{
 }
 .r3{
     margin-bottom: 40px;
+} */
+.rn,.rm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 70px;
+    margin-top: 30px;
+}
+.rm{
+    margin-left: 40px;
 }
 .success img{
     width: 64px;
@@ -176,6 +193,7 @@ button.creat:hover{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: static;
     width: 84px;
     height: 84px;
     background-color: rgb(229, 229, 229);
@@ -200,17 +218,27 @@ button.creat:hover{
     margin-left: 10px
 }
 .main-text1{
-    margin-right: 50px;
+    margin-right: 100px;
 }
 .main-text2{
     margin-right: 50px;
+    margin-left:20px;
 }
 .main-text3{
-    margin-right: 125px;
+    margin-right: 100px;
 }
 
 .sub-text3{
-    margin-left: 40px;
+    margin-right: 100px;
+}
+.section1{
+    margin-right: 90px;
+}
+.section2{
+    margin-right: 30px;
+}
+.section3{
+    margin-right: 50px;
 }
 
 .success input{

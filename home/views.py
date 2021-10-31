@@ -29,14 +29,20 @@ def home(request):
             res_data['img_check'] = 1
              
         if request.method == 'GET':
-            return render(request, 'home.html', res_data)
+            if user.role == 'student':
+                return render(request, 'home-s.html', res_data)
+            else:
+                return render(request, 'home.html', res_data)
         elif request.method == 'POST':
             userimage = request.FILES['user-img-change']
             res_data['userimg'] = fs.url(userimage)
             user.image = userimage
             user.save()
             res_data['img_check'] = 1
-            return render(request, 'home.html', res_data)
+            if user.role == 'student':
+                return render(request, 'home-s.html', res_data)
+            else:
+                return render(request, 'home.html', res_data)
     else:
         return redirect('/login')
 
@@ -62,30 +68,37 @@ def makeclass(request):
         if request.method == 'GET':
             return render(request, 'makeroom.html', res_data)
         elif request.method == 'POST':
-            room_name = request.POST.get('room-name', None)
+            room_id = request.POST.get('room-id', None)
             room_password = request.POST.get('room-password', None)
+            room_name = request.POST.get('room-name', None)
             maker = user.email
             member_list=[]
-            file = request.FILES['file']
         
+            try:
+                file = request.FILES['file']
+            except:
+                file = "NULL"
+
             #학생명단 file
             #명단에서학번만 추출
-    
-            fs = FileSystemStorage()
-            filename = fs.save(file.name, file)
-            member = load_workbook("media/" + file.name)
-            for cell in member['Sheet1']['A']:
-                member_list.append(cell.value)
-            os.remove(os.path.join(settings.MEDIA_ROOT, file.name))
-          
-            if (len(room_name) > 7):
-                res_data['name_error'] = '방 이름을 생성해 주세요.'
-            elif not(room_password):
+            if not(file == "NULL"):
+                fs = FileSystemStorage()
+                filename = fs.save(file.name, file)
+                member = load_workbook("media/" + file.name)
+                for cell in member['Sheet1']['A']:
+                    member_list.append(cell.value)
+                
+                os.remove(os.path.join(settings.MEDIA_ROOT, file.name))
+           
+        
+            if not(room_password):
                 res_data['password_error'] = '비밀번호를 생성해 주세요.'
-            elif not(file):
-                res_data['mode_error'] = '출석부를 첨부 해주세요.'
+            elif (not(room_name)):
+                res_data['name_error'] = 'Class의 이름을 적어 주세요.'
+            elif (file=="NULL"):
+                res_data['file_error'] = '출석부를 첨부 해주세요.'
             else:
-                room = Room(room_name=room_name, room_password=room_password,
+                room = Room(room_id=room_id,room_password=room_password,room_name=room_name,
                             file=file,maker=maker, member_list = member_list)  # db에 room 정보 저장
                 room.save()
                 request.session['room_name'] = room_name # 방을 성공적으로 만들면 room_name으로 room_session을 저장
@@ -108,6 +121,7 @@ def make_success(request):
 
         # 가장 최근의 room_name과 session에 저장한 것을 비교함
         room = Room.objects.get(room_name=room_session)
+        res_data['room_id'] = room.room_id
         res_data['room_name'] = room.room_name
         res_data['room_password'] = room.room_password
         res_data['maker'] = room.maker
