@@ -30,6 +30,82 @@ import base64
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
 
+@method_decorator(csrf_exempt, name='dispatch')
+def app_enterroom(request):
+    # 앱에서 오는 로그인 요청
+    if request.method == "POST":
+        roomname = request.POST.get('roomname', None)
+        password = request.POST.get('password', None)
+        # 받은 이메일이랑 비밀번호 =데이터와 일치하면
+        # 리턴값으로 숫자 200 = 로그인 성공
+        # 일치 안하면 숫자 100 = 로그인 실패
+        if Room.objects.filter(class_name=roomname).exists():
+            room = Room.objects.get(class_name=roomname)
+            # db에서 꺼내는 명령.Post로 받아온 username으로 , db의 username을 꺼내온다.
+            print(password)
+            print(room.class_name)
+            if password == room.class_password:
+                print(room.class_password)
+                # 세션도 딕셔너리 변수 사용과 똑같이 사용하면 된다.
+                # 세션 user라는 key에 방금 로그인한 id를 저장한것.
+                # room_type(exam mode, study mode)구분해서 들고오기
+                return HttpResponse("success")
+            else:
+                # 방 비번 불일치
+                return HttpResponse("fail")
+
+        else:
+            # 방 없음
+            return HttpResponse("NoRoom")
+
+@method_decorator(csrf_exempt, name='dispatch')
+def app_attendance(request):
+    if request.method == "POST":
+        info = {}
+        # change_here
+        room_name = request.POST.get('room', None)
+        member_name = request.POST.get('name', None)
+        member_number = request.POST.get('number', None)
+
+        print(room_name)
+        print(member_name)
+        print(member_number)
+        # room DB-member_list로 회원번호 확인 및 index 추출
+        room = Room.objects.get(class_name=room_name)
+        # member_list = room.member_list  # 회원번호만 적힌 리스트
+        # member_list = member_list[1:-1].split(', ')
+        # print(member_list)
+
+        # CHECK NUMBER
+        # Correct NUMBER
+        # if (member_number in member_list):
+        #     member_index = member_list.index(member_number) + 1
+        #     print('member_index:'+str(member_index))
+
+        #     # 해당방의 DB속 명단Excel파일 조회
+        #     room = Room.objects.get(room_name=room_name)
+        #     member_file = room.file  # 명단
+
+        #     member = load_workbook("media/" + str(member_file))
+        #     sheet = member['Sheet1']
+        #     member_file_name = sheet['B'+str(member_index)].value
+
+        #     # CHECK NAME
+        #     # Wrong NAME
+        #     if member_file_name != member_name:
+        #         print('app_enterEXAM_info_no_match_name_num')
+        #         return HttpResponse(simplejson.dumps({"roomname": "no",  "password": "no"}))
+        #     # Correct NAME
+        #     else:
+        #         print('app_enterEXAM_info_success')
+        #         return HttpResponse(simplejson.dumps({"roomname": "yes", "password": member_index}))
+
+        # # Wrong NUMBER
+        # else:
+        #     print('app_enterEXAM_info_no_num')
+        #     return HttpResponse(simplejson.dumps({"roomname": "fail", "password": "no"}))
+
+        return HttpResponse("success")
 
 @method_decorator(csrf_exempt, name='dispatch')
 def app_checkimg(request):

@@ -15,8 +15,8 @@ def app_login(request):
     # 앱에서 오는 로그인 요청
     if request.method == "POST":
         email = request.POST.get('email', None)
-        password = request.POST.get('password', None)
-        role = request.POST.get('role',None)
+        password = request.POST.get('password')
+        role = request.POST.get('role')
         print(role)
         # 받은 이메일이랑 비밀번호 =데이터와 일치하면
         # 리턴값으로 숫자 200 = 로그인 성공
@@ -49,8 +49,9 @@ def app_signup(request):
         #serializer = PostSerializer(data=data)
         email = request.POST.get('email', None)
         password = request.POST.get('password', None)
-        name = request.POST.get('name'),
-        role = request.POST.get('role'),
+        name = request.POST.get('name')
+        role = request.POST.get('role')
+
         print(role)
         print(name)
         print(email)
