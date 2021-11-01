@@ -7,7 +7,7 @@
     }
     .enteroom #enter-main-text{
         font-size: 30px;
-        color: #33ccc5;
+        color: #37b24d;
         font-weight: 700;
         display: flex;
         justify-content: center;
@@ -21,12 +21,20 @@
         justify-content: center;
         align-items: center; */
     }
-    .enter-input label{
+    .enter_label_id{
+        font-size: large;
+        font-weight: 600;
+        margin-bottom: 5px;
+        margin-left: 162px;
+    }
+    .enter_label_password{
         font-size: large;
         font-weight: 600;
         margin-bottom: 5px;
         margin-left: 131px;
     }
+   
+
     .enteroom input{
         border: none;
         margin-left: 10px;
@@ -44,7 +52,7 @@
     
     .enteroom input:focus{
         outline: none;
-        border-color: #088ec3;
+        border-color: #f59f00;
     }
     .enteroom input::placeholder{  
         opacity: 0.5;
@@ -58,7 +66,7 @@
         width: 220px;
         height: 60px;
         display: inline-block;
-        background-color: #4771cb;
+        background-color: #f59f00;
         font-weight: 400;
         font-size: 25px;
         color: #fff;
@@ -67,12 +75,12 @@
         padding: 12px 25px;
         border-radius: 23px;
         letter-spacing: 0.25px;
-        border-bottom: 3px solid #33ccc5!important;
+        border-bottom: 3px solid #e67700!important;
         transition: all .3s;
     }
     button.enter:hover{
-        background-color: #33ccc5;
-        border-bottom: 3px solid #4771cb!important;
+        background-color: #e67700;
+        border-bottom: 3px solid #f59f00!important;
     }
     .enter-div{
         margin-top: 50px;
@@ -89,15 +97,29 @@
 
     #enter1-text{
         font-size: 30px;
-        color: #33ccc5;
+        color: #37b24d;
         font-weight: 600;
         display: flex;
         justify-content: center;
         margin-bottom: 5px;
     }
+    #enter-teacher-text{
+        font-size: 30px;
+        color: #37b24d;
+        font-weight: 600;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 5px;
+        margin-top: 20px;
+    }
     .progress-icon img{
         width: 83px;
         height: 83px;
+    }
+    .progress-icon-teacher img{
+        width: 83px;
+        height: 83px;
+        margin-top: 30px;
     }
     .down-arrow img{
         width: 12px;
@@ -136,6 +158,13 @@
         margin-top: 5px;
         text-align: center;
     }
+    .progress-icon-teacher{
+        margin-top: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
 
     .enter_exam1 .explain{
         font-size: 26px;
@@ -143,8 +172,19 @@
         text-align: center;
         margin-top: 100px;
     }
+    .teacher-explain{
+        font-size: 26px;
+        font-weight: 700;
+        text-align: center;
+    }
     .form-next{
         margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .teacher-form-next{
+        margin-top: 40px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -155,7 +195,7 @@
         width: 220px;
         height: 60px;
         display: inline-block;
-        background-color: #4771cb;
+        background-color: #f59f00;
         font-weight: 400;
         font-size: 25px;
         color: #fff;
@@ -164,7 +204,22 @@
         padding: 12px 25px;
         border-radius: 23px;
         letter-spacing: 0.25px;
-        border-bottom: 3px solid #33ccc5!important;
+        border-bottom: 3px solid #e67700!important;
+        transition: all .3s;
+    }
+    .teacher-next{
+        width: 220px;
+        height: 60px;
+        display: inline-block;
+        background-color: #f59f00;
+        font-weight: 400;
+        font-size: 25px;
+        color: #fff;
+        text-transform: capitalize;
+        padding: 12px 25px;
+        border-radius: 23px;
+        letter-spacing: 0.25px;
+        border-bottom: 3px solid #e67700!important;
         transition: all .3s;
     }
 
@@ -178,11 +233,15 @@
     }
 
     .enter_exam1 .next:hover{
-        background-color: #33ccc5;
-        border-bottom: 3px solid #4771cb!important;
+        background-color: #e67700;
+        border-bottom: 3px solid #f59f00!important;
         transform: scale(1.2);
     }
-
+    .teacher-next:hover{
+        background-color: #e67700;
+        border-bottom: 3px solid #f59f00!important;
+        transform: scale(1.2);
+    }
     /* enter_exam1 END */
 
 

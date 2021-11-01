@@ -82,7 +82,7 @@ def makeclass(request):
             res_data['img_check'] = 1
 
         if request.method == 'GET':
-            return render(request, 'makeroom.html', res_data)
+            return render(request, 'makeclass.html', res_data)
         elif request.method == 'POST':
             room_id = request.POST.get('room-id', None)
             room_password = request.POST.get('room-password', None)
@@ -120,7 +120,7 @@ def makeclass(request):
                 request.session['room_name'] = room_name # 방을 성공적으로 만들면 room_name으로 room_session을 저장
                 return redirect('/home/makeclass/success')
             # room 정보 비정상 일시
-            return render(request, 'makeroom.html', res_data)
+            return render(request, 'makeclass.html', res_data)
     else:
         return redirect('/login')
 
@@ -151,12 +151,128 @@ def make_success(request):
         if request.method == 'GET':
             return render(request, 'make_success.html', res_data)
         elif request.method == 'POST':
-            if room.mode == "EXAM":
-                return redirect('/main/enteroom/exam1')
-            elif room.mode == "STUDY":
-                return redirect('/main/enteroom/study1')
+            if user.role=="student":
+                return redirect('/home/enterclass/student1')
+            elif user.role=="teacher":
+                return redirect('/home/enterclass/teacher')
     else:
         return redirect('/login')
+
+
+def enterclass(request):
+    res_data = {}
+    fs = FileSystemStorage()
+    user_session = request.session.get('user')
+    if user_session:
+        user = User.objects.get(pk=user_session)    # 로그인 체크
+        res_data['username'] = user.username        # mypage 정보
+        res_data['email'] = user.email
+        res_data['register'] = user.registerd_date
+        res_data['userimg'] = fs.url(user.image)
+        res_data['role'] = user.role
+
+        if res_data['userimg'] == "/media/":               # 이미지 체크
+            res_data['img_check'] = 0
+        else:
+            res_data['img_check'] = 1
+
+        if request.method == 'GET':
+            return render(request, 'enterclass.html', res_data)
+        elif request.method == 'POST':
+            room_id = request.POST.get('room_id')
+            room_password = request.POST.get('room_password')
+
+            if not(room_id):
+                res_data['name_error'] = 'Room 이름을 입력하세요.'
+            elif not(room_password):
+                res_data['password_error'] = 'Room 비밀번호를 입력하세요.'
+            elif not(room_id and room_password):
+                res_data['all_error'] = '모든 값을 입력하세요.'
+            else:
+                try:
+                    # 필드명 = 값 이면 Room 객체 생성
+                    room = Room.objects.get(room_id=room_id)
+                except Room.DoesNotExist:
+                    # room이 없는 예외 처리
+                    res_data['error'] = '존재하지 않는 Room 입니다.'
+                    return render(request, 'enterclass.html', res_data)
+                
+                request.session['room_id'] = room_id   # 방 입장하는 순간 room session의 기준은 입장한 방 이름
+                db_password = room.room_password
+                if db_password == room_password:     # room 정상 입장
+                    if user.role == 'student':
+                        return redirect('/home/enterclass/student1')
+                    elif user.role == 'teacher':
+                        return redirect('/home/enterclass/teacher')
+                else:
+                    res_data['error'] = '비밀번호가 틀렸습니다.'
+                    return render(request, 'enterclass.html', res_data)
+            # room 정보 비정상 일시
+            return render(request, 'enterclass.html', res_data)
+    else:
+        return redirect('/login')
+
+@method_decorator(csrf_exempt,name='dispatch')
+def teacher(request):
+    res_data={}
+    fs = FileSystemStorage()
+    user_session = request.session.get('user')
+    res_data['session'] = user_session
+    if user_session:
+        user = User.objects.get(pk=user_session)    # 로그인 체크
+        res_data['username'] = user.username        # mypage 정보
+        res_data['email'] = user.email
+        res_data['register'] = user.registerd_date
+        res_data['userimg'] = fs.url(user.image)
+
+        if res_data['userimg'] == "/media/":               # 이미지 체크
+            res_data['img_check'] = 0
+        else:
+            res_data['img_check'] = 1
+            
+        if request.method == 'GET':
+            return render(request,'enter_teacher.html',res_data)
+        elif request.method == 'POST':
+            room_session = request.session.get('room_id')
+            room = Room.objects.get(room_id=room_session)
+            roomid = room.room_id
+            roomname = room.room_name
+            useremail = user.email
+            roomowner = room.maker
+            nickname = user.username
+            roomtype = room.mode
+            url = 'https://cranky-bohr-e0f18a.netlify.app/'+roomid+'/'+roomname+'/'+useremail+'/'+roomowner+'/'+nickname+'/'+roomtype
+            return redirect (url)
+    else:
+        return redirect('/login')
+
+def student1(request):
+    res_data={}
+    fs = FileSystemStorage()
+    user_session = request.session.get('user')
+    if user_session:
+        user = User.objects.get(pk=user_session)    # 로그인 체크
+        res_data['username'] = user.username        # mypage 정보
+        res_data['email'] = user.email
+        res_data['register'] = user.registerd_date
+        res_data['userimg'] = fs.url(user.image)
+
+        if res_data['userimg'] == "/media/":               # 이미지 체크
+            res_data['img_check'] = 0
+        else:
+            res_data['img_check'] = 1
+            
+        if request.method == 'GET':
+            return render(request,'enter_exam1.html',res_data)
+        elif request.method == 'POST':
+            if user.check== True:
+                return redirect('/main/enteroom/exam2')
+            else:
+                res_data['check'] = "차단이 완료되지 않았습니다."
+                return render(request,'enter_exam1.html',res_data)
+    else:
+        return redirect('/login')
+
 
 
 @method_decorator(csrf_exempt, name='dispatch')

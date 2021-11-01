@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+{% block content%}
+<div class="enter_exam1">
+    <span class="animate__animated animate__rubberBand" id="enter1-text">{{username}}님의 Room으로 입장 준비!</span>
+    <div class="down-arrow"><img src="/static/assets/images/down-arrow (1).png" alt=""></div>
+    <div class="progress-icon">
+        <img src="/static/assets/images/android.png" alt="">
+        <span class="border"></span>
+        <img src="/static/assets/images/face.png" alt="">
+        <span class="border"></span>
+        <img src="/static/assets/images/running.png" alt="">
+    </div>
+    <div class="explain">AutoWatch App에서 어플리케이션 차단을 완료해 주세요!</div>
+    <div class="animate__animated animate__shakeX animate__delay-1s" id="check">
+        <span class="check">{{check}}</span>
+    </div>
+    <form action="" method="POST" class="form-next">
+        {% csrf_token %}
+        <button class="next">Next</button>
+    </form>
+</div>
+{% endblock%}

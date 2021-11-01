@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko" id="html">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoWatch</title>
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/static/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after">
+    <link rel="stylesheet" href="/static/assets/css/main.css?after?after">
+    <link rel="stylesheet" href="/static/assets/css/makeroom.css">
+    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after?after?after">
+    <link rel="stylesheet" href="/static/assets/css/list.css">
+    <link rel="stylesheet" href="/static/assets/css/animated.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel='stylesheet' type="text/css" media="all" href="{% static 'css/main.css' %}"/>
+    <link rel="stylesheet" href="/static/assets/css/owl.css">
+</head>
+<body>
+  <div class="king" id="king">
+    <!-- ***** Header Area Start ***** -->
+    <div class="animate__animated animate__fadeInDown animate__delay-0.8s">
+      <header class="header-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                  <!-- ***** Logo Start ***** -->
+                  <a href="/main" class="logo">
+                    <h4>Auto Watch <img src="/static/assets/images/자동감시로고_-removebg-preview.png" alt="" class="auto_logo"></h4>
+                  </a>
+                  <!-- ***** Logo End ***** -->
+                  <!-- ***** Menu Start ***** -->
+                  <ul class="nav">
+                    <li class="scroll-to-section"><a href="/main">Home</a></li>
+                    <li class="scroll-to-section"><a href="/main/list">My List</a></li>
+                    <li class="scroll-to-section"><a href="/logout">Logout</a></li>
+                    <li class="scroll-to-section"><div class="main-blue-button"><a id="nav_mypage2" name="nav_mypage2">{{username}}님 안녕하세요.</a></div></li>
+                  </ul>
+                  <a class='menu-trigger'>
+                      <span>Menu</span>
+                  </a>
+                  <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+    <!-- ***** Header Area End ***** -->
+    <div class="main">
+      <div class="inner">
+        <div class="enter_exam1">
+          <span class="animate__animated animate__rubberBand" id="enter1-text">{{username}}님의 Room으로 입장 준비!</span>
+            <div class="down-arrow2"><img src="/static/assets/images/down-arrow (1).png" alt=""></div>
+            <div class="progress-icon">
+                <img src="/static/assets/images/android (1).png" alt="">
+                <span class="border"></span>
+                <img src="/static/assets/images/face.png" alt="">
+                <span class="border"></span>
+                <img src="/static/assets/images/running.png" alt="">
+            </div>
+            <form method="POST"  action ="{%url 'exam2'%}"   enctype="multipart/form-data" >
+              {% csrf_token %}
+              <div class="main-data">
+                <div class="main-camera">
+                  <div class="contentarea">
+                    <div class="camera">
+                      <video id="video" autoplay playsinline>Video stream not available.</video>
+                    </div>
+                    <canvas id="canvas">
+                    </canvas>
+                  </div>
+                  <img id="photo" alt="3초 후 사진이 촬영 됩니다.">
+                </div>
+                <div id="count" class="count" style="margin-bottom: 30px;">
+                  <lottie-player src="/static/assets/images/count.json" background="transparent" style="width: 300px; height: 225px;" speed="0.7" loop autoplay>
+                  </lottie-player>
+                </div>
+                <div class="main-input" id="main-input">
+                  <div class="field">
+                    <label for= "member_number" class="labelid">학번 / 수험번호</label>
+                    <input name="member_number" id="member_number"  required autocomplete="off">
+                  </div>
+                  <div class="main-input-name">
+                      <label for= "member_name" class="labelid">이름 </label>
+                      <input name = "member_name"  id="member_name" required required autocomplete="off">
+                  </div>
+                </div>
+              </div>
+              <div class="exam2-btn" id="exam2-btn">
+                <button type="button" id="recapture" name="recapture">재촬영</button>
+                <button type="button" class ="next2" id="bt_enter_room_recognition" onclick="bt_enter_room_recognition_func()" >Next</button>
+              </div>
+              {% if messages %}
+                  {% for message in messages %}
+                      <div class="row" style="text-align:center">
+                      <div class="col-sm-6" style="text-align:center">
+                          <div class="alert alert-danger" style="text-align:center">
+                          <strong>{{ message.tags }}!</strong> {{ message.message }}
+                          </div>
+                      </div>
+                      </div>
+                  {% endfor %}
+              {% endif %}
+            </form>
+          </div>
+          <!-- <button id="capture" name="capture">사진 촬영</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="lotties" style="position:absolute; top: calc(50vh - 112.5px); left: calc(50vw - 150px); display: none;">
+    <lottie-player src="/static/assets/images/face-scanning.json" background="transparent" style="width: 300px; height: 225px;" speed="1.5" loop autoplay>
+    </lottie-player>
+  </div>
+
+  <div class="animate__animated animate__slideInRight" id="mypage">
+    <div class="mypage-inner">
+      <img src="/static/assets/images/cancel.png" alt="" class="cancel" id="cancel" name="cancel">
+      <span class="my_text">My Page</span>
+      {% if img_check == 0 %}
+        <img src="/static/assets/images/face-recognition.png" alt="" id="user-img">
+      {% elif img_check == 1%}
+        <img src="{{userimg}}" alt="" id="user-img">
+      {%endif%}
+      <div class="user-email">
+        <img src="/static/assets/images/email.png" alt="" class="info"><span class="main-span">Email: </span><span class="sub-span">{{email}}</span>
+      </div>
+      <div class="user-name">
+        <img src="/static/assets/images/user.png" alt="" class="info"><span class="main-span">Name: </span><span class="sub-span">{{username}}</span>
+      </div>
+      <div class="user-register">
+        <img src="/static/assets/images/schedule.png" alt="" class="info"><span class="main-span">Date: </span><span class="sub-span">{{register}}</span>
+      </div>
+      <div class="modal-text">
+         <span>이미지 변경은 Home 화면에서 가능합니다!</span>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // 모달 이벤트
+  let my = document.getElementById('mypage');  // my page
+  let btn2 = document.getElementById('nav_mypage2'); // 상단바의 두번째 my page 버튼
+  let king = document.getElementById('king');  // background 설정
+  btn2.addEventListener('click',function(){
+      my.style.display ='flex';
+      king.style.opacity = '0.5';
+      king.style.pointerEvents = 'none';
+  })
+  let exit = document.getElementById('cancel');
+  exit.addEventListener('click',function(){
+    king.style.opacity = '1';
+    king.style.pointerEvents = 'all';
+    my.style.display ='none';
+  })
+  // 모달안에 사진 변경 이벤트
+  let file = document.getElementById('user-img-change');
+  let file_submit = document.getElementById('user-img-btn');
+  file.addEventListener('click',function(){
+    file.style.marginLeft = '70px'
+    file_submit.style.display = 'inline'
+  })
+
+</script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    function bt_enter_room_recognition_func(){
+        photo =document.getElementById('photo');
+        member_number = document.querySelector('input[name = "member_number"]');
+        member_name = document.querySelector('input[name = "member_name"]');
+        if ( member_number.value == '' || member_name.value=='' ) {
+            alert('모두 입력해주세요');
+            return;
+        }
+        $.ajax({                       
+            type: 'POST',
+            url: '/main/enteroom/exam2',
+            data: { 'photo' : photo.src,
+                    'member_number' : member_number.value,
+                    'member_name' : member_name.value },
+            success: function (data){
+                if (data['result'] == "NO_NAME" || data['result'] == "NO_MEMBER"){
+                  setTimeout(function(){
+                    alert("시험 명단에 포함 되어 있지 않습니다!");
+                    return;
+                  },4900)
+                }else if (data['result'] == "NO_IMAGE_MATCH"){
+                    alert("얼굴 인식에 실패 하였습니다!");
+                    return;
+                }else{
+                    alert("얼굴 인식에 성공 하였습니다!");
+                    window.location.href = '/main/enteroom/exam3'
+                    return;
+                }
+            }
+        })
+    }
+
+  let lotties_btn = document.getElementById('bt_enter_room_recognition')
+  let lotties = document.getElementById('lotties')
+  let kings = document.getElementById('king')
+  let number = document.getElementById('member_number')
+  let name = document.getElementById('member_name')
+  lotties_btn.addEventListener('click',function(data){
+    if (number.value && name.value){
+      setTimeout(function(){
+        console.log(number)
+        lotties.style.display='flex'
+        kings.style.opacity = '0.7';
+        kings.style.pointerEvents = 'none';
+      },0)
+      setTimeout(function(){
+        lotties.style.display='none'
+        kings.style.opacity = '1';
+        kings.style.pointerEvents = 'all';
+      },4800)
+    }
+  })
+</script>
+<script>
+  let input = document.getElementById('main-input')
+  let count = document.getElementById('count')
+  window.addEventListener('load',function(){
+    setTimeout(function(){
+      count.style.display = 'none'
+      input.style.display = 'inline-block'
+    },4300)
+  })
+
+  let recapture = document.getElementById('recapture')
+  recapture.addEventListener('click',function(){
+    setTimeout(function(){
+      count.style.display = 'flex'
+      input.style.display = 'none'
+    },0)
+    setTimeout(function(){
+      count.style.display = 'none'
+      input.style.display = 'inline-block'
+    },4500)
+  })
+</script>
+<script src="{% static 'js/capture.js' %}"></script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</body>
+</html>

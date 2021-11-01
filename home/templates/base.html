@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko" id="html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoWatch</title>
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/static/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after">
+    <link rel="stylesheet" href="/static/assets/css/home.css">
+    <link rel="stylesheet" href="/static/assets/css/makeroom.css">
+    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after?after?after">
+    <link rel="stylesheet" href="/static/assets/css/list.css">
+    <link rel="stylesheet" href="/static/assets/css/animated.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="/static/assets/css/owl.css">
+</head>
+<body>
+  <div class="king" id="king">
+    <!-- ***** Header Area Start ***** -->
+    <div class="animate__animated animate__fadeInDown animate__delay-0.8s">
+      <header class="header-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                  <!-- ***** Logo Start ***** -->
+                  <a href="/main" class="logo">
+                    <h4>Auto Watch <img src="/static/assets/images/자동감시로고_-removebg-preview.png" alt="" class="auto_logo"></h4>
+                  </a>
+                  <!-- ***** Logo End ***** -->
+                  <!-- ***** Menu Start ***** -->
+                  <ul class="nav">
+                    <li class="scroll-to-section"><a href="/main">Home</a></li>
+                    <li class="scroll-to-section"><a href="/main/list">My List</a></li>
+                    <li class="scroll-to-section"><a href="/logout">Logout</a></li>
+                    <li class="scroll-to-section"><div class="main-blue-button"><a id="nav_mypage2" name="nav_mypage2">{{username}}님 안녕하세요.</a></div></li>
+                  </ul>
+                  <a class='menu-trigger'>
+                      <span>Menu</span>
+                  </a>
+                  <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+    <!-- ***** Header Area End ***** -->
+    <div class="main">
+      <div class="inner">
+        {%block content%}
+        {% endblock %}
+      </div> 
+    </div>
+  </div>
+  <div class="animate__animated animate__slideInRight" id="mypage">
+    <div class="mypage-inner">
+      <img src="/static/assets/images/cancel.png" alt="" class="cancel" id="cancel" name="cancel">
+      <span class="my_text">My Page</span>
+      {% if img_check == 0 %}
+        <img src="/static/assets/images/face-recognition.png" alt="" id="user-img">
+      {% elif img_check == 1%}
+        <img src="{{userimg}}" alt="" id="user-img">
+      {%endif%}
+      <div class="user-email">
+        <img src="/static/assets/images/email.png" alt="" class="info"><span class="main-span">Email: </span><span class="sub-span">{{email}}</span>
+      </div>
+      <div class="user-name">
+        <img src="/static/assets/images/user.png" alt="" class="info"><span class="main-span">Name: </span><span class="sub-span">{{username}}</span>
+      </div>
+      <div class="user-register">
+        <img src="/static/assets/images/schedule.png" alt="" class="info"><span class="main-span">Date: </span><span class="sub-span">{{register}}</span>
+      </div>
+      <div class="modal-text">
+         <span>이미지 변경은 Home 화면에서 가능합니다!</span>
+      </div>
+    </div>
+  </div>
+
+
+
+<script>
+  // 모달 이벤트
+  let my = document.getElementById('mypage');  // my page
+  let btn2 = document.getElementById('nav_mypage2'); // 상단바의 두번째 my page 버튼
+  let king = document.getElementById('king');  // background 설정
+  btn2.addEventListener('click',function(){
+      my.style.display ='flex';
+      king.style.opacity = '0.5';
+      king.style.pointerEvents = 'none';
+  })
+    let exit = document.getElementById('cancel');
+    exit.addEventListener('click',function(){
+      king.style.opacity = '1';
+      king.style.pointerEvents = 'all';
+      my.style.display ='none';
+    })
+</script>
+</body>
+</html>
