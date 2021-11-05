@@ -308,15 +308,15 @@ def app_attendance(request):
     if request.method == "POST":
         info = {}
         # change_here
-        room_name = request.POST.get('room', None)
+        room_id = request.POST.get('room', None)
         member_name = request.POST.get('name', None)
         member_number = request.POST.get('number', None)
 
-        print(room_name)
+        print(room_id)
         print(member_name)
         print(member_number)
         # room DB-member_list로 회원번호 확인 및 index 추출
-        room = Room.objects.get(class_name=room_name)
+        room = Room.objects.get(room_id=room_id)
         # member_list = room.member_list  # 회원번호만 적힌 리스트
         # member_list = member_list[1:-1].split(', ')
         # print(member_list)
