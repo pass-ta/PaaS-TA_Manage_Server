@@ -5,18 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoWatch</title>
+    <title>HiClass</title>
     <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="/static/assets/css/fontawesome.css">
     <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after">
-    <link rel="stylesheet" href="/static/assets/css/main.css?after?after">
+    <link rel="stylesheet" href="/static/assets/css/home.css?after?after">
     <link rel="stylesheet" href="/static/assets/css/makeroom.css">
-    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after?after?after">
+    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after?after?after?after">
     <link rel="stylesheet" href="/static/assets/css/list.css">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link rel='stylesheet' type="text/css" media="all" href="{% static 'css/main.css' %}"/>
+    <link rel='stylesheet' type="text/css" media="all" href="{% static 'assets/css/home.css' %}"/>
     <link rel="stylesheet" href="/static/assets/css/owl.css">
 </head>
 <body>
@@ -29,9 +29,8 @@
             <div class="col-12">
                 <nav class="main-nav">
                   <!-- ***** Logo Start ***** -->
-                  <a href="/main" class="logo">
-                    <h4>Auto Watch <img src="/static/assets/images/자동감시로고_-removebg-preview.png" alt="" class="auto_logo"></h4>
-                  </a>
+                  <a href="/home" class="logo">
+                    <h4>HiClass <img src="/static/assets/images/student.png" alt="" class="auto_logo"><span class="teachers_text">Students</span></h4>
                   <!-- ***** Logo End ***** -->
                   <!-- ***** Menu Start ***** -->
                   <ul class="nav">
@@ -55,21 +54,13 @@
       <div class="inner">
         <div class="enter_exam1">
           <span class="animate__animated animate__rubberBand" id="enter1-text">{{username}}님의 Room으로 입장 준비!</span>
-            <div class="down-arrow2"><img src="/static/assets/images/down-arrow (1).png" alt=""></div>
-            <div class="progress-icon">
-                <img src="/static/assets/images/android (1).png" alt="">
-                <span class="border"></span>
-                <img src="/static/assets/images/face.png" alt="">
-                <span class="border"></span>
-                <img src="/static/assets/images/running.png" alt="">
-            </div>
-            <form method="POST"  action ="{%url 'exam2'%}"   enctype="multipart/form-data" >
+            <form method="POST"  action ="{%url 'student2'%}"   enctype="multipart/form-data" >
               {% csrf_token %}
               <div class="main-data">
                 <div class="main-camera">
                   <div class="contentarea">
                     <div class="camera">
-                      <video id="video" autoplay playsinline>Video stream not available.</video>
+                      <video id="video" autoplay playsinline muted>Video stream not available.</video>
                     </div>
                     <canvas id="canvas">
                     </canvas>
@@ -77,12 +68,12 @@
                   <img id="photo" alt="3초 후 사진이 촬영 됩니다.">
                 </div>
                 <div id="count" class="count" style="margin-bottom: 30px;">
-                  <lottie-player src="/static/assets/images/count.json" background="transparent" style="width: 300px; height: 225px;" speed="0.7" loop autoplay>
+                  <lottie-player src="/static/assets/images/countdown.json" background="transparent" style="width: 300px; height: 225px;" speed="0.7" loop autoplay>
                   </lottie-player>
                 </div>
                 <div class="main-input" id="main-input">
                   <div class="field">
-                    <label for= "member_number" class="labelid">학번 / 수험번호</label>
+                    <label for= "member_number" class="labelid">학번 / 출석번호</label>
                     <input name="member_number" id="member_number"  required autocomplete="off">
                   </div>
                   <div class="main-input-name">
@@ -160,15 +151,17 @@
     my.style.display ='none';
   })
   // 모달안에 사진 변경 이벤트
-  let file = document.getElementById('user-img-change');
-  let file_submit = document.getElementById('user-img-btn');
-  file.addEventListener('click',function(){
-    file.style.marginLeft = '70px'
-    file_submit.style.display = 'inline'
-  })
+  // let file = document.getElementById('user-img-change');
+  // let file_submit = document.getElementById('user-img-btn');
+  // file.addEventListener('click',function(){
+  //   file.style.marginLeft = '70px'
+  //   file_submit.style.display = 'inline'
+  // })
 
 </script>
-
+<script>
+  document.getElementById('video').play();
+</script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
     function bt_enter_room_recognition_func(){
@@ -181,22 +174,22 @@
         }
         $.ajax({                       
             type: 'POST',
-            url: '/main/enteroom/exam2',
+            url: '/home/enterclass/student2',
             data: { 'photo' : photo.src,
                     'member_number' : member_number.value,
                     'member_name' : member_name.value },
             success: function (data){
                 if (data['result'] == "NO_NAME" || data['result'] == "NO_MEMBER"){
                   setTimeout(function(){
-                    alert("시험 명단에 포함 되어 있지 않습니다!");
+                    alert("출석부에 포함 되어 있지 않습니다!");
                     return;
                   },4900)
                 }else if (data['result'] == "NO_IMAGE_MATCH"){
-                    alert("얼굴 인식에 실패 하였습니다!");
+                    alert("출석에 실패 하였습니다!");
                     return;
                 }else{
-                    alert("얼굴 인식에 성공 하였습니다!");
-                    window.location.href = '/main/enteroom/exam3'
+                    alert("출석에 성공 하였습니다!");
+                    window.location.href = '/home/enterclass/student3'
                     return;
                 }
             }
@@ -246,7 +239,7 @@
     },4500)
   })
 </script>
-<script src="{% static 'js/capture.js' %}"></script>
+<script src="{% static '/assets/js/capture.js' %}"></script>
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoWatch</title>
+    <title>HiClass</title>
     <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Additional CSS Files -->
     <link rel="stylesheet" href="/static/assets/css/fontawesome.css">
@@ -28,7 +28,11 @@
                 <nav class="main-nav">
                   <!-- ***** Logo Start ***** -->
                   <a href="/home" class="logo">
-                    <h4>HiClass <img src="/static/assets/images/teacher (1).png" alt="" class="auto_logo"><span class="teachers_text">Teachers</span></h4>
+                    {% if role == "teacher"%}
+                        <h4>HiClass <img src="/static/assets/images/teacher (1).png" alt="" class="auto_logo"><span class="teachers_text">Teachers</span></h4>
+                    {% elif role == "student"%}
+                        <h4>HiClass <img src="/static/assets/images/student.png" alt="" class="auto_logo"><span class="teachers_text">Students</span></h4>
+                    {%endif%}
                   </a>
                   <!-- ***** Logo End ***** -->
                   <!-- ***** Menu Start ***** -->

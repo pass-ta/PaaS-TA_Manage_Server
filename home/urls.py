@@ -11,6 +11,8 @@ urlpatterns = [
     path('enterclass/', views.enterclass),
     path('enterclass/teacher',views.teacher),
     path('enterclass/student1',views.student1),
+    path('enterclass/student2',views.student2, name='student2'),
+    path('enterclass/student3',views.student3),
 
        #APP
     path('app_enter_room', views.app_enterroom),

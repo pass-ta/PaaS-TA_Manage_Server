@@ -1,3 +1,4 @@
+# from typing import AwaitableGenerator
 from django.shortcuts import render
 from django.shortcuts import redirect, render
 from django.core.files.storage import FileSystemStorage
@@ -24,6 +25,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.http.response import HttpResponse, JsonResponse
 from django.core import serializers
+from django.contrib import messages
 
 import os
 import base64
@@ -183,9 +185,9 @@ def enterclass(request):
             room_password = request.POST.get('room_password')
 
             if not(room_id):
-                res_data['name_error'] = 'Room 이름을 입력하세요.'
+                res_data['name_error'] = 'Class ID를 입력하세요.'
             elif not(room_password):
-                res_data['password_error'] = 'Room 비밀번호를 입력하세요.'
+                res_data['password_error'] = 'Class 비밀번호를 입력하세요.'
             elif not(room_id and room_password):
                 res_data['all_error'] = '모든 값을 입력하세요.'
             else:
@@ -194,7 +196,7 @@ def enterclass(request):
                     room = Room.objects.get(room_id=room_id)
                 except Room.DoesNotExist:
                     # room이 없는 예외 처리
-                    res_data['error'] = '존재하지 않는 Room 입니다.'
+                    res_data['error'] = '존재하지 않는 Class 입니다.'
                     return render(request, 'enterclass.html', res_data)
                 
                 request.session['room_id'] = room_id   # 방 입장하는 순간 room session의 기준은 입장한 방 이름
@@ -275,6 +277,132 @@ def student1(request):
 
 
 
+@csrf_exempt
+def student2(request):
+    res_data={}
+    fs = FileSystemStorage()
+    user_session = request.session.get('user')
+    if user_session:
+        user = User.objects.get(pk=user_session)    # 로그인 체크
+        res_data['username'] = user.username        # mypage 정보
+        res_data['email'] = user.email
+        res_data['register'] = user.registerd_date
+        res_data['userimg'] = fs.url(user.image)
+
+        if res_data['userimg'] == "/media/":               # 이미지 체크
+            res_data['img_check'] = 0
+        else:
+            res_data['img_check'] = 1
+            
+        if request.method == 'GET':
+
+            return render(request,'enter_student2.html',res_data)
+
+        elif request.method == 'POST':
+            info={}
+            room_id=request.session.get('room_id')
+            member_number = request.POST.get('member_number')
+            member_name = request.POST.get('member_name')
+
+            #해당방의 DB속 명단Excel파일 조회
+            try:
+                room = Room.objects.get(room_id=room_id)
+            except Room.DoesNotExist:
+                return messages.warning(request, '존재 하는 Class가 없습니다.')
+            member_file=room.file #명단
+
+            #DB의 member_list로 회원번호 확인 및 index 추출
+            member_list=room.member_list #회원번호만 적힌 리스트
+            member_list= member_list[1:-1].split(', ')
+
+            # CHECK NUMBER
+            ### Correct NUMBER
+            if (member_number in member_list):
+                member_index=member_list.index(member_number) +1 #index=0은'회원번호(수험번호/학번)'이므로 index로 추출된 수 +1로 쓰면됨!
+                member = load_workbook("media/" + str(member_file))
+                sheet = member['Sheet1']
+                member_file_name = sheet['B'+str(member_index)].value 
+                
+                # CHECK NAME
+                ### Wrong NAME
+                if member_file_name != member_name:
+                    info['result'] = "NO_NAME"
+                ### Correct NAME
+                else:
+                    # WEB : 캡쳐이미지 받기
+                    member_image_data = request.POST.__getitem__('photo')
+                    member_image_data = member_image_data[22:]
+                    member_image_path = str(room_id)+'_'+str(member_number)+'_capture.png'
+                    member_image = open(os.path.join(FileSystemStorage().location)+str("/capture/")+member_image_path, "wb")
+                    member_image.write(base64.b64decode(member_image_data))
+                    member_image.close()
+
+                    # exel 명단 속 이미지
+                    image_loader = SheetImageLoader(sheet)
+                    image = image_loader.get('C'+str(member_index))
+
+                    member_file_image_path = (room_id+"_"+str(member_number)+".jpg")
+                    image.save("media/capture/"+member_file_image_path)
+                    fs = FileSystemStorage()
+
+                    # Face Recognition
+                    a=(fs.location +str("/capture/")+ member_file_image_path)
+                    b=(fs.location +str("/capture/")+ member_image_path )
+
+                    # luxand API
+                    luxand_client = luxand("12a42a8efedf4e24b84730ce440e5429")
+                    member_file_image = luxand_client.add_person(str(member_file_name), photos=[a])
+                    result = luxand_client.verify(member_file_image, photo=b)
+
+                    # Recognition RESULT
+                    if result['status']=='success':
+                        info['result']="OK"
+                        print("Recognition_SUCCESS")
+                    else:
+                        info['result']="NO_IMAGE_MATCH"
+                        print("Recognition_FAIL")
+            ### Wrong NUMBER
+            else:
+                #명단 속 존재하지 않는 회원번호 (입장불가!)
+                info['result']="NO_MEMBER"
+                print('no_member')
+                #해당페이지에서 팝업으로 입장불가표시주기
+            return JsonResponse(info)
+    else:
+        return redirect('/login')
+
+
+def student3(request):
+    res_data={}
+    fs = FileSystemStorage()
+    user_session = request.session.get('user')
+    if user_session:
+        user = User.objects.get(pk=user_session)    # 로그인 체크
+        res_data['username'] = user.username        # mypage 정보
+        res_data['email'] = user.email
+        res_data['register'] = user.registerd_date
+        res_data['userimg'] = fs.url(user.image)
+        res_data['role'] = user.role
+
+        if res_data['userimg'] == "/media/":               # 이미지 체크
+            res_data['img_check'] = 0
+        else:
+            res_data['img_check'] = 1
+            
+        if request.method == 'GET':
+            return render(request,'enter_teacher.html',res_data)
+        elif request.method == 'POST':
+            room_session = request.session.get('room_id')
+            room = Room.objects.get(room_id=room_session)
+            roomid = room.room_id
+            roomname = room.room_name
+            useremail = user.email
+            roomowner = room.maker
+            nickname = user.username
+            url = 'https://118.67.131.138:30020/'+roomid+'/'+roomname+'/'+useremail+'/'+roomowner+'/'+nickname
+            return redirect (url)
+    else:
+        return redirect('/login')
 @method_decorator(csrf_exempt, name='dispatch')
 def app_enterroom(request):
     # 앱에서 오는 로그인 요청

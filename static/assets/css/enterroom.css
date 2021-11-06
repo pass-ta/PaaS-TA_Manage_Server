@@ -272,7 +272,7 @@
         width: 220px;
         height: 60px;
         display: inline-block;
-        background-color: #4771cb;
+        background-color: #f59f00;
         font-weight: 400;
         font-size: 25px;
         color: #fff;
@@ -280,7 +280,7 @@
         padding: 12px 25px;
         border-radius: 23px;
         letter-spacing: 0.25px;
-        border-bottom: 3px solid #33ccc5!important;
+        border-bottom: 3px solid #e67700!important;
         transition: all .3s;
     }
     #recapture{
@@ -299,8 +299,8 @@
         transition: all .3s;
     }
     #recapture:hover, .next2:hover{
-        background-color: #33ccc5;
-        border-bottom: 3px solid #4771cb!important;
+        background-color: #e67700;
+        border-bottom: 3px solid #f59f00!important;
     }
     .main-input{
         display: none;
@@ -330,7 +330,7 @@
     }
 
     .main-input input:focus{
-        border-bottom: 3px solid #4771cb;
+        border-bottom: 3px solid #f59f00;
     }
 
     .exam2-btn{
