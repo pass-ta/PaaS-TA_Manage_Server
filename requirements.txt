@@ -1,5 +1,11 @@
 asgiref==3.4.1
 Django==3.2.8
+django-cors-headers==3.10.0
+django-sslserver==0.22
+et-xmlfile==1.1.0
+luxand==0.7
+openpyxl==3.0.9
+openpyxl-image-loader==1.0.5
 Pillow==8.3.2
 pytz==2021.3
 simplejson==3.17.5
