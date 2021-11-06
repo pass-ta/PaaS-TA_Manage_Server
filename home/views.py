@@ -259,6 +259,12 @@ def student1(request):
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
 
+        # room을 만든 사람 username 가져오기
+        room_session = request.session.get('room_id')
+        room = Room.objects.get(room_id = room_session)
+        room_maker = User.objects.get(email = room.maker)
+        res_data['room_maker'] = room_maker.username
+
         if res_data['userimg'] == "/media/":               # 이미지 체크
             res_data['img_check'] = 0
         else:
@@ -288,6 +294,12 @@ def student2(request):
         res_data['email'] = user.email
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
+
+        # room을 만든 사람 username 가져오기
+        room_session = request.session.get('room_id')
+        room = Room.objects.get(room_id = room_session)
+        room_maker = User.objects.get(email = room.maker)
+        res_data['room_maker'] = room_maker.username
 
         if res_data['userimg'] == "/media/":               # 이미지 체크
             res_data['img_check'] = 0
@@ -383,6 +395,12 @@ def student3(request):
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
         res_data['role'] = user.role
+
+        # room을 만든 사람 username 가져오기
+        room_session = request.session.get('room_id')
+        room = Room.objects.get(room_id = room_session)
+        room_maker = User.objects.get(email = room.maker)
+        res_data['room_maker'] = room_maker.username
 
         if res_data['userimg'] == "/media/":               # 이미지 체크
             res_data['img_check'] = 0
