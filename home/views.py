@@ -117,7 +117,7 @@ def makeclass(request):
                 room = Room(room_id=room_id,room_password=room_password,room_name=room_name,
                             file=file,maker=maker, member_list = member_list)  # db에 room 정보 저장
                 room.save()
-                request.session['room_name'] = room_name # 방을 성공적으로 만들면 room_name으로 room_session을 저장
+                request.session['room_id'] = room_id # 방을 성공적으로 만들면 room_name으로 room_session을 저장
                 return redirect('/home/makeclass/success')
             # room 정보 비정상 일시
             return render(request, 'makeclass.html', res_data)
@@ -127,7 +127,7 @@ def makeclass(request):
 def make_success(request):
     res_data = {}
     fs = FileSystemStorage()
-    room_session = request.session.get('room_name')   # 아까 POST 할때 session에 저장한 값 불러옴
+    room_session = request.session.get('room_id')   # 아까 POST 할때 session에 저장한 값 불러옴
     user_session = request.session.get('user')
     if room_session and user_session:
         user = User.objects.get(pk=user_session)    # 로그인 체크
@@ -136,7 +136,7 @@ def make_success(request):
         res_data['register'] = user.registerd_date
 
         # 가장 최근의 room_name과 session에 저장한 것을 비교함
-        room = Room.objects.get(room_name=room_session)
+        room = Room.objects.get(room_id=room_session)
         res_data['room_id'] = room.room_id
         res_data['room_name'] = room.room_name
         res_data['room_password'] = room.room_password
@@ -263,13 +263,13 @@ def student1(request):
             res_data['img_check'] = 1
             
         if request.method == 'GET':
-            return render(request,'enter_exam1.html',res_data)
+            return render(request,'enter_student1.html',res_data)
         elif request.method == 'POST':
             if user.check== True:
-                return redirect('/main/enteroom/exam2')
+                return redirect('/home/enterclass/student2')
             else:
                 res_data['check'] = "차단이 완료되지 않았습니다."
-                return render(request,'enter_exam1.html',res_data)
+                return render(request,'enter_student1.html',res_data)
     else:
         return redirect('/login')
 

@@ -89,6 +89,11 @@
     /* enter END */
     
     /* enter_exam1 START */
+    .app-lottie{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .enter_exam1{
         width: 100%;
         height: 100%;
@@ -170,7 +175,6 @@
         font-size: 26px;
         font-weight: 700;
         text-align: center;
-        margin-top: 100px;
     }
     .teacher-explain{
         font-size: 26px;
@@ -178,7 +182,6 @@
         text-align: center;
     }
     .form-next{
-        margin-top: 50px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -191,7 +194,6 @@
     }
 
     .enter_exam1 .next{
-        margin-top: 80px;
         width: 220px;
         height: 60px;
         display: inline-block;
@@ -199,7 +201,7 @@
         font-weight: 400;
         font-size: 25px;
         color: #fff;
-        margin-top: 40px;
+        margin-top: 20px;
         text-transform: capitalize;
         padding: 12px 25px;
         border-radius: 23px;
