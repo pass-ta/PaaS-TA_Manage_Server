@@ -1,0 +1,81 @@
+::-webkit-scrollbar{
+    width: 8px;
+}
+::-webkit-scrollbar-track{
+    background: #eee;
+}
+::-webkit-scrollbar-thumb{
+    background: #f59f00;
+}
+::-webkit-scrollbar-thumb:hover{
+    background: #e67700;
+}
+
+
+.list-container{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+.class-list{
+    width: 100%;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    padding: 10px 80px 10px 70px;
+    border: 3px dashed gray;
+}
+.class-list:hover{
+    border: 3px dashed #f59f00;
+}
+.top-section{
+    margin-bottom: 10px;
+}
+.buttom-section{
+    display: flex;
+}
+.right-section{
+    margin-left: 150px;
+}
+
+.class-pk{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    color: #f59f00;
+    font-weight: 700;
+}
+.name-main{
+    font-size: 30px;
+    font-weight: 600;
+}
+.name-sub{
+    font-size: 25px;
+    font-weight: 400;
+    margin-left: 5px;
+}
+.button-main{
+    font-size: 25px;
+    font-weight: 600;
+}
+.button-sub{
+    font-size: 22px;
+    font-weight: 500;
+    margin-left: 20px;
+}
+
+.class-name img{
+    width: 35px;
+    height: 35px;
+}
+.buttom-section img{
+    width: 35px;
+    height: 35px;
+}
+#pw-img{
+    margin-left: 20px;
+}
+#name-img{
+    margin: 0 0 10px 22px;
+}
