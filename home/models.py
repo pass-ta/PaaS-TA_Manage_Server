@@ -16,3 +16,21 @@ class Room(models.Model):
         verbose_name = 'Room 명단'
         verbose_name_plural = 'Room 명단'
 
+
+
+class Enrol(models.Model):
+    email = models.EmailField(max_length=128, verbose_name="학생")
+    room_id = models.CharField(max_length=128, verbose_name="방 아이디", default=None)
+    room_password = models.CharField(max_length=64, verbose_name="방 비밀번호")
+    room_name = models.CharField(max_length=128, verbose_name="방 이름")
+    make_date = models.DateTimeField(auto_now_add=True, verbose_name='등록 날짜')
+
+    def __str__(self):
+        return self.room_id
+
+    class Meta:
+        db_table = 'enrol'
+        verbose_name = 'enrol 명단'
+        verbose_name_plural = 'enrol 명단'
+
+

@@ -2,10 +2,13 @@
 from django.shortcuts import render
 from django.shortcuts import redirect, render
 from django.core.files.storage import FileSystemStorage
+from home import models
 from main.models import User
 import string, random
+from django.core.paginator import Paginator, EmptyPage
 
-from home.models import Room
+
+from home.models import Enrol, Room
 import os
 import base64
 from luxand import luxand
@@ -419,7 +422,8 @@ def student3(request):
             useremail = user.email
             roomowner = room.maker
             nickname = user.username
-            url = 'https://118.67.131.138:30020/'+roomid+'/'+roomname+'/'+useremail+'/'+roomowner+'/'+nickname
+            url = 'https://118.67.131.138:30020/'+roomid+'/'+roomname+'/'+useremail+'/'+roomowner+'/'+nickname 
+                # 룸 네임, user email, room owner , nickname, string
             return redirect (url)
     else:
         return redirect('/login')
@@ -431,7 +435,6 @@ class ClassList_t(ListView):
         # session에 저장되어 있는 email과 room의 maker가 같은 것만 queryset에 넣음
         QuerySet = Room.objects.filter(maker = self.request.session.get('user_email')).order_by('-make_date')
         return QuerySet
-
 
 def classDetail(request,pk):
     room = Room.objects.get(pk=pk)
@@ -469,7 +472,22 @@ def classDetail3(request):
         return  render(request,'classDetail3-t.html',res_data)
 
 
-
+def classList_s(request):
+    page = request.GET.get("page",1)
+    class_list = models.Enrol.objects.all()
+    paginator = Paginator(class_list,10,orphans=5)
+    res_data = {}
+    try:
+        classes = paginator.page(int(page))
+    except EmptyPage:
+        print("EmptyPage!!!!!!!!!!!!!")
+        pass
+    res_data["page"] = classes
+    print(class_list)
+    if request.method == 'GET':
+        return render(request,'myClass_s.html',res_data)
+    elif request.method == 'POST':
+        return  render(request,'myClass_s.html',res_data)
 
 
 
