@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko" id="html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HiClass</title>
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/static/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after?after">
+    <link rel="stylesheet" href="/static/assets/css/home.css?after">
+    <link rel="stylesheet" href="/static/assets/css/makeroom.css">
+    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after">
+    <link rel="stylesheet" href="/static/assets/css/list.css">
+    <link rel="stylesheet" href="/static/assets/css/animated.css">
+    <link rel="stylesheet" href="/static/assets/css/classList.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="/static/assets/css/owl.css">
+</head>
+<body>
+  <div class="king" id="king">
+    <!-- ***** Header Area Start ***** -->
+    <div class="animate__animated animate__fadeInDown animate__delay-0.8s">
+      <header class="header-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                  <!-- ***** Logo Start ***** -->
+                  <a href="/home" class="logo">
+                    <h4>HiClass <img src="/static/assets/images/student.png" alt="" class="auto_logo"><span class="teachers_text">Students</span></h4>
+                  </a>
+                  <!-- ***** Logo End ***** -->
+                  <!-- ***** Menu Start ***** -->
+                  <ul class="nav">
+                    <li class="scroll-to-section"><a href="/main">Home</a></li>
+                    <li class="scroll-to-section"><a href="/main/list">My List</a></li>
+                    <li class="scroll-to-section"><a href="/logout">Logout</a></li>
+                    <li class="scroll-to-section"></li>
+                  </ul>
+                  <a class='menu-trigger'>
+                      <span>Menu</span>
+                  </a>
+                  <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+    <!-- ***** Header Area End ***** -->
+    <div class="main">
+      <div class="inner">
+        <div class="add-img-menu">
+            <form action="">
+                <input type="text" placeholder="Class ID를 입력 하세요." id="add-class" name="add-class">
+                <div class="add-submit">
+                    <button></button>
+                    <span>등록 하기</span>
+                </div>
+            </form>
+        </div>
+        <div class="list-container">
+            {% if page.object_list%}
+                {% for Room in page.object_list %}
+                    <div class="class-list" onclick="location.href='/home/myclass/teacher/{{Room.pk}}'">
+                        <div class="class-pk">
+                            {{Room.pk}}
+                        </div>
+                        <div class="right-section">
+                            <div class="top-section">
+                                <div class="class-name">
+                                    <img src="/static/assets/images/knowledge.png" alt="" id="name-img">
+                                    <span class="name-sub"> Class Name:</span> <span class="name-main">{{Room.room_name}}</span>
+                                </div>
+                            </div>
+                            <div class="buttom-section">
+                                <div class="class-id">
+                                    <span class="button-sub"><img src="/static/assets/images/stationery.png" alt=""> ID:</span> <span class="button-main">{{Room.room_id}}</span>
+                                </div>
+                                <div class="class-pw">
+                                    <span class="button-sub"><img src="/static/assets/images/key.png" alt="" id="pw-img"> PW:</span> <span class="button-main">{{Room.room_password}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor%}
+            {% else %}
+                <div class="no-classList">
+                    <div class="no-classList-inner">
+                        <span class="no-classList-text">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp😂 등록한 Class가 없습니다!</span>
+                        <br>
+                        <span class="no-classList-text">좌측 버튼을 눌러 Class를 등록해 보세요!</span>
+                    </div>
+                </div>
+            {%endif%}
+        </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

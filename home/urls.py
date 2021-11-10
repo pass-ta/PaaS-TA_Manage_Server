@@ -1,5 +1,5 @@
 from django.urls import path
-from home.views import ClassList_t
+from home.views import ClassList_t, classList_s
 
 from . import views
 
@@ -15,10 +15,13 @@ urlpatterns = [
     path('enterclass/student2',views.student2, name='student2'),
     path('enterclass/student3',views.student3),
 
-    path('myclass/teacher',ClassList_t.as_view()),
+    path('myclass/teacher',ClassList_t.as_view()),         # 선생님 calss list
     path('myclass/teacher/<int:pk>',views.classDetail),    # 공지사항
     path('myclass/teacher/quiz',views.classDetail2),       # 퀴즈
     path('myclass/teacher/analytics',views.classDetail3),  # 통계 자료
+
+    path('myclass/student',views.classList_s),             # 학생 calss list
+
 
 
        #APP
