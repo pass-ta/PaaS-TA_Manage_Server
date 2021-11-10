@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/static/assets/css/list.css">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link rel='stylesheet' type="text/css" media="all" href="{% static 'assets/css/home.css' %}"/>
+    <link rel='stylesheet' type="text/css" media="all" href="{% static 'css/home.css' %}"/>
     <link rel="stylesheet" href="/static/assets/css/owl.css">
 </head>
 <body>
@@ -60,7 +60,7 @@
                 <div class="main-camera">
                   <div class="contentarea">
                     <div class="camera">
-                      <video id="video" autoplay playsinline muted>Video stream not available.</video>
+                      <video id="video" autoplay playsinline>Video stream not available.</video>
                     </div>
                     <canvas id="canvas">
                     </canvas>
@@ -239,7 +239,7 @@
     },4500)
   })
 </script>
-<script src="{% static '/assets/js/capture.js' %}"></script>
+<script src="{% static 'js/capture.js' %}"></script>
 <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </body>
 </html>

@@ -41,7 +41,9 @@ def home(request):
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
 
-        if res_data['userimg'] == "/media/":               # 이미지 체크
+        print(res_data['userimg'],"!!!!!!!!!!!!!!!!!!!!")
+
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지 체크
             res_data['img_check'] = 0                      # 이미지 널
         else:
             res_data['img_check'] = 1
@@ -421,6 +423,26 @@ def student3(request):
             return redirect (url)
     else:
         return redirect('/login')
+
+class ClassList_t(ListView):
+    model = Room
+    template_name = 'myClass_t.html'
+    def get_queryset(self):    # roomlist를 보여줄 queryset 특정
+        # session에 저장되어 있는 email과 room의 maker가 같은 것만 queryset에 넣음
+        QuerySet = Room.objects.filter(maker = self.request.session.get('user_email')).order_by('-make_date')
+        return QuerySet
+
+
+
+
+
+
+
+
+
+
+
+
 @method_decorator(csrf_exempt, name='dispatch')
 def app_enterroom(request):
     # 앱에서 오는 로그인 요청

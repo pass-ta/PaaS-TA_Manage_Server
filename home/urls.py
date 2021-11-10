@@ -1,4 +1,5 @@
 from django.urls import path
+from home.views import ClassList_t
 
 from . import views
 
@@ -13,6 +14,8 @@ urlpatterns = [
     path('enterclass/student1',views.student1),
     path('enterclass/student2',views.student2, name='student2'),
     path('enterclass/student3',views.student3),
+
+    path('myclass/teacher',ClassList_t.as_view()),
 
        #APP
     path('app_enter_room', views.app_enterroom),
