@@ -55,7 +55,7 @@
         <div class="list-container">
             {% if object_list %}
                 {% for Room in object_list %}
-                    <div class="class-list">
+                    <div class="class-list" onclick="location.href='/home/myclass/teacher/{{Room.pk}}'">
                         <div class="class-pk">
                             {{Room.pk}}
                         </div>

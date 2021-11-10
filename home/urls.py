@@ -16,6 +16,10 @@ urlpatterns = [
     path('enterclass/student3',views.student3),
 
     path('myclass/teacher',ClassList_t.as_view()),
+    path('myclass/teacher/<int:pk>',views.classDetail),    # 공지사항
+    path('myclass/teacher/quiz',views.classDetail2),       # 퀴즈
+    path('myclass/teacher/analytics',views.classDetail3),  # 통계 자료
+
 
        #APP
     path('app_enter_room', views.app_enterroom),
