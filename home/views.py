@@ -433,6 +433,40 @@ class ClassList_t(ListView):
         return QuerySet
 
 
+def classDetail(request,pk):
+    room = Room.objects.get(pk=pk)
+    request.session['room_id'] = room.room_id
+    res_data = {}
+    res_data['room_pk'] = room.pk
+    res_data['room_name'] = room.room_name
+    if request.method == 'GET':
+        return render(request,'classDetail-t.html',res_data)
+    elif request.method == 'POST':
+        return  render(request,'classDetail-t.html',res_data)
+
+def classDetail2(request):
+    room_session = request.session.get('room_id')
+    room = Room.objects.get(room_id = room_session)
+   
+    res_data = {}
+    res_data['room_pk'] = room.pk
+    res_data['room_name'] = room.room_name
+    if request.method == 'GET':
+        return render(request,'classDetail2-t.html',res_data)
+    elif request.method == 'POST':
+        return  render(request,'classDetail2-t.html',res_data)
+        
+def classDetail3(request):
+    room_session = request.session.get('room_id')
+    room = Room.objects.get(room_id = room_session)
+
+    res_data = {}
+    res_data['room_pk'] = room.pk
+    res_data['room_name'] = room.room_name
+    if request.method == 'GET':
+        return render(request,'classDetail3-t.html',res_data)
+    elif request.method == 'POST':
+        return  render(request,'classDetail3-t.html',res_data)
 
 
 
