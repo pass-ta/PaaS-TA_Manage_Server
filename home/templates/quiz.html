@@ -1,0 +1,27 @@
+{%extends 'base.html'%}
+{% block content%}
+<div class="solve_quiz">
+
+        <span class="animate__animated animate__rubberBand" id="quiz-text">Quiz</span>
+        <div class="quiz_content">
+            <div class= "radio_button">
+                <div>
+                <input type="radio" name="smartphone" value="apple" id="us">
+                <label>아이폰</label>
+                </div>
+                <div>
+                <input type="radio" name="smartphone" value="samsung" id="kr">
+                <label>갤럭시</label>
+                </div>
+                <div>
+                <input type="radio" name="smartphone" value="huawei" id="ch">
+                <label>화웨이</label>
+                </div>
+            </div>
+        </div>
+        <form action=""  class="form-next">
+            <button class="next">Next</button>
+        </form>
+    
+</div>
+{% endblock%}

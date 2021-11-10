@@ -14,6 +14,8 @@ urlpatterns = [
     path('enterclass/student2',views.student2, name='student2'),
     path('enterclass/student3',views.student3),
 
+    path('quiz',views.quiz),
+
        #APP
     path('app_enter_room', views.app_enterroom),
     path('app_attendance', views.app_attendance),

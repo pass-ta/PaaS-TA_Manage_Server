@@ -421,6 +421,13 @@ def student3(request):
             return redirect (url)
     else:
         return redirect('/login')
+
+def quiz(request):
+    if request.method == 'GET':
+        res_data={}
+        return render(request,'quiz.html',res_data)
+
+
 @method_decorator(csrf_exempt, name='dispatch')
 def app_enterroom(request):
     # 앱에서 오는 로그인 요청
