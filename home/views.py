@@ -5,7 +5,7 @@ from django.core.files.storage import FileSystemStorage
 from main.models import User
 import string, random
 
-from home.models import Room
+from home.models import Quiz, Room
 import os
 import base64
 from luxand import luxand
@@ -422,10 +422,20 @@ def student3(request):
     else:
         return redirect('/login')
 
+@csrf_exempt
 def quiz(request):
     if request.method == 'GET':
         res_data={}
+        quiz = Quiz.objects.get(room_id='RY5RKDC')    # 로그인 체크
+        res_data['question'] = quiz.question        # mypage 정보
+        # res_data['email'] = quiz.email
+        # res_data['register'] = quiz.registerd_date
         return render(request,'quiz.html',res_data)
+    elif request.method == 'POST':
+        info={}
+        info['result']="yes"
+        print("yes")
+        return JsonResponse(info)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
