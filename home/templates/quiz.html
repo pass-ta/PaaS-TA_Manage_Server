@@ -58,20 +58,20 @@
                     <div class="question">{{question}}</div>
                     <div class= "radio_button">
                         <div>
-                        <input class="radio_content" id= "radio1" type="radio" name="quiz" value="apple" id="us">
-                        <label>아이폰</label>
+                        <input class="radio_content" id= "radio1" type="radio" name="quiz" id="us" value=1>
+                        <label>{{item1}}</label>
                         </div>
                         <div>
-                        <input class="radio_content" id= "radio2" type="radio" name="quiz" value="samsung" id="kr">
-                        <label>갤럭시f</label>
+                        <input class="radio_content" id= "radio2" type="radio" name="quiz" id="kr" value=2>
+                        <label>{{item2}}</label>
                         </div>
                         <div>
-                        <input class="radio_content" id= "radio3" type="radio" name="quiz" value="huawei" id="ch">
-                        <label>화웨이</label>
+                        <input class="radio_content" id= "radio3" type="radio" name="quiz" id="ch" value=3>
+                        <label>{{item3}}</label>
                         </div>
                         <div>
-                        <input class="radio_content" id= "radio4" type="radio" name="quiz" value="huawei" id="ch">
-                        <label>화웨이</label>
+                        <input class="radio_content" id= "radio4" type="radio" name="quiz" id="ch" value=4>
+                        <label>{{item4}}</label>
                         </div>
                     </div>
                     <form action ="" method="POST" class="form-next" enctype="multipart/form-data">
@@ -100,12 +100,11 @@
                 radio_btn_check++;
             }
         }
-        alert(check);
 
         $.ajax({                       
             type: 'POST',
             url: '/home/quiz',
-            data: { 'check' : 2},
+            data: { 'check' : radio_btn[check].value},
             success: function (data){
                 if (data['result'] == "yes"){
                     alert("정답입니다!");

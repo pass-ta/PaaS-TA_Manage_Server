@@ -3,7 +3,8 @@ from django.shortcuts import render
 from django.shortcuts import redirect, render
 from django.core.files.storage import FileSystemStorage
 from main.models import User
-import string, random
+import string
+import random
 
 from home.models import Quiz, Room
 import os
@@ -30,6 +31,7 @@ from django.contrib import messages
 import os
 import base64
 
+
 def home(request):
     res_data = {}
     user_session = request.session.get('user')              # 로그인 체크
@@ -45,7 +47,7 @@ def home(request):
             res_data['img_check'] = 0                      # 이미지 널
         else:
             res_data['img_check'] = 1
-             
+
         if request.method == 'GET':
             if user.role == 'student':
                 return render(request, 'home-s.html', res_data)
@@ -90,46 +92,48 @@ def makeclass(request):
             room_password = request.POST.get('room-password', None)
             room_name = request.POST.get('room-name', None)
             maker = user.email
-            member_list=[]
-        
+            member_list = []
+
             try:
                 file = request.FILES['file']
             except:
                 file = "NULL"
 
-            #학생명단 file
-            #명단에서학번만 추출
+            # 학생명단 file
+            # 명단에서학번만 추출
             if not(file == "NULL"):
                 fs = FileSystemStorage()
                 filename = fs.save(file.name, file)
                 member = load_workbook("media/" + file.name)
                 for cell in member['Sheet1']['A']:
                     member_list.append(cell.value)
-                
+
                 os.remove(os.path.join(settings.MEDIA_ROOT, file.name))
-           
-        
+
             if not(room_password):
                 res_data['password_error'] = '비밀번호를 생성해 주세요.'
             elif (not(room_name)):
                 res_data['name_error'] = 'Class의 이름을 적어 주세요.'
-            elif (file=="NULL"):
+            elif (file == "NULL"):
                 res_data['file_error'] = '출석부를 첨부 해주세요.'
             else:
-                room = Room(room_id=room_id,room_password=room_password,room_name=room_name,
-                            file=file,maker=maker, member_list = member_list)  # db에 room 정보 저장
+                room = Room(room_id=room_id, room_password=room_password, room_name=room_name,
+                            file=file, maker=maker, member_list=member_list)  # db에 room 정보 저장
                 room.save()
-                request.session['room_id'] = room_id # 방을 성공적으로 만들면 room_name으로 room_session을 저장
+                # 방을 성공적으로 만들면 room_name으로 room_session을 저장
+                request.session['room_id'] = room_id
                 return redirect('/home/makeclass/success')
             # room 정보 비정상 일시
             return render(request, 'makeclass.html', res_data)
     else:
         return redirect('/login')
 
+
 def make_success(request):
     res_data = {}
     fs = FileSystemStorage()
-    room_session = request.session.get('room_id')   # 아까 POST 할때 session에 저장한 값 불러옴
+    room_session = request.session.get(
+        'room_id')   # 아까 POST 할때 session에 저장한 값 불러옴
     user_session = request.session.get('user')
     if room_session and user_session:
         user = User.objects.get(pk=user_session)    # 로그인 체크
@@ -153,9 +157,9 @@ def make_success(request):
         if request.method == 'GET':
             return render(request, 'make_success.html', res_data)
         elif request.method == 'POST':
-            if user.role=="student":
+            if user.role == "student":
                 return redirect('/home/enterclass/student1')
-            elif user.role=="teacher":
+            elif user.role == "teacher":
                 return redirect('/home/enterclass/teacher')
     else:
         return redirect('/login')
@@ -198,8 +202,9 @@ def enterclass(request):
                     # room이 없는 예외 처리
                     res_data['error'] = '존재하지 않는 Class 입니다.'
                     return render(request, 'enterclass.html', res_data)
-                
-                request.session['room_id'] = room_id   # 방 입장하는 순간 room session의 기준은 입장한 방 이름
+
+                # 방 입장하는 순간 room session의 기준은 입장한 방 이름
+                request.session['room_id'] = room_id
                 db_password = room.room_password
                 if db_password == room_password:     # room 정상 입장
                     if user.role == 'student':
@@ -214,9 +219,10 @@ def enterclass(request):
     else:
         return redirect('/login')
 
-@method_decorator(csrf_exempt,name='dispatch')
+
+@method_decorator(csrf_exempt, name='dispatch')
 def teacher(request):
-    res_data={}
+    res_data = {}
     fs = FileSystemStorage()
     user_session = request.session.get('user')
     res_data['session'] = user_session
@@ -231,9 +237,9 @@ def teacher(request):
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
-            
+
         if request.method == 'GET':
-            return render(request,'enter_teacher.html',res_data)
+            return render(request, 'enter_teacher.html', res_data)
         elif request.method == 'POST':
             room_session = request.session.get('room_id')
             room = Room.objects.get(room_id=room_session)
@@ -243,13 +249,15 @@ def teacher(request):
             roomowner = room.maker
             nickname = user.username
             roomtype = room.mode
-            url = 'https://cranky-bohr-e0f18a.netlify.app/'+roomid+'/'+roomname+'/'+useremail+'/'+roomowner+'/'+nickname+'/'+roomtype
-            return redirect (url)
+            url = 'https://cranky-bohr-e0f18a.netlify.app/'+roomid+'/' + \
+                roomname+'/'+useremail+'/'+roomowner+'/'+nickname+'/'+roomtype
+            return redirect(url)
     else:
         return redirect('/login')
 
+
 def student1(request):
-    res_data={}
+    res_data = {}
     fs = FileSystemStorage()
     user_session = request.session.get('user')
     if user_session:
@@ -261,31 +269,30 @@ def student1(request):
 
         # room을 만든 사람 username 가져오기
         room_session = request.session.get('room_id')
-        room = Room.objects.get(room_id = room_session)
-        room_maker = User.objects.get(email = room.maker)
+        room = Room.objects.get(room_id=room_session)
+        room_maker = User.objects.get(email=room.maker)
         res_data['room_maker'] = room_maker.username
 
         if res_data['userimg'] == "/media/":               # 이미지 체크
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
-            
+
         if request.method == 'GET':
-            return render(request,'enter_student1.html',res_data)
+            return render(request, 'enter_student1.html', res_data)
         elif request.method == 'POST':
-            if user.check== True:
+            if user.check == True:
                 return redirect('/home/enterclass/student2')
             else:
                 res_data['check'] = "차단이 완료되지 않았습니다."
-                return render(request,'enter_student1.html',res_data)
+                return render(request, 'enter_student1.html', res_data)
     else:
         return redirect('/login')
-
 
 
 @csrf_exempt
 def student2(request):
-    res_data={}
+    res_data = {}
     fs = FileSystemStorage()
     user_session = request.session.get('user')
     if user_session:
@@ -297,55 +304,58 @@ def student2(request):
 
         # room을 만든 사람 username 가져오기
         room_session = request.session.get('room_id')
-        room = Room.objects.get(room_id = room_session)
-        room_maker = User.objects.get(email = room.maker)
+        room = Room.objects.get(room_id=room_session)
+        room_maker = User.objects.get(email=room.maker)
         res_data['room_maker'] = room_maker.username
 
         if res_data['userimg'] == "/media/":               # 이미지 체크
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
-            
+
         if request.method == 'GET':
 
-            return render(request,'enter_student2.html',res_data)
+            return render(request, 'enter_student2.html', res_data)
 
         elif request.method == 'POST':
-            info={}
-            room_id=request.session.get('room_id')
+            info = {}
+            room_id = request.session.get('room_id')
             member_number = request.POST.get('member_number')
             member_name = request.POST.get('member_name')
 
-            #해당방의 DB속 명단Excel파일 조회
+            # 해당방의 DB속 명단Excel파일 조회
             try:
                 room = Room.objects.get(room_id=room_id)
             except Room.DoesNotExist:
                 return messages.warning(request, '존재 하는 Class가 없습니다.')
-            member_file=room.file #명단
+            member_file = room.file  # 명단
 
-            #DB의 member_list로 회원번호 확인 및 index 추출
-            member_list=room.member_list #회원번호만 적힌 리스트
-            member_list= member_list[1:-1].split(', ')
+            # DB의 member_list로 회원번호 확인 및 index 추출
+            member_list = room.member_list  # 회원번호만 적힌 리스트
+            member_list = member_list[1:-1].split(', ')
 
             # CHECK NUMBER
-            ### Correct NUMBER
+            # Correct NUMBER
             if (member_number in member_list):
-                member_index=member_list.index(member_number) +1 #index=0은'회원번호(수험번호/학번)'이므로 index로 추출된 수 +1로 쓰면됨!
+                # index=0은'회원번호(수험번호/학번)'이므로 index로 추출된 수 +1로 쓰면됨!
+                member_index = member_list.index(member_number) + 1
                 member = load_workbook("media/" + str(member_file))
                 sheet = member['Sheet1']
-                member_file_name = sheet['B'+str(member_index)].value 
-                
+                member_file_name = sheet['B'+str(member_index)].value
+
                 # CHECK NAME
-                ### Wrong NAME
+                # Wrong NAME
                 if member_file_name != member_name:
                     info['result'] = "NO_NAME"
-                ### Correct NAME
+                # Correct NAME
                 else:
                     # WEB : 캡쳐이미지 받기
                     member_image_data = request.POST.__getitem__('photo')
                     member_image_data = member_image_data[22:]
-                    member_image_path = str(room_id)+'_'+str(member_number)+'_capture.png'
-                    member_image = open(os.path.join(FileSystemStorage().location)+str("/capture/")+member_image_path, "wb")
+                    member_image_path = str(
+                        room_id)+'_'+str(member_number)+'_capture.png'
+                    member_image = open(os.path.join(
+                        FileSystemStorage().location)+str("/capture/")+member_image_path, "wb")
                     member_image.write(base64.b64decode(member_image_data))
                     member_image.close()
 
@@ -353,39 +363,41 @@ def student2(request):
                     image_loader = SheetImageLoader(sheet)
                     image = image_loader.get('C'+str(member_index))
 
-                    member_file_image_path = (room_id+"_"+str(member_number)+".jpg")
+                    member_file_image_path = (
+                        room_id+"_"+str(member_number)+".jpg")
                     image.save("media/capture/"+member_file_image_path)
                     fs = FileSystemStorage()
 
                     # Face Recognition
-                    a=(fs.location +str("/capture/")+ member_file_image_path)
-                    b=(fs.location +str("/capture/")+ member_image_path )
+                    a = (fs.location + str("/capture/") + member_file_image_path)
+                    b = (fs.location + str("/capture/") + member_image_path)
 
                     # luxand API
                     luxand_client = luxand("12a42a8efedf4e24b84730ce440e5429")
-                    member_file_image = luxand_client.add_person(str(member_file_name), photos=[a])
+                    member_file_image = luxand_client.add_person(
+                        str(member_file_name), photos=[a])
                     result = luxand_client.verify(member_file_image, photo=b)
 
                     # Recognition RESULT
-                    if result['status']=='success':
-                        info['result']="OK"
+                    if result['status'] == 'success':
+                        info['result'] = "OK"
                         print("Recognition_SUCCESS")
                     else:
-                        info['result']="NO_IMAGE_MATCH"
+                        info['result'] = "NO_IMAGE_MATCH"
                         print("Recognition_FAIL")
-            ### Wrong NUMBER
+            # Wrong NUMBER
             else:
-                #명단 속 존재하지 않는 회원번호 (입장불가!)
-                info['result']="NO_MEMBER"
+                # 명단 속 존재하지 않는 회원번호 (입장불가!)
+                info['result'] = "NO_MEMBER"
                 print('no_member')
-                #해당페이지에서 팝업으로 입장불가표시주기
+                # 해당페이지에서 팝업으로 입장불가표시주기
             return JsonResponse(info)
     else:
         return redirect('/login')
 
 
 def student3(request):
-    res_data={}
+    res_data = {}
     fs = FileSystemStorage()
     user_session = request.session.get('user')
     if user_session:
@@ -398,17 +410,17 @@ def student3(request):
 
         # room을 만든 사람 username 가져오기
         room_session = request.session.get('room_id')
-        room = Room.objects.get(room_id = room_session)
-        room_maker = User.objects.get(email = room.maker)
+        room = Room.objects.get(room_id=room_session)
+        room_maker = User.objects.get(email=room.maker)
         res_data['room_maker'] = room_maker.username
 
         if res_data['userimg'] == "/media/":               # 이미지 체크
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
-            
+
         if request.method == 'GET':
-            return render(request,'enter_teacher.html',res_data)
+            return render(request, 'enter_teacher.html', res_data)
         elif request.method == 'POST':
             room_session = request.session.get('room_id')
             room = Room.objects.get(room_id=room_session)
@@ -417,24 +429,45 @@ def student3(request):
             useremail = user.email
             roomowner = room.maker
             nickname = user.username
-            url = 'https://118.67.131.138:30020/'+roomid+'/'+roomname+'/'+useremail+'/'+roomowner+'/'+nickname
-            return redirect (url)
+            url = 'https://118.67.131.138:30020/'+roomid+'/' + \
+                roomname+'/'+useremail+'/'+roomowner+'/'+nickname
+            return redirect(url)
     else:
         return redirect('/login')
+
 
 @csrf_exempt
 def quiz(request):
     if request.method == 'GET':
-        res_data={}
-        quiz = Quiz.objects.get(room_id='RY5RKDC')    # 로그인 체크
-        res_data['question'] = quiz.question        # mypage 정보
-        # res_data['email'] = quiz.email
-        # res_data['register'] = quiz.registerd_date
-        return render(request,'quiz.html',res_data)
+        res_data = {}
+        # 룸ID 받아오기
+        # room_session = request.session.get('room_id')
+        # print(room_session)
+        quiz = Quiz.objects.get(room_id='RY5RKDC')
+        res_data['question'] = quiz.question
+        res_data['item1'] = quiz.item1
+        res_data['item2'] = quiz.item2
+        res_data['item3'] = quiz.item3
+        res_data['item4'] = quiz.item4
+        return render(request, 'quiz.html', res_data)
     elif request.method == 'POST':
-        info={}
-        info['result']="yes"
-        print("yes")
+        info = {}
+
+        answer = request.POST.get('check')
+        print(answer)
+        try:
+            quiz = Quiz.objects.get(room_id='RY5RKDC')
+        except Quiz.DoesNotExist:
+            return messages.warning(request, '존재 하는 Class가 없습니다.')
+
+        quiz_answer = quiz.answer
+        print(quiz_answer)
+
+        if answer == str(quiz_answer):
+            info['result'] = "yes"
+        elif answer != str(quiz_answer):
+            info['result'] = "no"
+
         return JsonResponse(info)
 
 
@@ -465,6 +498,7 @@ def app_enterroom(request):
         else:
             # 방 없음
             return HttpResponse("NoRoom")
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 def app_attendance(request):
@@ -514,6 +548,7 @@ def app_attendance(request):
         #     return HttpResponse(simplejson.dumps({"roomname": "fail", "password": "no"}))
 
         return HttpResponse("success")
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 def app_checkimg(request):
