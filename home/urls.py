@@ -16,12 +16,14 @@ urlpatterns = [
     path('enterclass/student3',views.student3),
 
     path('myclass/teacher',ClassList_t.as_view()),         # 선생님 calss list
-    path('myclass/teacher/<int:pk>',views.classDetail),    # 공지사항
-    path('myclass/teacher/quiz',views.classDetail2),       # 퀴즈
-    path('myclass/teacher/analytics',views.classDetail3),  # 통계 자료
+    path('myclass/teacher/<int:pk>',views.classDetail_t),    # 공지사항
+    path('myclass/teacher/quiz',views.classDetail2_t),       # 퀴즈
+    path('myclass/teacher/analytics',views.classDetail3_t),  # 통계 자료
 
-    path('myclass/student',ClassList_s.as_view()),             # 학생 calss list
-
+    path('myclass/student',ClassList_s.as_view()),         # 학생 calss list
+    path('myclass/student/<int:pk>',views.classDetail_s),    # 공지사항
+    path('myclass/student/quiz',views.classDetail2_s),       # 퀴즈
+    path('myclass/student/analytics',views.classDetail3_s),  # 통계 자료
 
 
        #APP
