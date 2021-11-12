@@ -446,7 +446,7 @@ class ClassList_t(ListView):
         QuerySet = Room.objects.filter(maker = self.request.session.get('user_email')).order_by('-make_date')
         return QuerySet
 
-def classDetail(request,pk):
+def classDetail_t(request,pk):
     room = Room.objects.get(pk=pk)
     request.session['room_id'] = room.room_id
     res_data = {}
@@ -457,7 +457,7 @@ def classDetail(request,pk):
     elif request.method == 'POST':
         return  render(request,'classDetail-t.html',res_data)
 
-def classDetail2(request):
+def classDetail2_t(request):
     room_session = request.session.get('room_id')
     room = Room.objects.get(room_id = room_session)
    
@@ -469,7 +469,7 @@ def classDetail2(request):
     elif request.method == 'POST':
         return  render(request,'classDetail2-t.html',res_data)
         
-def classDetail3(request):
+def classDetail3_t(request):
     room_session = request.session.get('room_id')
     room = Room.objects.get(room_id = room_session)
 
@@ -488,22 +488,43 @@ class ClassList_s(ListView):
         # session에 저장되어 있는 email과 room의 maker가 같은 것만 queryset에 넣음
         QuerySet = Enrol.objects.filter(email = self.request.session.get('user_email')).order_by('-make_date')
         return QuerySet
-# def classList_s(request):
-#     page = request.GET.get("page",1)
-#     class_list = models.Enrol.objects.all()
-#     paginator = Paginator(class_list,10,orphans=5)
-#     res_data = {}
-#     try:
-#         classes = paginator.page(int(page))
-#     except EmptyPage:
-#         print("EmptyPage!!!!!!!!!!!!!")
-#         pass
-#     res_data["page"] = classes
-#     print(class_list)
-#     if request.method == 'GET':
-#         return render(request,'myClass_s.html',res_data)
-#     elif request.method == 'POST':
-#         return  render(request,'myClass_s.html',res_data)
+
+def classDetail_s(request,pk):
+    enrol = Enrol.objects.get(pk=pk)
+    room = Room.objects.get(room_id = enrol.room_id)
+    request.session['room_id'] = room.room_id
+    res_data = {}
+    res_data['room_pk'] = room.pk
+    res_data['room_name'] = room.room_name
+    if request.method == 'GET':
+        return render(request,'classDetail-s.html',res_data)
+    elif request.method == 'POST':
+        return  render(request,'classDetail-s.html',res_data)
+
+def classDetail2_s(request):
+    room_session = request.session.get('room_id')
+    room = Room.objects.get(room_id = room_session)
+   
+    res_data = {}
+    res_data['room_pk'] = room.pk
+    res_data['room_name'] = room.room_name
+    if request.method == 'GET':
+        return render(request,'classDetail2-s.html',res_data)
+    elif request.method == 'POST':
+        return  render(request,'classDetail2-s.html',res_data)
+        
+def classDetail3_s(request):
+    room_session = request.session.get('room_id')
+    room = Room.objects.get(room_id = room_session)
+
+    res_data = {}
+    res_data['room_pk'] = room.pk
+    res_data['room_name'] = room.room_name
+    if request.method == 'GET':
+        return render(request,'classDetail3-s.html',res_data)
+    elif request.method == 'POST':
+        return  render(request,'classDetail3-s.html',res_data)
+
 
 
 

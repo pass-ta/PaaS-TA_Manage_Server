@@ -12,9 +12,10 @@
     <link rel="stylesheet" href="/static/assets/css/home.css?after">
     <link rel="stylesheet" href="/static/assets/css/makeroom.css">
     <link rel="stylesheet" href="/static/assets/css/enterroom.css?after">
+    <link rel="stylesheet" href="/static/assets/css/classDetail-t.css">
     <link rel="stylesheet" href="/static/assets/css/list.css">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
-    <link rel="stylesheet" href="/static/assets/css/classList.css?after">
+    <link rel="stylesheet" href="/static/assets/css/classList.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="/static/assets/css/owl.css">
 </head>
@@ -51,55 +52,16 @@
     </div>
     <!-- ***** Header Area End ***** -->
     <div class="main">
-      <div class="inner">
-        <!-- <div class="add-img-menu">
-            <form action="">
-                <input type="text" placeholder="Class ID를 입력 하세요." id="add-class" name="add-class">
-                <div class="add-submit">
-                    <button></button>
-                    <span>등록 하기</span>
-                </div>
-            </form>
-        </div> -->
-        <div class="list-container">
-            {% if object_list %}
-                {% for Room in object_list %}
-                  <div class="class-list" onclick="location.href='/home/myclass/student/{{Room.pk}}'">
-                      <div class="class-pk">
-                          {{Room.pk}}
-                      </div>
-                      <div class="right-section">
-                          <div class="top-section">
-                              <div class="class-name">
-                                  <img src="/static/assets/images/knowledge.png" alt="" id="name-img">
-                                  <span class="name-sub"> Class Name:</span> <span class="name-main">{{Room.room_name}}</span>
-                              </div>
-                          </div>
-                          <div class="buttom-section">
-                              <div class="class-id">
-                                  <span class="button-sub"><img src="/static/assets/images/stationery.png" alt=""> ID:</span> <span class="button-main">{{Room.room_id}}</span>
-                              </div>
-                              <div class="class-pw">
-                                  <span class="button-sub"><img src="/static/assets/images/key.png" alt="" id="pw-img"> PW:</span> <span class="button-main">{{Room.room_password}}</span>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                {% endfor%}
-            {% else %}
-                <div class="no-classList">
-                    <div class="no-classList-inner">
-                        <span class="no-classList-text">😂 등록한 Class가 없습니다!</span>
-                        <br>
-                        <span class="no-classList-text">Class에 입장 하시면 자동으로 등록 해드릴께요!</span>
-                    </div>
-                </div>
-            {%endif%}
+        <div class="inner">
+            <div class="img-menu">
+                <div><img src="/static/assets/images/bell.png" alt="" onclick="location.href='/home/myclass/teacher/{{room_pk}}'"></div>
+                <div><img src="/static/assets/images/speech-bubble (1).png" alt=""  onclick="location.href='/home/myclass/teacher/quiz'"></div>
+                <div><img src="/static/assets/images/bar-graph (1).png" alt=""  onclick="location.href='/home/myclass/teacher/analytics'"></div>
+            </div>
+            {{room_name}} 공지사항
         </div>
     </div>
-  </div>
 </div>
-
 
 </body>
 </html>
