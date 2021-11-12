@@ -55,28 +55,36 @@
         <div class="list-container">
             {% if object_list %}
                 {% for Room in object_list %}
-                    <div class="class-list" onclick="location.href='/home/myclass/teacher/{{Room.pk}}'">
-                        <div class="class-pk">
-                            {{Room.pk}}
-                        </div>
-                        <div class="right-section">
-                            <div class="top-section">
-                                <div class="class-name">
-                                    <img src="/static/assets/images/knowledge.png" alt="" id="name-img">
-                                    <span class="name-sub"> Class Name:</span> <span class="name-main">{{Room.room_name}}</span>
-                                </div>
-                            </div>
-                            <div class="buttom-section">
-                                <div class="class-id">
-                                    <span class="button-sub"><img src="/static/assets/images/stationery.png" alt=""> ID:</span> <span class="button-main">{{Room.room_id}}</span>
-                                </div>
-                                <div class="class-pw">
-                                    <span class="button-sub"><img src="/static/assets/images/key.png" alt="" id="pw-img"> PW:</span> <span class="button-main">{{Room.room_password}}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  <div class="class-list" onclick="location.href='/home/myclass/teacher/{{Room.pk}}'">
+                      <div class="class-pk">
+                          {{Room.pk}}
+                      </div>
+                      <div class="right-section">
+                          <div class="top-section">
+                              <div class="class-name">
+                                  <img src="/static/assets/images/knowledge.png" alt="" id="name-img">
+                                  <span class="name-sub"> Class Name:</span> <span class="name-main">{{Room.room_name}}</span>
+                              </div>
+                          </div>
+                          <div class="buttom-section">
+                              <div class="class-id">
+                                  <span class="button-sub"><img src="/static/assets/images/stationery.png" alt=""> ID:</span> <span class="button-main">{{Room.room_id}}</span>
+                              </div>
+                              <div class="class-pw">
+                                  <span class="button-sub"><img src="/static/assets/images/key.png" alt="" id="pw-img"> PW:</span> <span class="button-main">{{Room.room_password}}</span>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                 {% endfor%}
+            {% else %}
+                <div class="no-classList">
+                    <div class="no-classList-inner">
+                        <span class="no-classList-text">😂 생성한 Class가 없습니다!</span>
+                        <br>
+                        <span class="no-classList-text">Create Class에서 수업을 생성 해보세요!</span>
+                    </div>
+                </div>
             {%endif%}
         </div>
     </div>

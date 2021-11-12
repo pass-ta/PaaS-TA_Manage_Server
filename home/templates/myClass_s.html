@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/static/assets/css/enterroom.css?after">
     <link rel="stylesheet" href="/static/assets/css/list.css">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
-    <link rel="stylesheet" href="/static/assets/css/classList.css">
+    <link rel="stylesheet" href="/static/assets/css/classList.css?after">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="/static/assets/css/owl.css">
 </head>
@@ -52,7 +52,7 @@
     <!-- ***** Header Area End ***** -->
     <div class="main">
       <div class="inner">
-        <div class="add-img-menu">
+        <!-- <div class="add-img-menu">
             <form action="">
                 <input type="text" placeholder="Class ID를 입력 하세요." id="add-class" name="add-class">
                 <div class="add-submit">
@@ -60,7 +60,7 @@
                     <span>등록 하기</span>
                 </div>
             </form>
-        </div>
+        </div> -->
         <div class="list-container">
             {% if page.object_list%}
                 {% for Room in page.object_list %}
@@ -89,9 +89,9 @@
             {% else %}
                 <div class="no-classList">
                     <div class="no-classList-inner">
-                        <span class="no-classList-text">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp😂 등록한 Class가 없습니다!</span>
+                        <span class="no-classList-text">😂 등록한 Class가 없습니다!</span>
                         <br>
-                        <span class="no-classList-text">좌측 버튼을 눌러 Class를 등록해 보세요!</span>
+                        <span class="no-classList-text">Class에 입장 하시면 자동으로 등록 해드릴께요!</span>
                     </div>
                 </div>
             {%endif%}

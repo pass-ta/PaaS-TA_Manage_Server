@@ -7,7 +7,6 @@ from main.models import User
 import string, random
 from django.core.paginator import Paginator, EmptyPage
 
-
 from home.models import Enrol, Room
 import os
 import base64
@@ -247,8 +246,7 @@ def teacher(request):
             useremail = user.email
             roomowner = room.maker
             nickname = user.username
-            roomtype = room.mode
-            url = 'https://cranky-bohr-e0f18a.netlify.app/'+roomid+'/'+roomname+'/'+useremail+'/'+roomowner+'/'+nickname+'/'+roomtype
+            url = 'https://pedantic-einstein-75bdbe.netlify.app/'+roomid+'/'+useremail+'/'+roomowner+'/'+nickname+'/'+"teacher"
             return redirect (url)
     else:
         return redirect('/login')
@@ -411,18 +409,30 @@ def student3(request):
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
-            
+        
+        # room = Room(room_id=room_id,room_password=room_password,room_name=room_name,
+        #                     file=file,maker=maker, member_list = member_list)  # db에 room 정보 저장
+        #         room.save()
+
         if request.method == 'GET':
             return render(request,'enter_teacher.html',res_data)
         elif request.method == 'POST':
             room_session = request.session.get('room_id')
             room = Room.objects.get(room_id=room_session)
+
+            try:
+                enrol = Enrol.objects.get(email=user.email, room_id = room.room_id)  # 수강 목록을 살펴 보고
+            except Enrol.DoesNotExist:                                               # 없으면 등록에 추가(중복 방지)
+                enrol = Enrol(email=user.email, room_id = room.room_id, room_password = room.room_password, room_name = room.room_name) # 방 입장하면 학생의 수강 list를 위해
+                enrol.save()                                                                                                            # enrol에 추가
+
             roomid = room.room_id
             roomname = room.room_name
             useremail = user.email
             roomowner = room.maker
             nickname = user.username
-            url = 'https://118.67.131.138:30020/'+roomid+'/'+roomname+'/'+useremail+'/'+roomowner+'/'+nickname 
+
+            url = 'https://pedantic-einstein-75bdbe.netlify.app/'+roomid+'/'+useremail+'/'+roomowner+'/'+nickname+'/'+"student"
                 # 룸 네임, user email, room owner , nickname, string
             return redirect (url)
     else:
@@ -471,23 +481,29 @@ def classDetail3(request):
     elif request.method == 'POST':
         return  render(request,'classDetail3-t.html',res_data)
 
-
-def classList_s(request):
-    page = request.GET.get("page",1)
-    class_list = models.Enrol.objects.all()
-    paginator = Paginator(class_list,10,orphans=5)
-    res_data = {}
-    try:
-        classes = paginator.page(int(page))
-    except EmptyPage:
-        print("EmptyPage!!!!!!!!!!!!!")
-        pass
-    res_data["page"] = classes
-    print(class_list)
-    if request.method == 'GET':
-        return render(request,'myClass_s.html',res_data)
-    elif request.method == 'POST':
-        return  render(request,'myClass_s.html',res_data)
+class ClassList_s(ListView):
+    model = Enrol
+    template_name = 'myClass_s.html'
+    def get_queryset(self):    # roomlist를 보여줄 queryset 특정
+        # session에 저장되어 있는 email과 room의 maker가 같은 것만 queryset에 넣음
+        QuerySet = Enrol.objects.filter(email = self.request.session.get('user_email')).order_by('-make_date')
+        return QuerySet
+# def classList_s(request):
+#     page = request.GET.get("page",1)
+#     class_list = models.Enrol.objects.all()
+#     paginator = Paginator(class_list,10,orphans=5)
+#     res_data = {}
+#     try:
+#         classes = paginator.page(int(page))
+#     except EmptyPage:
+#         print("EmptyPage!!!!!!!!!!!!!")
+#         pass
+#     res_data["page"] = classes
+#     print(class_list)
+#     if request.method == 'GET':
+#         return render(request,'myClass_s.html',res_data)
+#     elif request.method == 'POST':
+#         return  render(request,'myClass_s.html',res_data)
 
 
 
