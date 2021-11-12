@@ -15,6 +15,7 @@ urlpatterns = [
     path('enterclass/student3',views.student3),
 
     path('quiz',views.quiz),
+    path('makequiz',views.make_quiz),
 
        #APP
     path('app_enter_room', views.app_enterroom),

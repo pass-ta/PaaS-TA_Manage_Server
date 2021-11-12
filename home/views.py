@@ -466,9 +466,36 @@ def quiz(request):
         if answer == str(quiz_answer):
             info['result'] = "yes"
         elif answer != str(quiz_answer):
+            info['answer'] = quiz_answer
             info['result'] = "no"
 
         return JsonResponse(info)
+
+@csrf_exempt
+def make_quiz(request):
+    res_data = {}
+
+    if request.method == 'GET':
+
+        return render(request, 'makequiz.html', res_data)
+
+    elif request.method == 'POST':
+        question = request.POST.get('question')
+        item1 = request.POST.get('item1')
+        item2 = request.POST.get('item2')
+        item3 = request.POST.get('item3')
+        item4 = request.POST.get('item4')
+        print(question)
+        res_data['result'] ="yes"
+        # if not(question):
+        #     res_data['question_error'] = '질문을 작성해주세요.'
+        # elif (not(item1) or not(item2)or not(item3) or not(item4)):
+        #     res_data['content_error'] = '모든 문항을 작성해주세요.'
+
+        quiz = Quiz(room_id="2MPV2SH", question=question, item1=item1,item2=item2, item3=item3, item4=item4, answer=3)  
+        quiz.save()
+
+        return JsonResponse(res_data)
 
 
 @method_decorator(csrf_exempt, name='dispatch')

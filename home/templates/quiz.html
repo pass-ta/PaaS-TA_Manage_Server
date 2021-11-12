@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after">
     <link rel="stylesheet" href="/static/assets/css/home.css?after?after">
     <link rel="stylesheet" href="/static/assets/css/makeroom.css">
-    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after">
+    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after">
     <link rel="stylesheet" href="/static/assets/css/list.css">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -55,64 +55,90 @@
 
                 <span class="animate__animated animate__rubberBand" id="quiz-text">Quiz</span>
                 <div class="quiz_content">
-                    <div class="question">{{question}}</div>
+                    <div class="question">Q. {{question}}</div>
                     <div class= "radio_button">
                         <div>
                         <input class="radio_content" id= "radio1" type="radio" name="quiz" id="us" value=1>
-                        <label>{{item1}}</label>
+                        <label> &nbsp 1.&nbsp&nbsp{{item1}}</label>
                         </div>
                         <div>
                         <input class="radio_content" id= "radio2" type="radio" name="quiz" id="kr" value=2>
-                        <label>{{item2}}</label>
+                        <label> &nbsp 2.&nbsp&nbsp{{item2}}</label>
                         </div>
                         <div>
                         <input class="radio_content" id= "radio3" type="radio" name="quiz" id="ch" value=3>
-                        <label>{{item3}}</label>
+                        <label> &nbsp 3.&nbsp&nbsp{{item3}}</label>
                         </div>
                         <div>
                         <input class="radio_content" id= "radio4" type="radio" name="quiz" id="ch" value=4>
-                        <label>{{item4}}</label>
+                        <label> &nbsp 4.&nbsp&nbsp{{item4}}</label>
                         </div>
                     </div>
-                    <form action ="" method="POST" class="form-next" enctype="multipart/form-data">
-                        {% csrf_token %}
+                    {% comment %} <form action ="quiz" method="GET" class="form-next" enctype="multipart/form-data">
+                        {% csrf_token %} {% endcomment %}
                         <button class="next" onclick="btn_next_check_answer()">Next</button>
-                    </form>
+                    {% comment %} </form> {% endcomment %}
                 </div>
-
-            
         </div>
+
+  <div id="correct_lotties" style="position:absolute; top: calc(50vh - 112.5px); left: calc(50vw - 150px); display:none">
+    <lottie-player src="/static/assets/images/correct.json" background="transparent" style="width: 300px; height: 225px;" speed="1.5" loop autoplay>
+    </lottie-player>
+  </div>
+  <div id="incorrect_lotties" style="position:absolute; top: calc(50vh - 112.5px); left: calc(50vw - 150px); display:none">
+    <lottie-player src="/static/assets/images/incorrect.json" background="transparent" style="width: 300px; height: 225px;" speed="1.5" loop autoplay>
+    </lottie-player>
+  </div>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+
+    let correct_lotties = document.getElementById('correct_lotties')
+    let incorrect_lotties = document.getElementById('incorrect_lotties')
+
     function btn_next_check_answer(){
 
         var radio_btn = document.getElementsByName("quiz");
         var check;
-        //라디오 버튼이 체크되었나 확인하기 위한 변수
         var radio_btn_check = 0;
+
         for(var i = 0; i<radio_btn.length; i++){
             //만약 라디오 버튼이 체크가 되어있다면 true
             if(radio_btn[i].checked==true){
                 //라디오 버튼 값
                 check=i;
-                //alert(radio_btn[i].value);
                 //라디오 버튼이 체크되면 radio_btn_check를 1로 만들어준다.
                 radio_btn_check++;
             }
         }
-
+        if ( check == null ) {
+            alert('정답을 선택해 주세요.');
+            return;
+        }
         $.ajax({                       
             type: 'POST',
             url: '/home/quiz',
             data: { 'check' : radio_btn[check].value},
             success: function (data){
                 if (data['result'] == "yes"){
-                    alert("정답입니다!");
-                    return;
+                    setTimeout(function(){
+                      correct_lotties.style.display='flex'
+                    },0)
+                    setTimeout(function(){
+                      correct_lotties.style.display='none'
+                    },1800)
+                    //alert("정답입니다!");
                 }else if (data['result'] == "no"){
-                    alert("오답입니다!");
-                    return;
+                    setTimeout(function(){
+                      incorrect_lotties.style.display='flex'
+                    },0)
+                    setTimeout(function(){
+                      incorrect_lotties.style.display='none'
+                      alert('정답은 ' + data['answer']+'번입니다.');
+                      document.location.href="http://127.0.0.1:8000/login";
+                    },1800)
                 }
+                return;
             }
         })
     }

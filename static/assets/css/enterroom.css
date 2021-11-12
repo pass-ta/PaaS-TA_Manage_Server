@@ -5,6 +5,11 @@
         height: 100%;
         padding: 30px;
     }
+    .makequiz{
+        width: 100%;
+        height: 100%;
+        padding: 30px;
+    }
     .enteroom #enter-main-text{
         font-size: 30px;
         color: #37b24d;
@@ -13,6 +18,109 @@
         justify-content: center;
         margin-bottom: 20px;
     }
+    .makequiz #make-quiz-text{
+        font-size: 30px;
+        color: #37b24d;
+        font-weight: 700;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+    .quiz-input{
+        margin-top: 40px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .enter_quiz_question{
+        font-size: large;
+        font-weight: 600;
+        margin-bottom: 5px;
+        margin-left: 10px;
+
+    }
+    .enter_quiz_content{
+        font-size: large;
+        font-weight: 600;
+        margin-bottom: 5px;
+
+    }
+    
+    #makequiz_question{
+        margin-left: 10px;
+        border: none;
+        width: 600px;
+        height: 40px;
+        margin-bottom: 15px;
+        background-color: #f1f3f5;
+        border-bottom: 3px solid #adb5bd;
+        font-size: large;
+        text-align: center;
+    }
+
+    #makequiz_content1{
+        border: 3px solid #adb5bd;
+        margin-left: 10px;
+        margin-top: 20px;
+        width: 600px;
+        height: 40px;
+        background-color: #f1f3f5;
+        font-size: large;
+        text-align: center;
+    }
+    #makequiz_content2{
+        border: 3px solid #adb5bd;
+        margin-left: 10px;
+        margin-top: 20px;
+        width: 600px;
+        height: 40px;
+        background-color: #f1f3f5;
+        font-size: large;
+        text-align: center;
+    }
+    #makequiz_content3{
+        border: 3px solid #adb5bd;
+        margin-left: 10px;
+        margin-top: 20px;
+        width: 600px;
+        height: 40px;
+        background-color: #f1f3f5;
+        font-size: large;
+        text-align: center;
+    }
+    #makequiz_content4{
+        border: 3px solid #adb5bd;
+        margin-left: 10px;
+        margin-top: 20px;
+        width: 600px;
+        height: 40px;
+        background-color: #f1f3f5;
+        font-size: large;
+        text-align: center;
+    }
+
+    .makequiz .next{
+
+        position: absolute;
+        left: 50%;
+        top: 78%;
+        transform: translate(-50%,-50%);
+        width: 220px;
+        height: 60px;
+        background-color: #f59f00;
+        font-weight: 400;
+        font-size: 25px;
+        color: #fff;
+        margin-top: 20px;
+        text-transform: capitalize;
+        padding: 12px 25px;
+        border-radius: 23px;
+        letter-spacing: 0.25px;
+        border-bottom: 3px solid #e67700!important;
+        transition: all .3s;
+    }
+
+
     .enteroom form{
         padding: 0 50px 0 50px;
         width: 100%;
@@ -33,12 +141,11 @@
         margin-bottom: 5px;
         margin-left: 131px;
     }
-   
 
-    .enteroom input{
+    .enteroom_input{
         border: none;
         margin-left: 10px;
-        margin-top: 50px;
+        margin-top: 100px;
         width: 330px;
         height: 40px;
         background-color: #f1f3f5;
@@ -115,11 +222,12 @@
     }
     
     #quiz-text{
-        font-size: 30px;
+        font-size: 35px;
         color: #37b24d;
         font-weight: 600;
         display: flex;
         justify-content: center;
+        margin-top: 5px;
         margin-bottom: 5px;
     }
     
@@ -229,7 +337,7 @@
         font-size: 25px;
         margin-top: 50px;
         margin-inline: 100px;
-        color: #37b24d;
+        color: #e67700;
         font-weight: 600;
         display: flex;
         margin-bottom: 5px;
@@ -237,8 +345,8 @@
     .solve_quiz .radio_button{
 
         height: 300px;
-        margin-top: 20px;
-        margin-inline: 100px;
+        margin-top: 15px;
+        margin-inline: 125px;
         font-size: 20px;
         font-weight: 600;
 
@@ -247,6 +355,11 @@
         margin-top:30px;
     }
     .solve_quiz .next{
+
+        position: absolute;
+        left: 50%;
+        top: 78%;
+        transform: translate(-50%,-50%);
         width: 220px;
         height: 60px;
         background-color: #f59f00;
@@ -261,10 +374,10 @@
         border-bottom: 3px solid #e67700!important;
         transition: all .3s;
     }
-    /* .solve_quiz.quiz_content{
+    .solve_quiz.quiz_content{
+        width: 100%;
 
-
-    } */
+    }
     
 
     .teacher-next{
