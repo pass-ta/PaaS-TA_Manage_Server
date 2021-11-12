@@ -94,7 +94,8 @@
     align-items: center;
 }
 .no-classList-inner{
-    display: inline-block;
+    display: block;
+    text-align: center;
 }
 .no-classList-text{
     font-size: 30px;
