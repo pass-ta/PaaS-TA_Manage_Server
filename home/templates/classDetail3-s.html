@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="/static/assets/css/makeroom.css">
     <link rel="stylesheet" href="/static/assets/css/enterroom.css?after">
     <link rel="stylesheet" href="/static/assets/css/classDetail-t.css">
-    <link rel="stylesheet" href="/static/assets/css/list.css">
+    <link rel="stylesheet" href="/static/assets/css/list.css?after?after">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
-    <link rel="stylesheet" href="/static/assets/css/classList.css">
+    <link rel="stylesheet" href="/static/assets/css/classList.css?after">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="/static/assets/css/owl.css">
 </head>
@@ -54,11 +54,47 @@
     <div class="main">
         <div class="inner">
             <div class="img-menu">
-                <div><img src="/static/assets/images/bell (1).png" alt="" onclick="location.href='/home/myclass/teacher/{{room_pk}}'"></div>
-                <div><img src="/static/assets/images/speech-bubble (1).png" alt="" onclick="location.href='/home/myclass/teacher/quiz'"></div>
-                <div><img src="/static/assets/images/bar-graph.png" alt="" onclick="location.href='/home/myclass/teacher/analytics'"></div>
+                <div><img src="/static/assets/images/bell (1).png" alt="" onclick="location.href='/home/myclass/student/{{enrol_pk}}'"></div>
+                <div><img src="/static/assets/images/speech-bubble (1).png" alt="" onclick="location.href='/home/myclass/student/quiz'"></div>
+                <div><img src="/static/assets/images/bar-graph.png" alt="" onclick="location.href='/home/myclass/student/analytics'"></div>
             </div>
-            {{room_name}} 학생들 그래프
+            <div class="list-wapper" id="list-wapper" name="list-wapper" >
+              <div class="list-wapper-text">
+                <span class="animate__animated animate__rubberBand" id="list-wapper-text">{{room_name}} 수업 집중도 그래프</span>
+              </div>
+              {% if page.object_list %}
+                {% for Analytics in page.object_list %}
+                  {% if Analytics.list == 1 %}
+                    <div class="analytics-list">
+                      <img src="/static/assets/images/gold-medal.png" alt="">
+                      <div class="over"><span class="list-sub-text-anal">앱 차단: </span><span class="list-main-text">{{Analytics.app}}점</span><br><span class="list-sub-text">자리 이탈: </span><span class="list-main-text">{{Analytics.person}}점</span></div>
+                      <div class="under"><span class="list-sub-text">학습 시간: </span><span class="list-main-text">{{Analytics.time}}분</span><br><span class="list-sub-text">날짜: </span><span class="list-main-text-date">{{Analytics.make_date}}</span></div>
+                      <button onclick="location.href='/main/list/analytics/{{Analytics.pk}}'">그래프 보기</button>
+                    </div>    
+                  {% elif Analytics.list == 2 %}
+                    <div class="analytics-list">
+                      <img src="/static/assets/images/silver-medal.png" alt="">
+                      <div class="over"><span class="list-sub-text-anal">앱 차단: </span><span class="list-main-text">{{Analytics.app}}점</span><br><span class="list-sub-text">자리 이탈: </span><span class="list-main-text">{{Analytics.person}}점</span></div>
+                      <div class="under"><span class="list-sub-text">학습 시간: </span><span class="list-main-text">{{Analytics.time}}분</span><br><span class="list-sub-text">날짜: </span><span class="list-main-text-date">{{Analytics.make_date}}</span></div>
+                      <button onclick="location.href='/main/list/analytics/{{Analytics.pk}}'">그래프 보기</button>
+                    </div>
+                  {% elif Analytics.list == 3 %}
+                    <div class="analytics-list">
+                      <img src="/static/assets/images/bronze-medal.png" alt="">
+                      <div class="over"><span class="list-sub-text-anal">앱 차단: </span><span class="list-main-text">{{Analytics.app}}점</span><br><span class="list-sub-text">자리 이탈: </span><span class="list-main-text">{{Analytics.person}}점</span></div>
+                      <div class="under"><span class="list-sub-text">학습 시간: </span><span class="list-main-text">{{Analytics.time}}분</span><br><span class="list-sub-text">날짜: </span><span class="list-main-text-date">{{Analytics.make_date}}</span></div>
+                      <button onclick="location.href='/main/list/analytics/{{Analytics.pk}}'">그래프 보기</button>
+                    </div>
+                  {%endif%}
+                {% endfor%}
+                <div class="list-wapper-border"></div>
+              {% else %}
+                <div id="noroom" class="animate__animated animate__rubberBand animate__delay-0.8s">
+                    <span>생성한 집중도 자료가 없습니다!</span>
+                    <img src="/static/assets/images/embarrassed.png" alt="">
+                </div>
+              {%endif%}
+            </div>
         </div>
     </div>
 </div>

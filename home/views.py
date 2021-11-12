@@ -7,7 +7,7 @@ from main.models import User
 import string, random
 from django.core.paginator import Paginator, EmptyPage
 
-from home.models import Enrol, Room
+from home.models import Enrol, Room, Analytics
 import os
 import base64
 from luxand import luxand
@@ -494,7 +494,7 @@ def classDetail_s(request,pk):
     room = Room.objects.get(room_id = enrol.room_id)
     request.session['room_id'] = room.room_id
     res_data = {}
-    res_data['room_pk'] = room.pk
+    res_data['enrol_pk'] = enrol.pk
     res_data['room_name'] = room.room_name
     if request.method == 'GET':
         return render(request,'classDetail-s.html',res_data)
@@ -504,9 +504,9 @@ def classDetail_s(request,pk):
 def classDetail2_s(request):
     room_session = request.session.get('room_id')
     room = Room.objects.get(room_id = room_session)
-   
+    enrol = Enrol.objects.get(room_id = room_session)
     res_data = {}
-    res_data['room_pk'] = room.pk
+    res_data['enrol_pk'] = enrol.pk
     res_data['room_name'] = room.room_name
     if request.method == 'GET':
         return render(request,'classDetail2-s.html',res_data)
@@ -515,16 +515,28 @@ def classDetail2_s(request):
         
 def classDetail3_s(request):
     room_session = request.session.get('room_id')
+    user_session = request.session.get('user')
+    user = User.objects.get(pk=user_session)
     room = Room.objects.get(room_id = room_session)
-
+    enrol = Enrol.objects.get(room_id = room_session)
     res_data = {}
-    res_data['room_pk'] = room.pk
+    res_data['enrol_pk'] = enrol.pk
     res_data['room_name'] = room.room_name
+
+    page = request.GET.get("page",1)
+    print(user.email , enrol.room_id, "!!!!!!!!!!!!!!!!!!!!")
+    analytics_list = models.Analytics.objects.filter(email = user.email ,room_id = enrol.room_id ).order_by('-make_date')
+    paginator = Paginator(analytics_list,10,orphans=5)
+    try:
+        analytics = paginator.page(int(page))
+    except EmptyPage:
+        pass
+    res_data["page"] = analytics
+
     if request.method == 'GET':
         return render(request,'classDetail3-s.html',res_data)
     elif request.method == 'POST':
         return  render(request,'classDetail3-s.html',res_data)
-
 
 
 

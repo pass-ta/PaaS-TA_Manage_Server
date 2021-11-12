@@ -26,11 +26,25 @@
 
 /* 룸list START */
 .list-wapper{
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
     width: 100%;
     height: 100%;
 }
-
+.list-wapper-text{
+    text-align: center;
+    color: #37b24d;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 20px 0 20px 0;
+    border-bottom: 0.5px solid #868e96;
+}
+#list-wapper-text{
+    display: block;
+}
+.list-wapper-border{
+    border-top: 0.5px solid #868e96;
+}
 .room-list{
     border-bottom: 1px solid black;
     display: flex;
@@ -38,6 +52,7 @@
     align-items: center;
     padding: 20px;
 }
+
 .room-list img{
     width: 74px;
     height: 74px;
@@ -85,7 +100,8 @@
 
 /* 집중도 list START */
 .analytics-list{
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #868e96;
+    border-top: 1px solid #868e96;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -106,7 +122,7 @@
 }
 .analytics-list button:hover{
     transform: scale(1.2);
-    background-color: #33ccc5;
+    background-color: #37b24d;
 }
 
 .list-sub-text-anal{

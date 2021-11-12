@@ -33,4 +33,22 @@ class Enrol(models.Model):
         verbose_name = 'enrol 명단'
         verbose_name_plural = 'enrol 명단'
 
+class Analytics(models.Model):
+    room_id = models.CharField(max_length=128, verbose_name="방 이름", default="NULL")   
+    email = models.EmailField(max_length=128, verbose_name="사용자",default="NULL")
+    count =  models.IntegerField(verbose_name="사용자 수", default=0)
+    rate = models.IntegerField(verbose_name="순위", default=0)
+    level = models.IntegerField(verbose_name="집중도 레벨",default=0)
+    app = models.IntegerField(verbose_name="앱 차단 점수",default=0)    
+    person = models.IntegerField(verbose_name="자리 이탈 점수",default=0)
+    time = models.IntegerField(verbose_name="학습 시간",default=0)
+    list = models.IntegerField(verbose_name="list 변수",default=0)
+    make_date = models.DateTimeField(auto_now_add=True, verbose_name='생성 날짜')
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        db_table = 'analytics'
+        verbose_name = '집중도'
+        verbose_name_plural = '집중도'
 

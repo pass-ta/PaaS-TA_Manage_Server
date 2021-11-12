@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Room
-from .models import Enrol
+from .models import Room, Analytics, Enrol
 # Register your models here.
 
 class RoomAdmin(admin.ModelAdmin):
@@ -12,3 +11,8 @@ class EnrolAdmin(admin.ModelAdmin):
     list_display =('email','room_id','room_password','room_name','make_date')
 
 admin.site.register(Enrol, EnrolAdmin)
+
+class AnalyticsAdmin(admin.ModelAdmin):
+    list_display =('room_id','email','rate','level','app','person','time','list','make_date')
+
+admin.site.register(Analytics, AnalyticsAdmin)
