@@ -13,6 +13,6 @@ class EnrolAdmin(admin.ModelAdmin):
 admin.site.register(Enrol, EnrolAdmin)
 
 class AnalyticsAdmin(admin.ModelAdmin):
-    list_display =('room_id','email','rate','level','app','person','time','list','make_date')
+    list_display =('room_id','email','username','rate','level','app','person','time','list','make_date')
 
 admin.site.register(Analytics, AnalyticsAdmin)
