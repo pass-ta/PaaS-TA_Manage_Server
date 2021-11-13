@@ -355,7 +355,7 @@
     }
     #roomout-text1{
         font-size: 30px;
-        color: #33ccc5;
+        color: #37b24d;
         font-weight: 700;
         display: flex;
         justify-content: center;
@@ -365,6 +365,7 @@
         font-size: 27px;
         font-weight: 700;
         display: flex;
+        text-align: center;
         justify-content: center;
         margin: 100px 0 50px 0;
         line-height: 4rem;
@@ -378,7 +379,7 @@
         width: 210px;
         height: 60px;
         display: inline-block;
-        background-color: #4771cb;
+        background-color: #f59f00;
         font-weight: 400;
         font-size: 25px;
         color: #fff;
@@ -387,12 +388,12 @@
         padding: 12px 25px;
         border-radius: 23px;
         letter-spacing: 0.25px;
-        border-bottom: 3px solid #33ccc5!important;
+        border-bottom: 3px solid #e67700!important;
         transition: all .3s;
     }
     .toAnalytics:hover{
-        background-color: #33ccc5;
-        border-bottom: 3px solid #4771cb!important;
+        background-color: #e67700;
+        border-bottom: 3px solid #f59f00!important;
     }
     /* roomout END */
 
