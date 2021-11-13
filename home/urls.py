@@ -10,7 +10,8 @@ urlpatterns = [
     path('makeclass/success', views.make_success),
 
     path('enterclass/', views.enterclass),
-    path('enterclass/teacher',views.teacher),
+    # path('enterclass/makequiz',views.),        # 유림 선생 입장전 퀴즈 만들기 
+    path('enterclass/teacher',views.teacher),    # 버튼 누르면 webrtc 입장
     path('enterclass/student1',views.student1),
     path('enterclass/student2',views.student2, name='student2'),
     path('enterclass/student3',views.student3),
@@ -28,6 +29,10 @@ urlpatterns = [
     path('myclass/student/analytics/<int:pk>',views.analyticsDetail),
 
     path('classout/teacher', views.classOut_t),
+    path('classout/student', views.classOut_s),
+    # path('classout/student/makeqiuz', views.),   # 유림 퀴즈 만드는 url
+    # path('classout/student/quiz', views.),       # 유림 퀴즈 푸는 url
+    # path('classout/student/analytics', views.),  # 한식 통계자료 url
 
        #APP
     path('app_enter_room', views.app_enterroom),
