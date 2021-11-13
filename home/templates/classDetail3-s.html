@@ -68,21 +68,21 @@
                     <div class="analytics-list">
                       <img src="/static/assets/images/gold-medal.png" alt="">
                       <div class="over"><span class="list-sub-text-anal">앱 차단: </span><span class="list-main-text">{{Analytics.app}}점</span><br><span class="list-sub-text">자리 이탈: </span><span class="list-main-text">{{Analytics.person}}점</span></div>
-                      <div class="under"><span class="list-sub-text">퀴즈: </span><span class="list-main-text">{{Analytics.time}}분</span><br><span class="list-sub-text">날짜: </span><span class="list-main-text-date">{{Analytics.make_date}}</span></div>
+                      <div class="under"><span class="list-sub-text">퀴즈: </span><span class="list-main-text">{{Analytics.time}}분</span><br><span class="list-sub-text">날짜: </span><span class="list-main-text-date">{{Analytics.make_date|date:'Y년 n월 j일 G:i'}}</span></div>
                       <button onclick="location.href='/home/myclass/student/analytics/{{Analytics.pk}}'">그래프 보기</button>
                     </div>    
                   {% elif Analytics.list == 2 %}
                     <div class="analytics-list">
                       <img src="/static/assets/images/silver-medal.png" alt="">
                       <div class="over"><span class="list-sub-text-anal">앱 차단: </span><span class="list-main-text">{{Analytics.app}}점</span><br><span class="list-sub-text">자리 이탈: </span><span class="list-main-text">{{Analytics.person}}점</span></div>
-                      <div class="under"><span class="list-sub-text">퀴즈: </span><span class="list-main-text">{{Analytics.time}}분</span><br><span class="list-sub-text">날짜: </span><span class="list-main-text-date">{{Analytics.make_date}}</span></div>
+                      <div class="under"><span class="list-sub-text">퀴즈: </span><span class="list-main-text">{{Analytics.time}}분</span><br><span class="list-sub-text">날짜: </span><span class="list-main-text-date">{{Analytics.make_date|date:'Y년 n월 j일 G:i'}}</span></div>
                       <button onclick="location.href='/home/myclass/student/analytics/{{Analytics.pk}}'">그래프 보기</button>
                     </div>
                   {% elif Analytics.list == 3 %}
                     <div class="analytics-list">
                       <img src="/static/assets/images/bronze-medal.png" alt="">
                       <div class="over"><span class="list-sub-text-anal">앱 차단: </span><span class="list-main-text">{{Analytics.app}}점</span><br><span class="list-sub-text">자리 이탈: </span><span class="list-main-text">{{Analytics.person}}점</span></div>
-                      <div class="under"><span class="list-sub-text">퀴즈: </span><span class="list-main-text">{{Analytics.time}}분</span><br><span class="list-sub-text">날짜: </span><span class="list-main-text-date">{{Analytics.make_date}}</span></div>
+                      <div class="under"><span class="list-sub-text">퀴즈: </span><span class="list-main-text">{{Analytics.time}}분</span><br><span class="list-sub-text">날짜: </span><span class="list-main-text-date">{{Analytics.make_date|date:'Y년 n월 j일 G:i'}}</span></div>
                       <button onclick="location.href='/home/myclass/student/analytics/{{Analytics.pk}}'">그래프 보기</button>
                     </div>
                   {%endif%}

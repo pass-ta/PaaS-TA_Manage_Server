@@ -57,9 +57,13 @@
     <div class="main">
       <div class="inner">
         <div class="list-detail-wapper">
-          <img src="/static/assets/images/previous.png" alt="" class="back" onclick="location.href='/home/myclass/student/analytics'">
+          {% if role == "teacher"%}
+            <img src="/static/assets/images/previous.png" alt="" class="back" onclick="location.href='/home/myclass/teacher/analytics'">
+          {% elif role == "student"%}
+            <img src="/static/assets/images/previous.png" alt="" class="back" onclick="location.href='/home/myclass/student/analytics'">
+          {%endif%}
           <div id="detail-explain" class="animate__animated animate__rubberBand animate__delay-0.8s">
-            <span >{{username}}님의 집중도는 <span style="color: #5f3dc4;">level {{level}}</span> 입니다!</span>
+            <span >{{analyticUser}}님의 집중도는 <span style="color: #5f3dc4;">level {{level}}</span> 입니다!</span>
           </div>
           <div class="list-detail">
             <div class="list-detail-text">

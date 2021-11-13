@@ -35,7 +35,8 @@ class Enrol(models.Model):
 
 class Analytics(models.Model):
     room_id = models.CharField(max_length=128, verbose_name="방 이름", default="NULL")   
-    email = models.EmailField(max_length=128, verbose_name="사용자",default="NULL")
+    email = models.EmailField(max_length=128, verbose_name="사용자 email",default="NULL")
+    username = models.CharField(max_length=128, verbose_name="사용자 이름",default="NULL")
     count =  models.IntegerField(verbose_name="사용자 수", default=0)
     rate = models.IntegerField(verbose_name="순위", default=0)
     level = models.IntegerField(verbose_name="집중도 레벨",default=0)

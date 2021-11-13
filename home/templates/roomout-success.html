@@ -1,0 +1,40 @@
+{%extends 'base.html'%}
+{% block content%}
+<div class="roomout">
+    <div id="roomout-suc-text1" class="animate__animated animate__rubberBand animate__delay-0.8s">
+        <span>Finish!</span>
+    </div>
+    <div class="roomout-suc-text2" id="roomout-suc-text2">
+        <span >수업이 종료 되었습니다!</span>
+    </div>
+    <div id="roomout-success" class="roomout-success" style="margin-bottom: 30px;">
+        <lottie-player src="/static/assets/images/roomout-success.json" background="transparent" style="width: 250px; height: 200px;" speed="1.1" loop autoplay>
+        </lottie-player>
+    </div>
+    <div id="fireworks" class="fireworks" style="margin-bottom: 30px;">
+        <lottie-player src="/static/assets/images/fireworks.json" background="transparent" style="width: 300px; height: 225px; position:absolute; top: 140px; left: 340px; " speed="1" loop autoplay>
+        </lottie-player>
+    </div>
+    <div class="roomout-suc-btn">
+        <button class="toAnalytics" onclick="location.href='/main'">Finish</button>
+    </div>
+</div>
+
+<script>
+    window.addEventListener('load',function(){
+        let success = document.getElementById('roomout-success')
+        setTimeout(function(){
+            success.style.display = 'none'
+        },2200)
+        let fireworks = document.getElementById('fireworks')
+        setTimeout(function(){
+            fireworks.style.display = 'flex'
+        },2200)
+        let success_text = document.getElementById('roomout-suc-text2')
+        setTimeout(function(){
+            success_text.style.display = 'flex'
+        },2200)
+    })
+</script>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+{% endblock%}

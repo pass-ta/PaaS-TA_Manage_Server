@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after">
     <link rel="stylesheet" href="/static/assets/css/home.css">
     <link rel="stylesheet" href="/static/assets/css/makeroom.css">
-    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after?after?after?after">
+    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after?after?after?after?after">
     <link rel="stylesheet" href="/static/assets/css/list.css">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -28,7 +28,11 @@
                 <nav class="main-nav">
                   <!-- ***** Logo Start ***** -->
                   <a href="/main" class="logo">
-                    <h4>HiClass <img src="/static/assets/images/student.png" alt="" class="auto_logo"><span class="teachers_text">Students</span></h4>
+                    {% if role == "teacher"%}
+                        <h4>HiClass <img src="/static/assets/images/teacher (1).png" alt="" class="auto_logo"><span class="teachers_text">Teachers</span></h4>
+                    {% elif role == "student"%}
+                        <h4>HiClass <img src="/static/assets/images/student.png" alt="" class="auto_logo"><span class="teachers_text">Students</span></h4>
+                    {%endif%}
                   </a>
                   <!-- ***** Logo End ***** -->
                   <!-- ***** Menu Start ***** -->

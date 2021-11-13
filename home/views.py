@@ -448,7 +448,7 @@ class ClassList_t(ListView):
         return QuerySet
 
 def classDetail_t(request,pk):
-    room = Room.objects.get(pk=pk)
+    room = Room.objects.get(pk = pk)
     request.session['room_id'] = room.room_id
     res_data = {}
     res_data['room_pk'] = room.pk
@@ -472,11 +472,22 @@ def classDetail2_t(request):
         
 def classDetail3_t(request):
     room_session = request.session.get('room_id')
+    user_session = request.session.get('user')
+    user = User.objects.get(pk=user_session)
     room = Room.objects.get(room_id = room_session)
-
+    
     res_data = {}
     res_data['room_pk'] = room.pk
     res_data['room_name'] = room.room_name
+
+    page = request.GET.get("page",1)
+    analytics_list = models.Analytics.objects.filter(room_id = room.room_id).order_by('username')
+    paginator = Paginator(analytics_list,10,orphans=5)
+    try:
+        analytics = paginator.page(int(page))
+    except EmptyPage:
+        pass
+    res_data["page"] = analytics
     if request.method == 'GET':
         return render(request,'classDetail3-t.html',res_data)
     elif request.method == 'POST':
@@ -551,6 +562,7 @@ def analyticsDetail(request,pk):
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
         res_data['role'] = user.role
+        res_data['analyticUser'] = analytics.username
 
         if res_data['userimg'] == "/media/":               # 이미지 체크
             res_data['img_check'] = 0
@@ -585,8 +597,27 @@ def analyticsDetail(request,pk):
     else:
         return redirect('/login')
 
+def classOut_t(request):
+    res_data = {}
+    fs = FileSystemStorage()
+    user_session = request.session.get('user')
+    if user_session:
+        user = User.objects.get(pk=user_session)    # 로그인 체크
+        res_data['username'] = user.username        # mypage 정보
+        res_data['email'] = user.email
+        res_data['register'] = user.registerd_date
+        res_data['userimg'] = fs.url(user.image)
+        res_data['role'] = user.role
 
+        if res_data['userimg'] == "/media/":               # 이미지 체크
+            res_data['img_check'] = 0
+        else:
+            res_data['img_check'] = 1
 
+        if request.method == 'GET':
+            return render(request, 'roomout-success.html', res_data)
+        elif request.method == 'POST':
+            return redirect('/home')
 
 
 

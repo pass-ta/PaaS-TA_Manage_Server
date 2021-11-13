@@ -410,6 +410,7 @@
         font-weight: 700;
         display: none;
         justify-content: center;
+        text-align: center;
         margin: 130px 0 50px 0;
     }
     .roomout-suc-btn{
