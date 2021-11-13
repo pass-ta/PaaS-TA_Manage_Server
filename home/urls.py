@@ -27,6 +27,8 @@ urlpatterns = [
     path('myclass/student/analytics',views.classDetail3_s),  # 통계 자료
     path('myclass/student/analytics/<int:pk>',views.analyticsDetail),
 
+    path('classout/teacher', views.classOut_t),
+
        #APP
     path('app_enter_room', views.app_enterroom),
     path('app_attendance', views.app_attendance),
