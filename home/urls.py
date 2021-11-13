@@ -24,7 +24,7 @@ urlpatterns = [
     path('myclass/student/<int:pk>',views.classDetail_s),    # 공지사항
     path('myclass/student/quiz',views.classDetail2_s),       # 퀴즈
     path('myclass/student/analytics',views.classDetail3_s),  # 통계 자료
-
+    path('myclass/student/analytics/<int:pk>',views.analyticsDetail),
 
        #APP
     path('app_enter_room', views.app_enterroom),

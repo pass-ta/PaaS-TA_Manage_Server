@@ -146,6 +146,7 @@
     height: 100%;
     padding: 30px;
 }
+
 .list-detail{
     display: flex;
     /* justify-content: center;
@@ -153,6 +154,8 @@
 }
 .list-detail-text{
     display: grid;
+    margin-right: 70px;
+    margin-left: 40px;
 }
 .list-detail-text1{
     display: flex;
@@ -169,7 +172,7 @@
     margin-right: 20px;
     font-size: 20px;
     font-weight: 550;
-    color: #33ccc5;
+    color: #f59f00;
 }
 .list-detail-sub{
     margin-top: 100px;
@@ -178,7 +181,7 @@
 }
 #detail-explain{
     font-size: 25px;
-    color: #33ccc5;
+    color: #f59f00;
     font-weight: 700;
     text-align: center;
     margin-bottom: 40px;

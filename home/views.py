@@ -14,6 +14,7 @@ from luxand import luxand
 from openpyxl import load_workbook
 from openpyxl_image_loader import SheetImageLoader
 from HiClass import settings
+from .fusioncharts import FusionCharts
 
 from django.db.models.fields import NullBooleanField
 from django.db.models.query import QuerySet
@@ -538,6 +539,51 @@ def classDetail3_s(request):
     elif request.method == 'POST':
         return  render(request,'classDetail3-s.html',res_data)
 
+def analyticsDetail(request,pk):
+    analytics = Analytics.objects.get(pk=pk)
+    res_data={}
+    fs = FileSystemStorage()
+    user_session = request.session.get('user')
+    if user_session:
+        user = User.objects.get(pk=user_session)    # 로그인 체크
+        res_data['username'] = user.username        # mypage 정보
+        res_data['email'] = user.email
+        res_data['register'] = user.registerd_date
+        res_data['userimg'] = fs.url(user.image)
+        res_data['role'] = user.role
+
+        if res_data['userimg'] == "/media/":               # 이미지 체크
+            res_data['img_check'] = 0
+        else:
+            res_data['img_check'] = 1
+
+        #chartdata 선언
+        dataSource = OrderedDict()
+        dataSource["data"] = [] #chartdata는 json형식이다.
+        dataSource["data"].append({"label": '앱 차단', "value": analytics.app})
+        dataSource["data"].append({"label": '자리이탈', "value": analytics.person})
+        dataSource["data"].append({"label": '퀴즈', "value": analytics.time})
+
+        chartConfig = OrderedDict()
+        chartConfig["caption"] = "집중도 통계"  
+        chartConfig["yAxisName"] = "점수"
+        chartConfig["numberSuffix"] = "점" #y축 숫자단위
+        chartConfig["theme"] = "fusion" #테마
+
+        dataSource["chart"] = chartConfig # 그래프 특징 설정
+
+        column2D = FusionCharts("column2d", "myFirstChart", "500", "400", "chart-1", "json", dataSource)
+        res_data['output'] = column2D.render()
+
+        res_data['count'] = analytics.count
+        res_data['rate'] = analytics.rate
+        res_data['level'] = analytics.level
+        if request.method == 'GET':
+            return render(request,'analyticsDetail.html',res_data)
+        elif request.method == 'POST':
+            return  render(request,'analyticsDetail.html',res_data)
+    else:
+        return redirect('/login')
 
 
 
