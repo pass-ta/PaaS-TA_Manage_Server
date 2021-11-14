@@ -41,6 +41,7 @@ def home(request):
         res_data['username'] = user.username                # mypage 정보
         res_data['email'] = user.email
         res_data['register'] = user.registerd_date
+        print(user.image)
         res_data['userimg'] = fs.url(user.image)
 
         if res_data['userimg'] == "/media/":               # 이미지 체크
@@ -210,7 +211,7 @@ def enterclass(request):
                     if user.role == 'student':
                         return redirect('/home/enterclass/student1')
                     elif user.role == 'teacher':
-                        return redirect('/home/enterclass/teacher')
+                        return redirect('/home/makequiz')
                 else:
                     res_data['error'] = '비밀번호가 틀렸습니다.'
                     return render(request, 'enterclass.html', res_data)
@@ -438,37 +439,127 @@ def student3(request):
 
 @csrf_exempt
 def quiz(request):
-    if request.method == 'GET':
-        res_data = {}
-        # 룸ID 받아오기
+
+    res_data = {}
+    fs = FileSystemStorage()
+    user_session = request.session.get('user')
+
+    if user_session:
+        user = User.objects.get(pk=user_session)    # 로그인 체크
+        res_data['username'] = user.username        # mypage 정보
+        res_data['email'] = user.email
+        res_data['register'] = user.registerd_date
+        #res_data['userimg'] = fs.url(user.image)
+
+        # room을 만든 사람 username 가져오기
         # room_session = request.session.get('room_id')
-        # print(room_session)
-        quiz = Quiz.objects.get(room_id='RY5RKDC')
-        res_data['question'] = quiz.question
-        res_data['item1'] = quiz.item1
-        res_data['item2'] = quiz.item2
-        res_data['item3'] = quiz.item3
-        res_data['item4'] = quiz.item4
-        return render(request, 'quiz.html', res_data)
-    elif request.method == 'POST':
-        info = {}
+        # room = Room.objects.get(room_id=room_session)
+        # room_maker = User.objects.get(email=room.maker)
+        # res_data['room_maker'] = room_maker.username
 
-        answer = request.POST.get('check')
-        print(answer)
-        try:
-            quiz = Quiz.objects.get(room_id='RY5RKDC')
-        except Quiz.DoesNotExist:
-            return messages.warning(request, '존재 하는 Class가 없습니다.')
+        if request.method == 'GET':
 
-        quiz_answer = quiz.answer
-        print(quiz_answer)
+            # 룸ID 받아오기
+            # room_session = request.session.get('room_id')
+            # print(room_session)
+            quiz = Quiz.objects.filter(room_id='12')
 
-        if answer == str(quiz_answer):
-            info['result'] = "yes"
-        elif answer != str(quiz_answer):
-            info['result'] = "no"
+            # 학생 복습퀴즈시 자신이 낸 문제는 제외
+            except_quiz = []
 
-        return JsonResponse(info)
+            for i in quiz:
+                if(i.maker != user.email):
+                    except_quiz.append(i)
+
+            print(except_quiz)
+
+            random_num = random.randint(1, len(except_quiz))
+
+            print(random_num)
+
+            maker = except_quiz[random_num-1].maker
+            quiz_ower = User.objects.get(email=maker)
+            res_data['question'] = except_quiz[random_num-1].question
+            res_data['item1'] = except_quiz[random_num-1].item1
+            res_data['item2'] = except_quiz[random_num-1].item2
+            res_data['item3'] = except_quiz[random_num-1].item3
+            res_data['item4'] = except_quiz[random_num-1].item4
+            res_data['maker'] = quiz_ower.username
+            return render(request, 'quiz.html', res_data)
+        elif request.method == 'POST':
+            info = {}
+
+            answer = request.POST.get('check')
+            print(answer)
+            try:
+                quiz = Quiz.objects.get(room_id='12')
+            except Quiz.DoesNotExist:
+                return messages.warning(request, '존재 하는 Class가 없습니다.')
+
+            quiz_answer = quiz.answer
+            print(quiz_answer)
+
+            if answer == str(quiz_answer):
+                info['result'] = "yes"
+            elif answer != str(quiz_answer):
+                info['answer'] = quiz_answer
+                info['result'] = "no"
+
+            return JsonResponse(info)
+
+    else:
+        return redirect('/login')
+
+
+@csrf_exempt
+def make_quiz(request):
+    res_data = {}
+    fs = FileSystemStorage()
+    user_session = request.session.get('user')
+
+    if user_session:
+        user = User.objects.get(pk=user_session)    # 로그인 체크
+        res_data['username'] = user.username        # mypage 정보
+        res_data['email'] = user.email
+        res_data['register'] = user.registerd_date
+       # res_data['userimg'] = fs.url(user.image)
+
+        # room을 만든 사람 username 가져오기
+        # room_session = request.session.get('room_id')
+        # room = Room.objects.get(room_id=room_session)
+        # room_maker = User.objects.get(email=room.maker)
+        #res_data['room_maker'] = room_maker.username
+
+        if request.method == 'GET':
+
+            return render(request, 'makequiz.html', res_data)
+
+        elif request.method == 'POST':
+            question = request.POST.get('question')
+            item1 = request.POST.get('item1')
+            item2 = request.POST.get('item2')
+            item3 = request.POST.get('item3')
+            item4 = request.POST.get('item4')
+            answer = request.POST.get('answer')
+            print(question)
+
+            # if not(question):
+            #     res_data['question_error'] = '질문을 작성해주세요.'
+            # elif (not(item1) or not(item2)or not(item3) or not(item4)):
+            #     res_data['content_error'] = '모든 문항을 작성해주세요.'
+
+            # if(user == room_maker):
+            #     res_data['result'] = "teacher"
+            # else:
+            #     res_data['result'] = "student"
+
+            quiz = Quiz(room_id="12", maker=user, question=question,
+                        item1=item1, item2=item2, item3=item3, item4=item4, answer=answer)
+            quiz.save()
+
+            return JsonResponse(res_data)
+    else:
+        return redirect('/login')
 
 
 @method_decorator(csrf_exempt, name='dispatch')
