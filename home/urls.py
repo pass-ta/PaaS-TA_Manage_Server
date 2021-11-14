@@ -34,6 +34,8 @@ urlpatterns = [
     # path('classout/student/makeqiuz', views.),   # 유림 퀴즈 만드는 url
     # path('classout/student/quiz', views.),       # 유림 퀴즈 푸는 url
     # path('classout/student/analytics', views.),  # 한식 통계자료 url
+    path('quiz',views.quiz),
+    path('makequiz',views.make_quiz),
 
        #APP
     path('app_enter_room', views.app_enterroom),

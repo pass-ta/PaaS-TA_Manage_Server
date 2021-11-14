@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko" id="html">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HiClass</title>
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/static/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after">
+    <link rel="stylesheet" href="/static/assets/css/home.css?after?after">
+    <link rel="stylesheet" href="/static/assets/css/makeroom.css">
+    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after?after?after?after?after?after">
+    <link rel="stylesheet" href="/static/assets/css/list.css">
+    <link rel="stylesheet" href="/static/assets/css/animated.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel='stylesheet' type="text/css" media="all" href="{% static 'assets/css/home.css' %}"/>
+    <link rel="stylesheet" href="/static/assets/css/owl.css">
+</head>
+<body>
+  <div class="king" id="king">
+    <!-- ***** Header Area Start ***** -->
+    <div class="animate__animated animate__fadeInDown animate__delay-0.8s">
+      <header class="header-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                  <!-- ***** Logo Start ***** -->
+                  <a href="/home" class="logo">
+                    <h4>HiClass <img src="/static/assets/images/student.png" alt="" class="auto_logo"><span class="teachers_text">Students</span></h4>
+                  <!-- ***** Logo End ***** -->
+                  <!-- ***** Menu Start ***** -->
+                  <ul class="nav">
+                    <li class="scroll-to-section"><a href="/main">Home</a></li>
+                    <li class="scroll-to-section"><a href="/main/list">My List</a></li>
+                    <li class="scroll-to-section"><a href="/logout">Logout</a></li>
+                    <li class="scroll-to-section"><div class="main-blue-button"><a id="nav_mypage2" name="nav_mypage2">{{username}}님 안녕하세요.</a></div></li>
+                  </ul>
+                  <a class='menu-trigger'>
+                      <span>Menu</span>
+                  </a>
+                  <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+    <div class="main">
+      <div class="inner">
+        <div class="makequiz">
+          <span class="animate__animated animate__rubberBand" id="make-quiz-text">Make Review Quiz!</span>
+              {% csrf_token %}      
+              <div class="quiz-input">
+                  <label class="enter_quiz_question">Q. 
+                      <input type="text" placeholder="질문을 작성해주세요." id="makequiz_question" name="makequiz_question" autocomplete="off">
+                  </label>
+                  <div class="select-answer">
+                    <label class="select_answer">정답 :</label>
+                    <select size="1" id="answer">
+                        <option value="none">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</option>
+                        <option value =1>1번</option>
+                        <option value =2>2번</option>
+                        <option value =3>3번</option>
+                        <option value =4>4번</option>
+                    </select>
+                  </div>
+                  <div class="input-quiz-content">
+                      <label class="enter_quiz_content">1.
+                          <input type="text"placeholder="1번 문항을 작성해주세요." id="makequiz_content1" name="makequiz_content1" autocomplete="off">
+                      </label><br>
+                      <label class="enter_quiz_content">2.
+                          <input type="text"placeholder="2번 문항을 작성해주세요." id="makequiz_content2" name="makequiz_content2" autocomplete="off">
+                      </label><br>
+                      <label class="enter_quiz_content">3.
+                          <input type="text"placeholder="3번 문항을 작성해주세요." id="makequiz_content3" name="makequiz_content3" autocomplete="off">
+                      </label><br>
+                      <label class="enter_quiz_content">4.
+                          <input type="text"placeholder="4번 문항을 작성해주세요." id="makequiz_content4" name="makequiz_content4" autocomplete="off">
+                      </label><br>                                            
+                  </div>
+              </div>
+
+              <div class="btn_makequiz_enter">
+                  <button class="next" onclick="btn_next_make_quiz()">Enter</button>
+              </div>
+
+        </div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+    function btn_next_make_quiz(){
+        question = document.querySelector('input[name = "makequiz_question"]');
+        item1 = document.querySelector('input[name = "makequiz_content1"]');
+        item2 = document.querySelector('input[name = "makequiz_content2"]');
+        item3 = document.querySelector('input[name = "makequiz_content3"]');
+        item4 = document.querySelector('input[name = "makequiz_content4"]');
+        answer = document.getElementById('answer');
+
+        console.log(answer.value);
+
+        if ( question.value == '' ) {
+            alert('질문을 작성해 주세요.');
+            return;
+        }else if (item1.value == '' || item2.value == '' || item3.value == '' || item4.value == '' ){
+            alert('모든 문항을 작성해 주세요.')
+            return;
+        }else if (answer.value=='none') {
+            alert('정답을 선택해 주세요.');
+            return;
+        }
+        $.ajax({                       
+            type: 'POST',
+            url: '/home/makequiz',
+            data: { 'question' : question.value,
+                    'item1' : item1.value,
+                    'item2' : item2.value,
+                    'item3' : item3.value,
+                    'item4' : item4.value,
+                    'answer' : answer.value},
+            success: function (data){
+                if (data['result'] == "teacher"){
+                    alert("복습 퀴즈가 생성되었습니다.");
+                    document.location.href='/home/enter_teacher';
+                    return;
+                }else if (data['result'] == "student"){
+                    alert("복습 퀴즈가 생성되었습니다.");
+                }
+                else if (data['result'] == "no"){
+                    alert("실패");
+                }
+                return;
+            }
+        })
+    }
+</script>
+</body>
+</html>

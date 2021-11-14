@@ -1,428 +1,602 @@
-    /* enter STRAT */
+/* enter STRAT */
 
-    .enteroom{
-        width: 100%;
-        height: 100%;
-        padding: 30px;
-    }
-    .enteroom #enter-main-text{
-        font-size: 30px;
-        color: #37b24d;
-        font-weight: 700;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-    .enteroom form{
-        padding: 0 50px 0 50px;
-        width: 100%;
-        height: 100%;
-        /* display: flex;
+.enteroom {
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+}
+.makequiz {
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+}
+.enteroom #enter-main-text {
+  font-size: 30px;
+  color: #37b24d;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.makequiz #make-quiz-text {
+  font-size: 30px;
+  color: #37b24d;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+}
+.quiz-input {
+  margin-top: 40px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.enter_quiz_question {
+  font-size: large;
+  font-weight: 600;
+  margin-left: 10px;
+}
+.enter_quiz_content {
+  font-size: large;
+  font-weight: 600;
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
+#makequiz_question {
+  border: none;
+  width: 600px;
+  height: 40px;
+  margin-bottom: 15px;
+  background-color: #f1f3f5;
+  border-bottom: 3px solid #adb5bd;
+  font-size: large;
+  text-align: center;
+}
+
+#makequiz_content1 {
+  border: 3px solid #adb5bd;
+  margin-left: 10px;
+  margin-top: 20px;
+  width: 600px;
+  height: 40px;
+  background-color: #f1f3f5;
+  font-size: large;
+  text-align: center;
+}
+#makequiz_content2 {
+  border: 3px solid #adb5bd;
+  margin-left: 10px;
+  margin-top: 15px;
+  width: 600px;
+  height: 40px;
+  background-color: #f1f3f5;
+  font-size: large;
+  text-align: center;
+}
+#makequiz_content3 {
+  border: 3px solid #adb5bd;
+  margin-left: 10px;
+  margin-top: 15px;
+  width: 600px;
+  height: 40px;
+  background-color: #f1f3f5;
+  font-size: large;
+  text-align: center;
+}
+#makequiz_content4 {
+  border: 3px solid #adb5bd;
+  margin-left: 10px;
+  margin-top: 15px;
+  width: 600px;
+  height: 40px;
+  background-color: #f1f3f5;
+  font-size: large;
+  text-align: center;
+}
+.makequiz .select-answer {
+  justify-content: right;
+  text-align: right;
+  margin-right: 145px;
+}
+
+.makequiz .next {
+  position: absolute;
+  left: 50%;
+  top: 78%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 60px;
+  background-color: #f59f00;
+  font-weight: 400;
+  font-size: 25px;
+  color: #fff;
+  margin-top: 50px;
+  text-transform: capitalize;
+  padding: 12px 25px;
+  border-radius: 23px;
+  letter-spacing: 0.25px;
+  border-bottom: 3px solid #e67700 !important;
+  transition: all 0.3s;
+}
+
+.enteroom form {
+  padding: 0 50px 0 50px;
+  width: 100%;
+  height: 100%;
+  /* display: flex;
         justify-content: center;
         align-items: center; */
-    }
-    .enter_label_id{
-        font-size: large;
-        font-weight: 600;
-        margin-bottom: 5px;
-        margin-left: 162px;
-    }
-    .enter_label_password{
-        font-size: large;
-        font-weight: 600;
-        margin-bottom: 5px;
-        margin-left: 131px;
-    }
-   
+}
+.enter_label_id {
+  font-size: large;
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-left: 162px;
+}
+.enter_label_password {
+  font-size: large;
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-left: 131px;
+}
 
-    .enteroom input{
-        border: none;
-        margin-left: 10px;
-        margin-top: 50px;
-        width: 330px;
-        height: 40px;
-        background-color: #f1f3f5;
-        border-bottom: 3px solid #adb5bd;
-        font-size: large;
-        text-align: center;
-    }
-    .enteroom form .input-password{
-        margin-left: 19px;
-    }
-    
-    .enteroom input:focus{
-        outline: none;
-        border-color: #f59f00;
-    }
-    .enteroom input::placeholder{  
-        opacity: 0.5;
-    }
-    .enteroom input:focus::placeholder{  /*  클릭시 text 없어짐 */
-        color: transparent;
-    }
-    .enter{
-        margin-top: 80px;
-        margin-left: 300px;
-        width: 220px;
-        height: 60px;
-        display: inline-block;
-        background-color: #f59f00;
-        font-weight: 400;
-        font-size: 25px;
-        color: #fff;
-        margin-top: 40px;
-        text-transform: capitalize;
-        padding: 12px 25px;
-        border-radius: 23px;
-        letter-spacing: 0.25px;
-        border-bottom: 3px solid #e67700!important;
-        transition: all .3s;
-    }
-    button.enter:hover{
-        background-color: #e67700;
-        border-bottom: 3px solid #f59f00!important;
-    }
-    .enter-div{
-        margin-top: 50px;
-    }
-    
-    /* enter END */
-    
-    /* enter_exam1 START */
-    .app-lottie{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .enter_exam1{
-        width: 100%;
-        height: 100%;
-        padding: 20px
-    }
+.enteroom_input {
+  border: none;
+  margin-left: 10px;
+  margin-top: 100px;
+  width: 330px;
+  height: 40px;
+  background-color: #f1f3f5;
+  border-bottom: 3px solid #adb5bd;
+  font-size: large;
+  text-align: center;
+}
+.enteroom form .input-password {
+  margin-left: 19px;
+}
 
-    #enter1-text{
-        font-size: 30px;
-        color: #37b24d;
-        font-weight: 600;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 5px;
-    }
-    #enter-teacher-text{
-        font-size: 30px;
-        color: #37b24d;
-        font-weight: 600;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 5px;
-        margin-top: 20px;
-    }
-    .progress-icon img{
-        width: 83px;
-        height: 83px;
-    }
-    .progress-icon-teacher img{
-        width: 83px;
-        height: 83px;
-        margin-top: 30px;
-    }
-    .down-arrow img{
-        width: 12px;
-        height: 17px;
-        margin-left: 255px;
-    }
-    .down-arrow2 img{
-        width: 12px;
-        height: 17px;
-        margin-left: 465px;
-    }
-    .down-arrow3 img{
-        width: 12px;
-        height: 17px;
-        margin-left: 685px;
-    }
+.enteroom input:focus {
+  outline: none;
+  border-color: #f59f00;
+}
+.enteroom input::placeholder {
+  opacity: 0.5;
+}
+.enteroom input:focus::placeholder {
+  /*  클릭시 text 없어짐 */
+  color: transparent;
+}
+.enter {
+  margin-top: 80px;
+  margin-left: 300px;
+  width: 220px;
+  height: 60px;
+  display: inline-block;
+  background-color: #f59f00;
+  font-weight: 400;
+  font-size: 25px;
+  color: #fff;
+  margin-top: 40px;
+  text-transform: capitalize;
+  padding: 12px 25px;
+  border-radius: 23px;
+  letter-spacing: 0.25px;
+  border-bottom: 3px solid #e67700 !important;
+  transition: all 0.3s;
+}
+button.enter:hover {
+  background-color: #e67700;
+  border-bottom: 3px solid #f59f00 !important;
+}
+.enter-div {
+  margin-top: 50px;
+}
 
-    .down-arrow4 img{
-        width: 12px;
-        height: 17px;
-        margin-left: 360px;
-    }
-    .down-arrow5 img{
-        width: 12px;
-        height: 17px;
-        margin-left: 580px;
-    }
-    .border{
-        /* border-bottom: 1px solid black; */
-        display: inline-block;
-        background-color: black;
-        width: 80px;
-        margin: 0 20px 0 20px;
-    }
-    .progress-icon{
-        margin-top: 5px;
-        text-align: center;
-    }
-    .progress-icon-teacher{
-        margin-top: 5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
+/* enter END */
 
-    .enter_exam1 .explain{
-        font-size: 26px;
-        font-weight: 700;
-        text-align: center;
-    }
-    .teacher-explain{
-        font-size: 26px;
-        font-weight: 700;
-        text-align: center;
-    }
-    .form-next{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .teacher-form-next{
-        margin-top: 40px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+/* enter_exam1 START */
+.app-lottie {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.enter_exam1 {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+.solve_quiz {
+  width: 100%;
+  height: 100%;
+}
 
-    .enter_exam1 .next{
-        width: 220px;
-        height: 60px;
-        display: inline-block;
-        background-color: #f59f00;
-        font-weight: 400;
-        font-size: 25px;
-        color: #fff;
-        margin-top: 20px;
-        text-transform: capitalize;
-        padding: 12px 25px;
-        border-radius: 23px;
-        letter-spacing: 0.25px;
-        border-bottom: 3px solid #e67700!important;
-        transition: all .3s;
-    }
-    .teacher-next{
-        width: 220px;
-        height: 60px;
-        display: inline-block;
-        background-color: #f59f00;
-        font-weight: 400;
-        font-size: 25px;
-        color: #fff;
-        text-transform: capitalize;
-        padding: 12px 25px;
-        border-radius: 23px;
-        letter-spacing: 0.25px;
-        border-bottom: 3px solid #e67700!important;
-        transition: all .3s;
-    }
+#enter1-text {
+  font-size: 30px;
+  color: #37b24d;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
 
-    .check{
-        color: red;
-        opacity: 0.7;
-    }
-    #check{
-        text-align: center;
-        margin-top: 20px;
-    }
+#quiz-text {
+  font-size: 35px;
+  color: #37b24d;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 
-    .enter_exam1 .next:hover{
-        background-color: #e67700;
-        border-bottom: 3px solid #f59f00!important;
-        transform: scale(1.2);
-    }
-    .teacher-next:hover{
-        background-color: #e67700;
-        border-bottom: 3px solid #f59f00!important;
-        transform: scale(1.2);
-    }
-    /* enter_exam1 END */
+#enter-teacher-text {
+  font-size: 30px;
+  color: #37b24d;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+  margin-top: 20px;
+}
+.progress-icon img {
+  width: 83px;
+  height: 83px;
+}
+.progress-icon-teacher img {
+  width: 83px;
+  height: 83px;
+  margin-top: 30px;
+}
+.down-arrow img {
+  width: 12px;
+  height: 17px;
+  margin-left: 255px;
+}
+.down-arrow2 img {
+  width: 12px;
+  height: 17px;
+  margin-left: 465px;
+}
+.down-arrow3 img {
+  width: 12px;
+  height: 17px;
+  margin-left: 685px;
+}
 
+.down-arrow4 img {
+  width: 12px;
+  height: 17px;
+  margin-left: 360px;
+}
+.down-arrow5 img {
+  width: 12px;
+  height: 17px;
+  margin-left: 580px;
+}
+.border {
+  /* border-bottom: 1px solid black; */
+  display: inline-block;
+  background-color: black;
+  width: 80px;
+  margin: 0 20px 0 20px;
+}
+.progress-icon {
+  margin-top: 5px;
+  text-align: center;
+}
+.progress-icon-teacher {
+  margin-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
 
-    /* enter_exam2 START */
-    .progress-icon2 img{
-        width: 53px;
-        height: 53px;
-    }
-    .progress-icon2{
-        text-align: center;
-        margin-top: 5px;
-    }
+.enter_exam1 .explain {
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+}
+.teacher-explain {
+  font-size: 26px;
+  font-weight: 700;
+  text-align: center;
+}
+.form-next {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.teacher-form-next {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .main-data{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 30px;
-    }
-    .main-camera{
-        display: inline-block;
-        margin-right: 50px;
-    }
+.enter_exam1 .next {
+  width: 220px;
+  height: 60px;
+  display: inline-block;
+  background-color: #f59f00;
+  font-weight: 400;
+  font-size: 25px;
+  color: #fff;
+  margin-top: 20px;
+  text-transform: capitalize;
+  padding: 12px 25px;
+  border-radius: 23px;
+  letter-spacing: 0.25px;
+  border-bottom: 3px solid #e67700 !important;
+  transition: all 0.3s;
+}
+.solve_quiz .maker {
+  margin-top: 5px;
+  font-size: 15px;
+  justify-content: right;
+  text-align: right;
+  margin-inline: 100px;
+  color: #000000;
+  font-weight: 600;
+  display: flex;
+  margin-bottom: 20px;
+}
+.solve_quiz .question {
+  margin-top: 5px;
+  font-size: 21px;
+  margin-inline: 100px;
+  color: #e67700;
+  font-weight: 600;
+  display: flex;
+  margin-bottom: 5px;
+}
+.solve_quiz .radio_button {
+  height: 300px;
+  margin-top: 15px;
+  margin-inline: 125px;
+  font-size: 19px;
+  font-weight: 600;
+}
+.solve_quiz .radio_content {
+  margin-top: 35px;
+}
+.solve_quiz .next {
+  position: absolute;
+  left: 50%;
+  top: 78%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 60px;
+  background-color: #f59f00;
+  font-weight: 400;
+  font-size: 25px;
+  color: #fff;
+  margin-top: 20px;
+  text-transform: capitalize;
+  padding: 12px 25px;
+  border-radius: 23px;
+  letter-spacing: 0.25px;
+  border-bottom: 3px solid #e67700 !important;
+  transition: all 0.3s;
+}
+.solve_quiz.quiz_content {
+  width: 100%;
+}
 
-    .next2{
-        width: 220px;
-        height: 60px;
-        display: inline-block;
-        background-color: #f59f00;
-        font-weight: 400;
-        font-size: 25px;
-        color: #fff;
-        text-transform: capitalize;
-        padding: 12px 25px;
-        border-radius: 23px;
-        letter-spacing: 0.25px;
-        border-bottom: 3px solid #e67700!important;
-        transition: all .3s;
-    }
-    #recapture{
-        margin: 0 40px 0 0;
-        width: 120px;
-        height: 60px;
-        display: none;
-        background-color: #4771cb;
-        font-weight: 370;
-        font-size: 26px;
-        color: #fff;
-        text-transform: capitalize;
-        border-radius: 23px;
-        letter-spacing: 0.25px;
-        border-bottom: 3px solid #33ccc5!important;
-        transition: all .3s;
-    }
-    #recapture:hover, .next2:hover{
-        background-color: #e67700;
-        border-bottom: 3px solid #f59f00!important;
-    }
-    .main-input{
-        display: none;
-    }
-    .main-input label{
-        font-size: large;
-        font-weight: 600;
-        margin-bottom: 5px;
-    }
-    .main-input input{
-        border: none;
-        margin-left: 10px;
-        margin-top: 50px;
-        width: 200px;
-        height: 40px;
-        background-color: #f1f3f5;
-        border-bottom: 3px solid #adb5bd;
-        font-size: large;
-        text-align: center;
-    }
+.teacher-next {
+  width: 220px;
+  height: 60px;
+  display: inline-block;
+  background-color: #f59f00;
+  font-weight: 400;
+  font-size: 25px;
+  color: #fff;
+  text-transform: capitalize;
+  padding: 12px 25px;
+  border-radius: 23px;
+  letter-spacing: 0.25px;
+  border-bottom: 3px solid #e67700 !important;
+  transition: all 0.3s;
+}
 
-    .main-input-name label{
-        margin-left: 88px;
-    }
-    .main-input-name{
-        margin-bottom: 60px;
-    }
+.check {
+  color: red;
+  opacity: 0.7;
+}
+#check {
+  text-align: center;
+  margin-top: 20px;
+}
 
-    .main-input input:focus{
-        border-bottom: 3px solid #f59f00;
-    }
+.enter_exam1 .next:hover {
+  background-color: #e67700;
+  border-bottom: 3px solid #f59f00 !important;
+  transform: scale(1.2);
+}
+.teacher-next:hover {
+  background-color: #e67700;
+  border-bottom: 3px solid #f59f00 !important;
+  transform: scale(1.2);
+}
+/* enter_exam1 END */
 
-    .exam2-btn{
-        width: 100%;
-        height: 80px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+/* enter_exam2 START */
+.progress-icon2 img {
+  width: 53px;
+  height: 53px;
+}
+.progress-icon2 {
+  text-align: center;
+  margin-top: 5px;
+}
 
-    #lotties{
-        display: none;
-    }
-    /* enter_exam2 END */
+.main-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+.main-camera {
+  display: inline-block;
+  margin-right: 50px;
+}
 
+.next2 {
+  width: 220px;
+  height: 60px;
+  display: inline-block;
+  background-color: #f59f00;
+  font-weight: 400;
+  font-size: 25px;
+  color: #fff;
+  text-transform: capitalize;
+  padding: 12px 25px;
+  border-radius: 23px;
+  letter-spacing: 0.25px;
+  border-bottom: 3px solid #e67700 !important;
+  transition: all 0.3s;
+}
+#recapture {
+  margin: 0 40px 0 0;
+  width: 120px;
+  height: 60px;
+  display: none;
+  background-color: #4771cb;
+  font-weight: 370;
+  font-size: 26px;
+  color: #fff;
+  text-transform: capitalize;
+  border-radius: 23px;
+  letter-spacing: 0.25px;
+  border-bottom: 3px solid #33ccc5 !important;
+  transition: all 0.3s;
+}
+#recapture:hover,
+.next2:hover {
+  background-color: #e67700;
+  border-bottom: 3px solid #f59f00 !important;
+}
+.main-input {
+  display: none;
+}
+.main-input label {
+  font-size: large;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.main-input input {
+  border: none;
+  margin-left: 10px;
+  margin-top: 50px;
+  width: 200px;
+  height: 40px;
+  background-color: #f1f3f5;
+  border-bottom: 3px solid #adb5bd;
+  font-size: large;
+  text-align: center;
+}
+.main-input-name label {
+  margin-left: 88px;
+}
+.main-input-name {
+  margin-bottom: 60px;
+}
 
-    /* roomout START */
-    .roomout{
-        width: 100%;
-        height: 100%;
-        padding: 70px;
-    }
-    #roomout-text1{
-        font-size: 30px;
-        color: #37b24d;
-        font-weight: 700;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 50px;
-    }
-    .roomout-text2{
-        font-size: 27px;
-        font-weight: 700;
-        display: flex;
-        text-align: center;
-        justify-content: center;
-        margin: 100px 0 50px 0;
-        line-height: 4rem;
-    }
-    .roomout-btn{
-        display: flex;
-        justify-content: center;
-    }
+.main-input input:focus {
+  border-bottom: 3px solid #f59f00;
+}
 
-    .toAnalytics{
-        width: 210px;
-        height: 60px;
-        display: inline-block;
-        background-color: #f59f00;
-        font-weight: 400;
-        font-size: 25px;
-        color: #fff;
-        margin-top: 40px;
-        text-transform: capitalize;
-        padding: 12px 25px;
-        border-radius: 23px;
-        letter-spacing: 0.25px;
-        border-bottom: 3px solid #e67700!important;
-        transition: all .3s;
-    }
-    .toAnalytics:hover{
-        background-color: #e67700;
-        border-bottom: 3px solid #f59f00!important;
-    }
-    /* roomout END */
+.exam2-btn {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    /* roomout-success START */
-    #roomout-suc-text1{
-        font-size: 30px;
-        color: #33ccc5;
-        font-weight: 700;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 50px;
-    }
-    .roomout-suc-text2{
-        font-size: 27px;
-        font-weight: 700;
-        display: none;
-        justify-content: center;
-        text-align: center;
-        margin: 130px 0 50px 0;
-    }
-    .roomout-suc-btn{
-        display: flex;
-        justify-content: center;
-    } 
-    .roomout-success{
-        display: flex;
-        justify-content: center;
-    }
-    .fireworks{
-        display: none;
-    }
-    /* roomout-success END */
+#lotties {
+  display: none;
+}
+/* enter_exam2 END */
+
+/* roomout START */
+.roomout{
+    width: 100%;
+    height: 100%;
+    padding: 70px;
+}
+#roomout-text1{
+    font-size: 30px;
+    color: #37b24d;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+.roomout-text2{
+    font-size: 27px;
+    font-weight: 700;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin: 100px 0 50px 0;
+    line-height: 4rem;
+}
+.roomout-btn{
+    display: flex;
+    justify-content: center;
+}
+
+.toAnalytics{
+    width: 210px;
+    height: 60px;
+    display: inline-block;
+    background-color: #f59f00;
+    font-weight: 400;
+    font-size: 25px;
+    color: #fff;
+    margin-top: 40px;
+    text-transform: capitalize;
+    padding: 12px 25px;
+    border-radius: 23px;
+    letter-spacing: 0.25px;
+    border-bottom: 3px solid #e67700!important;
+    transition: all .3s;
+}
+.toAnalytics:hover{
+    background-color: #e67700;
+    border-bottom: 3px solid #f59f00!important;
+}
+/* roomout END */
+
+/* roomout-success START */
+#roomout-suc-text1{
+    font-size: 30px;
+    color: #33ccc5;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+.roomout-suc-text2{
+    font-size: 27px;
+    font-weight: 700;
+    display: none;
+    justify-content: center;
+    text-align: center;
+    margin: 130px 0 50px 0;
+}
+.roomout-suc-btn{
+    display: flex;
+    justify-content: center;
+} 
+.roomout-success{
+    display: flex;
+    justify-content: center;
+}
+.fireworks{
+    display: none;
+}
+/* roomout-success END */
+
