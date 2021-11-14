@@ -61,22 +61,15 @@
             <div class="list-wapper-text">
               <span class="animate__animated animate__rubberBand" id="list-wapper-text">{{room_name}} 공지사항</span>
             </div>
-            <div>
-              {% if page.object_list %}
-                {% for Notice in page.object_list %}
-                  <div>
-                    {{Notice.title}}
-                  </div>
-                  <div>
-                    {{Notice.description}}
-                  </div>
-                {% endfor%}
-              {% else %}
-                <div id="noroom" class="animate__animated animate__rubberBand animate__delay-0.8s">
-                    <span>공지사항이 없습니다!</span>
-                    <img src="/static/assets/images/embarrassed.png" alt="">
-                </div>
-              {%endif%}
+            <div class="notice-section">
+                <form method="POST">
+                    {% csrf_token %}
+                    <label for="">제목:
+                        <input type="text" id="title" name="title"></label>
+                    <label for="">내용:
+                        <input type="text" id="description" name="description"></label>
+                    <button type="submit">저장</button>
+                </form>
             </div>
             <div class="add-notice" onclick="location.href='/home/myclass/teacher/{{room_pk}}/makenotice'">
                 <img src="/static/assets/images/add.png" alt="">

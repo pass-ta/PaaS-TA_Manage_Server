@@ -18,6 +18,7 @@ urlpatterns = [
 
     path('myclass/teacher',ClassList_t.as_view()),         # 선생님 calss list
     path('myclass/teacher/<int:pk>',views.classDetail_t),    # 공지사항
+    path('myclass/teacher/<int:pk>/makenotice',views.makeNotice),    # 공지사항
     path('myclass/teacher/quiz',views.classDetail2_t),       # 퀴즈
     path('myclass/teacher/analytics',views.classDetail3_t),  # 통계 자료
     path('myclass/teacher/analytics/<int:pk>',views.analyticsDetail),
