@@ -62,13 +62,13 @@
               <span class="animate__animated animate__rubberBand" id="list-wapper-text">{{room_name}} 공지사항</span>
             </div>
             <div class="notice-section">
-                <form method="POST">
+                <form method="POST" id="makenotice" name="makenotice">
                     {% csrf_token %}
                     <label for="">제목:
                         <input type="text" id="title" name="title"></label>
                     <label for="">내용:
                         <input type="text" id="description" name="description"></label>
-                    <button type="submit">저장</button>
+                    <input type="submit" value="저장">
                 </form>
             </div>
             <div class="add-notice" onclick="location.href='/home/myclass/teacher/{{room_pk}}/makenotice'">

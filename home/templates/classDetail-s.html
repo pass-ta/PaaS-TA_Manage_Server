@@ -58,7 +58,23 @@
                 <div><img src="/static/assets/images/speech-bubble (1).png" alt=""  onclick="location.href='/home/myclass/student/quiz'"></div>
                 <div><img src="/static/assets/images/bar-graph (1).png" alt=""  onclick="location.href='/home/myclass/student/analytics'"></div>
             </div>
-            {{room_name}} 공지사항  {{enrol_pk}}
+            <div>
+              {% if page.object_list %}
+                {% for Notice in page.object_list %}
+                  <div>
+                    {{Notice.title}}
+                  </div>
+                  <div>
+                    {{Notice.description}}
+                  </div>
+                {% endfor%}
+              {% else %}
+                <div id="noroom" class="animate__animated animate__rubberBand animate__delay-0.8s">
+                    <span>공지사항이 없습니다!</span>
+                    <img src="/static/assets/images/embarrassed.png" alt="">
+                </div>
+              {%endif%}
+            </div>
         </div>
     </div>
 </div>

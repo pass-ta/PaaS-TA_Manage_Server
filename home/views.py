@@ -484,16 +484,17 @@ def classDetail_t(request,pk):
         return  render(request,'classDetail-t.html',res_data)
 
 def makeNotice(request,pk):
-    room_session = request.session.get('room_id')
-    room = Room.objects.get(room_id = room_session)
+    # room_session = request.session.get('room_id')
+    room = Room.objects.get(pk=pk)
     user_session = request.session.get('user')
     user = User.objects.get(pk =user_session)
 
     res_data = {}
     res_data['room_pk'] = room.pk
     res_data['room_name'] = room.room_name
-    pkk = room.pk
+    
     if request.method == 'GET':
+        print('/home/myclass/teacher'+'/'+str(pk))
         return render(request,'makenotice.html',res_data)
     elif request.method == 'POST':
         title = request.POST.get('title',None)
@@ -501,8 +502,7 @@ def makeNotice(request,pk):
 
         notice = Notice(room_id = room.room_id, writer = user.email, writername = user.username, title = title, description = description)
         notice.save()
-        print(pkk,"!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        return redirect('/home/myclass/teacher/'+pkk)
+        return redirect('/home/myclass/teacher/'+str(pk))
 
 def classDetail2_t(request):
     room_session = request.session.get('room_id')
@@ -554,6 +554,16 @@ def classDetail_s(request,pk):
     res_data = {}
     res_data['enrol_pk'] = enrol.pk
     res_data['room_name'] = room.room_name
+
+    page = request.GET.get("page",1)
+    notice_list = models.Notice.objects.filter(room_id = room.room_id).order_by('-make_date')
+    paginator = Paginator(notice_list,10,orphans=5)
+    try:
+        notice = paginator.page(int(page))
+    except EmptyPage:
+        pass
+    res_data["page"] = notice
+    
     if request.method == 'GET':
         return render(request,'classDetail-s.html',res_data)
     elif request.method == 'POST':
