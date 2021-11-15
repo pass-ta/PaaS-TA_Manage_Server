@@ -124,7 +124,7 @@
             success: function (data){
                 if (data['result'] == "teacher"){
                     alert("복습 퀴즈가 생성되었습니다.");
-                    document.location.href='enterclass/teacher';
+                    window.location.href='/home/enterclass/teacher';
                     return;
                 }else if (data['result'] == "student"){
                     alert("복습 퀴즈가 생성되었습니다.");

@@ -4,7 +4,8 @@ from django.shortcuts import redirect, render
 from django.core.files.storage import FileSystemStorage
 from home import models
 from main.models import User
-import string, random
+import string
+import random
 from django.core.paginator import Paginator, EmptyPage
 
 from home.models import Enrol, Notice, Room, Analytics
@@ -50,7 +51,7 @@ def home(request):
         print(user.image)
         res_data['userimg'] = fs.url(user.image)
 
-        print(res_data['userimg'],"!!!!!!!!!!!!!!!!!!!!")
+        print(res_data['userimg'], "!!!!!!!!!!!!!!!!!!!!")
 
         if res_data['userimg'] == "/media/face-recognition.png":               # 이미지 체크
             res_data['img_check'] = 0                      # 이미지 널
@@ -257,8 +258,9 @@ def teacher(request):
             useremail = user.email
             roomowner = room.maker
             nickname = user.username
-            url = 'https://pedantic-einstein-75bdbe.netlify.app/'+roomid+'/'+useremail+'/'+roomowner+'/'+nickname+'/'+"teacher"
-            return redirect (url)
+            url = 'https://pedantic-einstein-75bdbe.netlify.app/'+roomid + \
+                '/'+useremail+'/'+roomowner+'/'+nickname+'/'+"teacher"
+            return redirect(url)
     else:
         return redirect('/login')
 
@@ -288,11 +290,11 @@ def student1(request):
         if request.method == 'GET':
             return render(request, 'enter_student1.html', res_data)
         elif request.method == 'POST':
-            #if user.check == True:
-                return redirect('/home/enterclass/student2')
-            #else:
-                #res_data['check'] = "차단이 완료되지 않았습니다."
-                #return render(request, 'enter_student1.html', res_data)
+            # if user.check == True:
+            return redirect('/home/enterclass/student2')
+            # else:
+            #res_data['check'] = "차단이 완료되지 않았습니다."
+            # return render(request, 'enter_student1.html', res_data)
     else:
         return redirect('/login')
 
@@ -425,7 +427,7 @@ def student3(request):
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
-        
+
         # room = Room(room_id=room_id,room_password=room_password,room_name=room_name,
         #                     file=file,maker=maker, member_list = member_list)  # db에 room 정보 저장
         #         room.save()
@@ -437,10 +439,14 @@ def student3(request):
             room = Room.objects.get(room_id=room_session)
 
             try:
-                enrol = Enrol.objects.get(email=user.email, room_id = room.room_id)  # 수강 목록을 살펴 보고
-            except Enrol.DoesNotExist:                                               # 없으면 등록에 추가(중복 방지)
-                enrol = Enrol(email=user.email, room_id = room.room_id, room_password = room.room_password, room_name = room.room_name) # 방 입장하면 학생의 수강 list를 위해
-                enrol.save()                                                                                                            # enrol에 추가
+                enrol = Enrol.objects.get(
+                    email=user.email, room_id=room.room_id)  # 수강 목록을 살펴 보고
+            # 없으면 등록에 추가(중복 방지)
+            except Enrol.DoesNotExist:
+                enrol = Enrol(email=user.email, room_id=room.room_id, room_password=room.room_password,
+                              room_name=room.room_name)  # 방 입장하면 학생의 수강 list를 위해
+                # enrol에 추가
+                enrol.save()
 
             roomid = room.room_id
             roomname = room.room_name
@@ -448,30 +454,36 @@ def student3(request):
             roomowner = room.maker
             nickname = user.username
 
-            url = 'https://pedantic-einstein-75bdbe.netlify.app/'+roomid+'/'+useremail+'/'+roomowner+'/'+nickname+'/'+"student"
-                # 룸 네임, user email, room owner , nickname, string
-            return redirect (url)
+            url = 'https://pedantic-einstein-75bdbe.netlify.app/'+roomid + \
+                '/'+useremail+'/'+roomowner+'/'+nickname+'/'+"student"
+            # 룸 네임, user email, room owner , nickname, string
+            return redirect(url)
     else:
         return redirect('/login')
+
 
 class ClassList_t(ListView):
     model = Room
     template_name = 'myClass_t.html'
+
     def get_queryset(self):    # roomlist를 보여줄 queryset 특정
         # session에 저장되어 있는 email과 room의 maker가 같은 것만 queryset에 넣음
-        QuerySet = Room.objects.filter(maker = self.request.session.get('user_email')).order_by('-make_date')
+        QuerySet = Room.objects.filter(
+            maker=self.request.session.get('user_email')).order_by('-make_date')
         return QuerySet
 
-def classDetail_t(request,pk):
-    room = Room.objects.get(pk = pk)
+
+def classDetail_t(request, pk):
+    room = Room.objects.get(pk=pk)
     request.session['room_id'] = room.room_id
     res_data = {}
     res_data['room_pk'] = room.pk
     res_data['room_name'] = room.room_name
 
-    page = request.GET.get("page",1)
-    notice_list = models.Notice.objects.filter(room_id = room.room_id).order_by('-make_date')
-    paginator = Paginator(notice_list,10,orphans=5)
+    page = request.GET.get("page", 1)
+    notice_list = models.Notice.objects.filter(
+        room_id=room.room_id).order_by('-make_date')
+    paginator = Paginator(notice_list, 10, orphans=5)
     try:
         notice = paginator.page(int(page))
     except EmptyPage:
@@ -479,112 +491,124 @@ def classDetail_t(request,pk):
     res_data["page"] = notice
 
     if request.method == 'GET':
-        return render(request,'classDetail-t.html',res_data)
+        return render(request, 'classDetail-t.html', res_data)
     elif request.method == 'POST':
-        return  render(request,'classDetail-t.html',res_data)
+        return render(request, 'classDetail-t.html', res_data)
 
-def makeNotice(request,pk):
+
+def makeNotice(request, pk):
     room_session = request.session.get('room_id')
-    room = Room.objects.get(room_id = room_session)
+    room = Room.objects.get(room_id=room_session)
     user_session = request.session.get('user')
-    user = User.objects.get(pk =user_session)
+    user = User.objects.get(pk=user_session)
 
     res_data = {}
     res_data['room_pk'] = room.pk
     res_data['room_name'] = room.room_name
     pkk = room.pk
     if request.method == 'GET':
-        return render(request,'makenotice.html',res_data)
+        return render(request, 'makenotice.html', res_data)
     elif request.method == 'POST':
-        title = request.POST.get('title',None)
-        description = request.POST.get('description',None)
+        title = request.POST.get('title', None)
+        description = request.POST.get('description', None)
 
-        notice = Notice(room_id = room.room_id, writer = user.email, writername = user.username, title = title, description = description)
+        notice = Notice(room_id=room.room_id, writer=user.email,
+                        writername=user.username, title=title, description=description)
         notice.save()
-        print(pkk,"!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print(pkk, "!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         return redirect('/home/myclass/teacher/'+pkk)
+
 
 def classDetail2_t(request):
     room_session = request.session.get('room_id')
-    room = Room.objects.get(room_id = room_session)
-   
+    room = Room.objects.get(room_id=room_session)
+
     res_data = {}
     res_data['room_pk'] = room.pk
     res_data['room_name'] = room.room_name
     if request.method == 'GET':
-        return render(request,'classDetail2-t.html',res_data)
+        return render(request, 'classDetail2-t.html', res_data)
     elif request.method == 'POST':
-        return  render(request,'classDetail2-t.html',res_data)
-        
+        return render(request, 'classDetail2-t.html', res_data)
+
+
 def classDetail3_t(request):
     room_session = request.session.get('room_id')
     user_session = request.session.get('user')
     user = User.objects.get(pk=user_session)
-    room = Room.objects.get(room_id = room_session)
-    
+    room = Room.objects.get(room_id=room_session)
+
     res_data = {}
     res_data['room_pk'] = room.pk
     res_data['room_name'] = room.room_name
 
-    page = request.GET.get("page",1)
-    analytics_list = models.Analytics.objects.filter(room_id = room.room_id).order_by('username')
-    paginator = Paginator(analytics_list,10,orphans=5)
+    page = request.GET.get("page", 1)
+    analytics_list = models.Analytics.objects.filter(
+        room_id=room.room_id).order_by('username')
+    paginator = Paginator(analytics_list, 10, orphans=5)
     try:
         analytics = paginator.page(int(page))
     except EmptyPage:
         pass
     res_data["page"] = analytics
     if request.method == 'GET':
-        return render(request,'classDetail3-t.html',res_data)
+        return render(request, 'classDetail3-t.html', res_data)
     elif request.method == 'POST':
-        return  render(request,'classDetail3-t.html',res_data)
+        return render(request, 'classDetail3-t.html', res_data)
+
 
 class ClassList_s(ListView):
     model = Enrol
     template_name = 'myClass_s.html'
+
     def get_queryset(self):    # roomlist를 보여줄 queryset 특정
         # session에 저장되어 있는 email과 room의 maker가 같은 것만 queryset에 넣음
-        QuerySet = Enrol.objects.filter(email = self.request.session.get('user_email')).order_by('-make_date')
+        QuerySet = Enrol.objects.filter(
+            email=self.request.session.get('user_email')).order_by('-make_date')
         return QuerySet
 
-def classDetail_s(request,pk):
+
+def classDetail_s(request, pk):
     enrol = Enrol.objects.get(pk=pk)
-    room = Room.objects.get(room_id = enrol.room_id)
+    room = Room.objects.get(room_id=enrol.room_id)
     request.session['room_id'] = room.room_id
     res_data = {}
     res_data['enrol_pk'] = enrol.pk
     res_data['room_name'] = room.room_name
     if request.method == 'GET':
-        return render(request,'classDetail-s.html',res_data)
+        return render(request, 'classDetail-s.html', res_data)
     elif request.method == 'POST':
-        return  render(request,'classDetail-s.html',res_data)
+        return render(request, 'classDetail-s.html', res_data)
+
 
 def classDetail2_s(request):
     room_session = request.session.get('room_id')
-    room = Room.objects.get(room_id = room_session)
-    enrol = Enrol.objects.get(room_id = room_session)
+    room = Room.objects.get(room_id=room_session)
+    enrol = Enrol.objects.get(room_id=room_session)
     res_data = {}
     res_data['enrol_pk'] = enrol.pk
     res_data['room_name'] = room.room_name
     if request.method == 'GET':
-        return render(request,'classDetail2-s.html',res_data)
+        return render(request, 'classDetail2-s.html', res_data)
     elif request.method == 'POST':
-        return  render(request,'classDetail2-s.html',res_data)
-        
+        return render(request, 'classDetail2-s.html', res_data)
+
+
 def classDetail3_s(request):
     room_session = request.session.get('room_id')
     user_session = request.session.get('user')
     user = User.objects.get(pk=user_session)
-    room = Room.objects.get(room_id = room_session)
-    enrol = Enrol.objects.get(room_id = room_session)
+    room = Room.objects.get(room_id=room_session)
+    enrol = Enrol.objects.get(room_id=room_session)
     res_data = {}
     res_data['enrol_pk'] = enrol.pk
     res_data['room_name'] = room.room_name
 
-    page = request.GET.get("page",1)
-    print(user.email , enrol.room_id, "!!!!!!!!!!!!!!!!!!!!")
-    analytics_list = models.Analytics.objects.filter(email = user.email ,room_id = enrol.room_id ).order_by('-make_date')
-    paginator = Paginator(analytics_list,10,orphans=5)
+    page = request.GET.get("page", 1)
+    print(user.email, enrol.room_id, "!!!!!!!!!!!!!!!!!!!!")
+    analytics_list = models.Analytics.objects.filter(
+        email=user.email, room_id=enrol.room_id).order_by('-make_date')
+    paginator = Paginator(analytics_list, 10, orphans=5)
     try:
         analytics = paginator.page(int(page))
     except EmptyPage:
@@ -592,13 +616,14 @@ def classDetail3_s(request):
     res_data["page"] = analytics
 
     if request.method == 'GET':
-        return render(request,'classDetail3-s.html',res_data)
+        return render(request, 'classDetail3-s.html', res_data)
     elif request.method == 'POST':
-        return  render(request,'classDetail3-s.html',res_data)
+        return render(request, 'classDetail3-s.html', res_data)
 
-def analyticsDetail(request,pk):
+
+def analyticsDetail(request, pk):
     analytics = Analytics.objects.get(pk=pk)
-    res_data={}
+    res_data = {}
     fs = FileSystemStorage()
     user_session = request.session.get('user')
     if user_session:
@@ -615,33 +640,35 @@ def analyticsDetail(request,pk):
         else:
             res_data['img_check'] = 1
 
-        #chartdata 선언
+        # chartdata 선언
         dataSource = OrderedDict()
-        dataSource["data"] = [] #chartdata는 json형식이다.
+        dataSource["data"] = []  # chartdata는 json형식이다.
         dataSource["data"].append({"label": '앱 차단', "value": analytics.app})
         dataSource["data"].append({"label": '자리이탈', "value": analytics.person})
         dataSource["data"].append({"label": '퀴즈', "value": analytics.time})
 
         chartConfig = OrderedDict()
-        chartConfig["caption"] = "집중도 통계"  
+        chartConfig["caption"] = "집중도 통계"
         chartConfig["yAxisName"] = "점수"
-        chartConfig["numberSuffix"] = "점" #y축 숫자단위
-        chartConfig["theme"] = "fusion" #테마
+        chartConfig["numberSuffix"] = "점"  # y축 숫자단위
+        chartConfig["theme"] = "fusion"  # 테마
 
-        dataSource["chart"] = chartConfig # 그래프 특징 설정
+        dataSource["chart"] = chartConfig  # 그래프 특징 설정
 
-        column2D = FusionCharts("column2d", "myFirstChart", "500", "400", "chart-1", "json", dataSource)
+        column2D = FusionCharts(
+            "column2d", "myFirstChart", "500", "400", "chart-1", "json", dataSource)
         res_data['output'] = column2D.render()
 
         res_data['count'] = analytics.count
         res_data['rate'] = analytics.rate
         res_data['level'] = analytics.level
         if request.method == 'GET':
-            return render(request,'analyticsDetail.html',res_data)
+            return render(request, 'analyticsDetail.html', res_data)
         elif request.method == 'POST':
-            return  render(request,'analyticsDetail.html',res_data)
+            return render(request, 'analyticsDetail.html', res_data)
     else:
         return redirect('/login')
+
 
 def classOut_t(request):
     res_data = {}
@@ -665,6 +692,7 @@ def classOut_t(request):
         elif request.method == 'POST':
             return redirect('/home')
 
+
 def classOut_s(request):
     res_data = {}
     fs = FileSystemStorage()
@@ -678,8 +706,8 @@ def classOut_s(request):
         res_data['userimg'] = fs.url(user.image)
         res_data['role'] = user.role
 
-        room = Room.objects.get(room_id = room_session)
-        users = User.objects.get(email = room.maker)
+        room = Room.objects.get(room_id=room_session)
+        users = User.objects.get(email=room.maker)
         res_data['maker'] = users.username
         res_data['maker']
 
@@ -691,11 +719,11 @@ def classOut_s(request):
         if request.method == 'GET':
             return render(request, 'roomout.html', res_data)
         elif request.method == 'POST':
-            if user.check== False:
+            if user.check == False:
                 return redirect('/home/makequiz')
             else:
                 res_data['check'] = "차단 해제가 완료되지 않았습니다."
-                return render(request,'roomout.html',res_data)
+                return render(request, 'roomout.html', res_data)
     else:
         return redirect('/login')
 
@@ -714,7 +742,7 @@ def student_quiz(request):
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
 
-        #room을 만든 사람 username 가져오기
+        # room을 만든 사람 username 가져오기
         room_session = request.session.get('room_id')
         room = Room.objects.get(room_id=room_session)
         room_maker = User.objects.get(email=room.maker)
@@ -725,7 +753,8 @@ def student_quiz(request):
             # 룸ID 받아오기
             # room_session = request.session.get('room_id')
             # print(room_session)
-            past_class = Enrol.objects.filter(email=user.email).order_by('-make_date')
+            past_class = Enrol.objects.filter(
+                email=user.email).order_by('-make_date')
             print(past_class)
             quiz = Quiz.objects.filter(room_id=past_class[0].room_id)
 
@@ -781,6 +810,7 @@ def student_quiz(request):
     else:
         return redirect('/login')
 
+
 @csrf_exempt
 def teacher_quiz(request):
 
@@ -795,7 +825,7 @@ def teacher_quiz(request):
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
 
-        #room을 만든 사람 username 가져오기
+        # room을 만든 사람 username 가져오기
         room_session = request.session.get('room_id')
         room = Room.objects.get(room_id=room_session)
         room_maker = User.objects.get(email=room.maker)
@@ -809,11 +839,9 @@ def teacher_quiz(request):
 
             quiz_all = Quiz.objects.filter(room_id=room.room_id)
 
-            # 학생 복습퀴즈시 자신이 낸 문제는 제외
-
             for i in quiz_all:
                 if(i.maker == room.maker):
-                    quiz=i
+                    quiz = i
 
             print(quiz)
 
@@ -826,8 +854,8 @@ def teacher_quiz(request):
             res_data['id'] = quiz.id
             res_data['room_name'] = room.room_name
             print(room.room_name)
-            
-            return render(request, 'teaherquiz.html', res_data)
+
+            return render(request, 'teacherquiz.html', res_data)
         elif request.method == 'POST':
             info = {}
 
@@ -867,7 +895,7 @@ def make_quiz(request):
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
 
-        #room을 만든 사람 username 가져오기
+        # room을 만든 사람 username 가져오기
         room_session = request.session.get('room_id')
         room = Room.objects.get(room_id=room_session)
         room_maker = User.objects.get(email=room.maker)
@@ -886,11 +914,15 @@ def make_quiz(request):
             answer = request.POST.get('answer')
             print(question)
 
-            # if not(question):
-            #     res_data['question_error'] = '질문을 작성해주세요.'
-            # elif (not(item1) or not(item2)or not(item3) or not(item4)):
-            #     res_data['content_error'] = '모든 문항을 작성해주세요.'
+            # 나의 기존 퀴즈 삭제
+            quiz_all = Quiz.objects.filter(room_id=room.room_id)
 
+            for i in quiz_all:
+                if(i.maker == room.maker):
+                    myquiz = i
+
+            if(myquiz != "NULL"):
+                myquiz.delete()
 
             quiz = Quiz(room_id=room.room_id, maker=user, question=question,
                         item1=item1, item2=item2, item3=item3, item4=item4, answer=answer)
