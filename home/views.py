@@ -241,6 +241,7 @@ def teacher(request):
         res_data['email'] = user.email
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
+        res_data['role'] = user.role
 
         if res_data['userimg'] == "/media/":               # 이미지 체크
             res_data['img_check'] = 0

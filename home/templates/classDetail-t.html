@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/static/assets/css/makeroom.css">
     <link rel="stylesheet" href="/static/assets/css/enterroom.css?after">
     <link rel="stylesheet" href="/static/assets/css/classDetail-t.css?after">
-    <link rel="stylesheet" href="/static/assets/css/list.css">
+    <link rel="stylesheet" href="/static/assets/css/list.css?after">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="/static/assets/css/classList.css">
     <link rel="stylesheet" href="/static/assets/css/notice.css">
@@ -63,7 +63,7 @@
               <div class="list-wapper-text">
                 <span class="animate__animated animate__rubberBand" id="list-wapper-text">{{room_name}} 공지사항</span>
               </div>
-              <div>
+              <div class="notice-list">
                 {% if page.object_list %}
                   <div class="noticeList-caption">
                     <span class="num">번호</span><span class="title-text" id="title-text">제목</span><span class="date-text" id="date-text">작성일</span>

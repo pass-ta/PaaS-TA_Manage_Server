@@ -97,7 +97,10 @@
     border-radius: 5px;
     font-size: 17px;
 }
-
+.notice-list{
+    width: 100%;
+    height: 100%;
+}
 .noticeList{
     width: 100%;
     padding: 10px;
