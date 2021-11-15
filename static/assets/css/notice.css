@@ -140,14 +140,53 @@
 
 /* START classDetail-Detail */
 .notice-detail{
+    width: 100%;
     font-size: 20px;
 }
 .detail-title{
     box-shadow: 0 0 50% black;
+    margin: 30px 0 10px 250px;
+}
+.detail-date{
+    margin-left: 250px;
+    margin-bottom: 30px;
 }
 
 .detail-title-main{
     font-size: 20px;
     font-weight: 600;
+    margin-left: 20px;
+}
+.detail-writername{
+    margin-left: 250px;
+    margin-bottom: 10px;
+}
+.detail-name-main{
+    margin-left: 20px;
+}
+.detail-date-main{
+    margin-left: 20px;
+}
+.detail-description{
+    border-top: 1px solid black;
+}
+.detail-content{
+    padding: 50px 80px 50px 80px;
+}
+
+#back-noticeDetail{
+    position: absolute;
+    left: 20px;
+    top: 10px;
+}
+.forborder{
+    border-bottom: 1px solid #868e96;
+}
+#list-wapper-textt{
+    text-align: center;
+    color: #37b24d;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 20px 0 20px 0;
 }
 /* END classDetail-Detail */

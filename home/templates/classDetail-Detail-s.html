@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/static/assets/css/list.css">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="/static/assets/css/classList.css">
-    <link rel="stylesheet" href="/static/assets/css/notice.css">
+    <link rel="stylesheet" href="/static/assets/css/notice.css?after">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="/static/assets/css/owl.css">
 </head>
@@ -55,26 +55,29 @@
     <div class="main">
         <div class="inner">
             <div class="noticeList-wapper">
+                <img src="/static/assets/images/previous.png" alt="" class="back" id="back-noticeDetail" onclick="location.href='/home/myclass/student/{{enrol_pk}}'" >
               <div class="img-menu">
                   <div><img src="/static/assets/images/bell.png" alt="" onclick="location.href='/home/myclass/student/{{enrol_pk}}'"></div>
                   <div><img src="/static/assets/images/speech-bubble (1).png" alt=""  onclick="location.href='/home/myclass/student/quiz'"></div>
                   <div><img src="/static/assets/images/bar-graph (1).png" alt=""  onclick="location.href='/home/myclass/student/analytics'"></div>
               </div>
-              <div class="list-wapper-text">
-                <span class="animate__animated animate__rubberBand" id="list-wapper-text">{{room_name}} 공지사항</span>
+              <div class="forborder">
+                  <div class="list-wapper-text">
+                    <span class="animate__animated animate__rubberBand" id="list-wapper-textt">{{room_name}} 공지사항</span>
+                  </div>
               </div>
               <div class="notice-detail">
                   <div class="detail-title">
-                    <span >제목:</span> <span class="detail-title-main">{{title}}</span>
+                    <span >제목:</span> <span class="detail-title-main">&nbsp;{{title}}</span>
                   </div>
                   <div class="detail-writername">
-                    <span>작성자:</span> <span>{{writername}}</span>
+                    <span>작성자:</span> <span class="detail-name-main">&nbsp;{{writername}}</span>
                   </div>
                   <div class="detail-date">
-                    <span>작성일:</span> <span>{{date}}</span>
+                    <span>작성일:</span> <span class="detail-date-main">&nbsp;{{date}}</span>
                   </div>
                   <div class="detail-description">
-                    {{description}}
+                    <div class="detail-content">{{description}}</div>
                   </div>
               </div>
             </div>

@@ -490,14 +490,11 @@ def classDetail_Detail_t(request,pk,pkk):
     res_data['room_pk'] = room.pk
     res_data['room_name'] = room.room_name
 
-    page = request.GET.get("page",1)
-    notice_list = models.Notice.objects.filter(room_id = room.room_id).order_by('-make_date')
-    paginator = Paginator(notice_list,100,orphans=5)
-    try:
-        notice = paginator.page(int(page))
-    except EmptyPage:
-        pass
-    res_data["page"] = notice
+    notice = Notice.objects.get(pk =pkk, room_id = room.room_id)
+    res_data['title'] = notice.title
+    res_data['description'] = notice.description
+    res_data['writername'] = notice.writername
+    res_data['date'] = notice.make_date
 
     if request.method == 'GET':
         return render(request,'classDetail-Detail-t.html',res_data)
