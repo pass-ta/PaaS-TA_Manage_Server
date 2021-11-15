@@ -63,22 +63,19 @@
               <div class="list-wapper-text">
                 <span class="animate__animated animate__rubberBand" id="list-wapper-text">{{room_name}} 공지사항</span>
               </div>
-              <div>
-                {% if page.object_list %}
-                  <div class="noticeList-caption">
-                    <span class="num">번호</span><span class="title-text" id="title-text">제목</span><span class="date-text" id="date-text">작성일</span>
+              <div class="notice-detail">
+                  <div class="detail-title">
+                    <span >제목:</span> <span class="detail-title-main">{{title}}</span>
                   </div>
-                  {% for Notice in page.object_list %}
-                    <div class="noticeList" onclick="location.href='/home/myclass/student/{{enrol_pk}}/{{Notice.pk}}'">
-                      <span class="num">{{Notice.pk}}</span><span class="title-text">{{Notice.title}}</span><span class="date-text">{{Notice.make_date|date:'Y년 n월 j일 G:i'}}</span>
-                    </div>
-                  {% endfor%}
-                {% else %}
-                  <div id="noroom" class="animate__animated animate__rubberBand animate__delay-0.8s">
-                      <span>공지사항이 없습니다!</span>
-                      <img src="/static/assets/images/embarrassed.png" alt="">
+                  <div class="detail-writername">
+                    <span>작성자:</span> <span>{{writername}}</span>
                   </div>
-                {%endif%}
+                  <div class="detail-date">
+                    <span>작성일:</span> <span>{{date}}</span>
+                  </div>
+                  <div class="detail-description">
+                    {{description}}
+                  </div>
               </div>
             </div>
         </div>

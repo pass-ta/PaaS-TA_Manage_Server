@@ -137,3 +137,17 @@
 #date-text{
     text-align: center;
 }
+
+/* START classDetail-Detail */
+.notice-detail{
+    font-size: 20px;
+}
+.detail-title{
+    box-shadow: 0 0 50% black;
+}
+
+.detail-title-main{
+    font-size: 20px;
+    font-weight: 600;
+}
+/* END classDetail-Detail */
