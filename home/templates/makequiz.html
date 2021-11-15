@@ -124,10 +124,12 @@
             success: function (data){
                 if (data['result'] == "teacher"){
                     alert("복습 퀴즈가 생성되었습니다.");
-                    document.location.href='/home/enter_teacher';
+                    document.location.href='enterclass/teacher';
                     return;
                 }else if (data['result'] == "student"){
                     alert("복습 퀴즈가 생성되었습니다.");
+                    window.location.href = '/home/teacherquiz'
+                    return;
                 }
                 else if (data['result'] == "no"){
                     alert("실패");

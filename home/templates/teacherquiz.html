@@ -53,10 +53,9 @@
       <div class="inner">
         <div class="solve_quiz">
 
-                <span class="animate__animated animate__rubberBand" id="quiz-text">Review Quiz ({{room_name}})</span>
+                <span class="animate__animated animate__rubberBand" id="quiz-text">Today's Review Quiz</span>
                 <div class="quiz_content">
                    <div class="id" id="id" value="{{id}}">{{id}}</div>
-                    <div class="maker">{{maker}} 님이 생성한 복습 퀴즈</div>
                     <div class="question">Q. {{question}}</div>
                     <div class= "radio_button">
                         <div>
@@ -123,7 +122,7 @@
         }
         $.ajax({                       
             type: 'POST',
-            url: '/home/quiz',
+            url: '/home/teaherquiz',
             data: { 'check' : radio_btn[check].value,
                     'id' : id.innerHTML },
             success: function (data){
@@ -133,7 +132,7 @@
                     },0)
                     setTimeout(function(){
                       correct_lotties.style.display='none'
-                      window.location.href = '/home/enterclass/student3'
+                    //  window.location.href = 'classout/student'
                     },1800)
                     //alert("정답입니다!");
                 }else if (data['result'] == "no"){
@@ -146,7 +145,7 @@
                       console.log(count_retry);
                       if(count_retry==3){
                         alert('정답은 ' + data['answer']+'번입니다.');
-                        window.location.href = '/home/enterclass/student3'
+                       // window.location.href = '/home/enterclass/student3'
                       }
                     },1800)
                 }

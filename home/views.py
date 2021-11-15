@@ -288,11 +288,11 @@ def student1(request):
         if request.method == 'GET':
             return render(request, 'enter_student1.html', res_data)
         elif request.method == 'POST':
-            if user.check == True:
+            #if user.check == True:
                 return redirect('/home/enterclass/student2')
-            else:
-                res_data['check'] = "차단이 완료되지 않았습니다."
-                return render(request, 'enter_student1.html', res_data)
+            #else:
+                #res_data['check'] = "차단이 완료되지 않았습니다."
+                #return render(request, 'enter_student1.html', res_data)
     else:
         return redirect('/login')
 
@@ -692,7 +692,7 @@ def classOut_s(request):
             return render(request, 'roomout.html', res_data)
         elif request.method == 'POST':
             if user.check== False:
-                return redirect('/home/roomout/student/makequiz')
+                return redirect('/home/makequiz')
             else:
                 res_data['check'] = "차단 해제가 완료되지 않았습니다."
                 return render(request,'roomout.html',res_data)
@@ -701,7 +701,7 @@ def classOut_s(request):
 
 
 @csrf_exempt
-def quiz(request):
+def student_quiz(request):
 
     res_data = {}
     fs = FileSystemStorage()
@@ -712,26 +712,28 @@ def quiz(request):
         res_data['username'] = user.username        # mypage 정보
         res_data['email'] = user.email
         res_data['register'] = user.registerd_date
-        #res_data['userimg'] = fs.url(user.image)
+        res_data['userimg'] = fs.url(user.image)
 
-        # room을 만든 사람 username 가져오기
-        # room_session = request.session.get('room_id')
-        # room = Room.objects.get(room_id=room_session)
-        # room_maker = User.objects.get(email=room.maker)
-        # res_data['room_maker'] = room_maker.username
+        #room을 만든 사람 username 가져오기
+        room_session = request.session.get('room_id')
+        room = Room.objects.get(room_id=room_session)
+        room_maker = User.objects.get(email=room.maker)
+        res_data['room_maker'] = room_maker.username
 
         if request.method == 'GET':
 
             # 룸ID 받아오기
             # room_session = request.session.get('room_id')
             # print(room_session)
-            quiz = Quiz.objects.filter(room_id='12')
+            past_class = Enrol.objects.filter(email=user.email).order_by('-make_date')
+            print(past_class)
+            quiz = Quiz.objects.filter(room_id=past_class[0].room_id)
 
             # 학생 복습퀴즈시 자신이 낸 문제는 제외
-            except_quiz = []
 
+            except_quiz = []
             for i in quiz:
-                if(i.maker != user.email):
+                if(i.maker != user.email and i.maker != room_maker):
                     except_quiz.append(i)
 
             print(except_quiz)
@@ -742,20 +744,98 @@ def quiz(request):
 
             maker = except_quiz[random_num-1].maker
             quiz_ower = User.objects.get(email=maker)
+            room_id = except_quiz[random_num-1].room_id
+            room = Room.objects.get(room_id=room_id)
             res_data['question'] = except_quiz[random_num-1].question
             res_data['item1'] = except_quiz[random_num-1].item1
             res_data['item2'] = except_quiz[random_num-1].item2
             res_data['item3'] = except_quiz[random_num-1].item3
             res_data['item4'] = except_quiz[random_num-1].item4
             res_data['maker'] = quiz_ower.username
+            res_data['id'] = except_quiz[random_num-1].id
+            res_data['room_name'] = room.room_name
+            print(room.room_name)
             return render(request, 'quiz.html', res_data)
         elif request.method == 'POST':
             info = {}
 
             answer = request.POST.get('check')
-            print(answer)
+            id = request.POST.get('id')
+            print(id)
             try:
-                quiz = Quiz.objects.get(room_id='12')
+                quiz = Quiz.objects.get(id=id)
+            except Quiz.DoesNotExist:
+                return messages.warning(request, '존재 하는 Class가 없습니다.')
+
+            quiz_answer = quiz.answer
+            print(quiz_answer)
+
+            if answer == str(quiz_answer):
+                info['result'] = "yes"
+            elif answer != str(quiz_answer):
+                info['answer'] = quiz_answer
+                info['result'] = "no"
+
+            return JsonResponse(info)
+
+    else:
+        return redirect('/login')
+
+@csrf_exempt
+def teacher_quiz(request):
+
+    res_data = {}
+    fs = FileSystemStorage()
+    user_session = request.session.get('user')
+
+    if user_session:
+        user = User.objects.get(pk=user_session)    # 로그인 체크
+        res_data['username'] = user.username        # mypage 정보
+        res_data['email'] = user.email
+        res_data['register'] = user.registerd_date
+        res_data['userimg'] = fs.url(user.image)
+
+        #room을 만든 사람 username 가져오기
+        room_session = request.session.get('room_id')
+        room = Room.objects.get(room_id=room_session)
+        room_maker = User.objects.get(email=room.maker)
+        res_data['room_maker'] = room_maker.username
+
+        if request.method == 'GET':
+
+            # 룸ID 받아오기
+            # room_session = request.session.get('room_id')
+            # print(room_session)
+
+            quiz_all = Quiz.objects.filter(room_id=room.room_id)
+
+            # 학생 복습퀴즈시 자신이 낸 문제는 제외
+
+            for i in quiz_all:
+                if(i.maker == room.maker):
+                    quiz=i
+
+            print(quiz)
+
+            res_data['question'] = quiz.question
+            res_data['item1'] = quiz.item1
+            res_data['item2'] = quiz.item2
+            res_data['item3'] = quiz.item3
+            res_data['item4'] = quiz.item4
+            res_data['maker'] = "선생님"
+            res_data['id'] = quiz.id
+            res_data['room_name'] = room.room_name
+            print(room.room_name)
+            
+            return render(request, 'teaherquiz.html', res_data)
+        elif request.method == 'POST':
+            info = {}
+
+            answer = request.POST.get('check')
+            id = request.POST.get('id')
+            print(id)
+            try:
+                quiz = Quiz.objects.get(id=id)
             except Quiz.DoesNotExist:
                 return messages.warning(request, '존재 하는 Class가 없습니다.')
 
@@ -785,13 +865,13 @@ def make_quiz(request):
         res_data['username'] = user.username        # mypage 정보
         res_data['email'] = user.email
         res_data['register'] = user.registerd_date
-       # res_data['userimg'] = fs.url(user.image)
+        res_data['userimg'] = fs.url(user.image)
 
-        # room을 만든 사람 username 가져오기
-        # room_session = request.session.get('room_id')
-        # room = Room.objects.get(room_id=room_session)
-        # room_maker = User.objects.get(email=room.maker)
-        #res_data['room_maker'] = room_maker.username
+        #room을 만든 사람 username 가져오기
+        room_session = request.session.get('room_id')
+        room = Room.objects.get(room_id=room_session)
+        room_maker = User.objects.get(email=room.maker)
+        res_data['room_maker'] = room_maker.username
 
         if request.method == 'GET':
 
@@ -811,14 +891,15 @@ def make_quiz(request):
             # elif (not(item1) or not(item2)or not(item3) or not(item4)):
             #     res_data['content_error'] = '모든 문항을 작성해주세요.'
 
-            # if(user == room_maker):
-            #     res_data['result'] = "teacher"
-            # else:
-            #     res_data['result'] = "student"
 
-            quiz = Quiz(room_id="12", maker=user, question=question,
+            quiz = Quiz(room_id=room.room_id, maker=user, question=question,
                         item1=item1, item2=item2, item3=item3, item4=item4, answer=answer)
             quiz.save()
+
+            if(user.email == room_maker.email):
+                res_data['result'] = "teacher"
+            else:
+                res_data['result'] = "student"
 
             return JsonResponse(res_data)
     else:
