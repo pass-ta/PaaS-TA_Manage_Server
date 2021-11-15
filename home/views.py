@@ -471,7 +471,7 @@ def classDetail_t(request,pk):
 
     page = request.GET.get("page",1)
     notice_list = models.Notice.objects.filter(room_id = room.room_id).order_by('-make_date')
-    paginator = Paginator(notice_list,10,orphans=5)
+    paginator = Paginator(notice_list,100,orphans=5)
     try:
         notice = paginator.page(int(page))
     except EmptyPage:
@@ -557,7 +557,7 @@ def classDetail_s(request,pk):
 
     page = request.GET.get("page",1)
     notice_list = models.Notice.objects.filter(room_id = room.room_id).order_by('-make_date')
-    paginator = Paginator(notice_list,10,orphans=5)
+    paginator = Paginator(notice_list,100,orphans=5)
     try:
         notice = paginator.page(int(page))
     except EmptyPage:

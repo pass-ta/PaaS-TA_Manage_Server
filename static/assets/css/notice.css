@@ -1,3 +1,10 @@
+::-webkit-scrollbar-thumb{
+    background: #37b24d;
+}
+::-webkit-scrollbar-thumb:hover{
+    background: #2f9e44;
+}
+
 .makenotice{
     width: 100%;
     height: 100%;
@@ -72,4 +79,61 @@
 }
 .reset-btn:hover{
     background-color: #ffd8a8;
+}
+
+
+.noticeList-wapper{
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.noticeList-caption{
+    background-color: #8B8B8B;
+    padding: 10px;
+    color: white;
+    border-bottom: 1px solid black;
+    border-radius: 5px;
+    font-size: 17px;
+}
+
+.noticeList{
+    width: 100%;
+    padding: 10px;
+    font-size: 17px;
+}
+.noticeList span{
+    display: inline-block;
+}
+.noticeList-caption span{
+    display: inline-block;
+}
+.noticeList:hover{
+    cursor: pointer;
+    background-color: #495057;
+    color: white;
+}
+.noticeList:nth-child(2n):hover{
+    background-color: #495057;
+    color: white;
+}
+.noticeList:nth-child(2n){
+    background-color: #dee2e6;
+}
+.num{
+    width: 8%;
+    text-align: center;
+}
+.title-text{
+    width: 72%;
+}
+.date-text{
+    width: 20%;
+}
+#title-text{
+    text-align: center;
+}
+#date-text{
+    text-align: center;
 }

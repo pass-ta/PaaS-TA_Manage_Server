@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/static/assets/css/list.css">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="/static/assets/css/classList.css">
+    <link rel="stylesheet" href="/static/assets/css/notice.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="/static/assets/css/owl.css">
 </head>
@@ -53,34 +54,36 @@
     <!-- ***** Header Area End ***** -->
     <div class="main">
         <div class="inner">
-            <div class="img-menu">
-                <div><img src="/static/assets/images/bell.png" alt="" onclick="location.href='/home/myclass/teacher/{{room_pk}}'"></div>
-                <div><img src="/static/assets/images/speech-bubble (1).png" alt=""  onclick="location.href='/home/myclass/teacher/quiz'"></div>
-                <div><img src="/static/assets/images/bar-graph (1).png" alt=""  onclick="location.href='/home/myclass/teacher/analytics'"></div>
-            </div>
-            <div class="list-wapper-text">
-              <span class="animate__animated animate__rubberBand" id="list-wapper-text">{{room_name}} 공지사항</span>
-            </div>
-            <div>
-              {% if page.object_list %}
-                {% for Notice in page.object_list %}
-                  <div>
-                    {{Notice.title}}
+            <div class="noticeList-wapper">
+              <div class="img-menu">
+                  <div><img src="/static/assets/images/bell.png" alt="" onclick="location.href='/home/myclass/teacher/{{room_pk}}'"></div>
+                  <div><img src="/static/assets/images/speech-bubble (1).png" alt=""  onclick="location.href='/home/myclass/teacher/quiz'"></div>
+                  <div><img src="/static/assets/images/bar-graph (1).png" alt=""  onclick="location.href='/home/myclass/teacher/analytics'"></div>
+              </div>
+              <div class="list-wapper-text">
+                <span class="animate__animated animate__rubberBand" id="list-wapper-text">{{room_name}} 공지사항</span>
+              </div>
+              <div>
+                {% if page.object_list %}
+                  <div class="noticeList-caption">
+                    <span class="num">번호</span><span class="title-text" id="title-text">제목</span><span class="date-text" id="date-text">작성일</span>
                   </div>
-                  <div>
-                    {{Notice.description}}
+                  {% for Notice in page.object_list %}
+                    <div class="noticeList">
+                      <span class="num">{{Notice.pk}}</span><span class="title-text">{{Notice.title}}</span><span class="date-text">{{Notice.make_date|date:'Y년 n월 j일 G:i'}}</span>
+                    </div>
+                  {% endfor%}
+                {% else %}
+                  <div id="noroom" class="animate__animated animate__rubberBand animate__delay-0.8s">
+                      <span>공지사항이 없습니다!</span>
+                      <img src="/static/assets/images/embarrassed.png" alt="">
                   </div>
-                {% endfor%}
-              {% else %}
-                <div id="noroom" class="animate__animated animate__rubberBand animate__delay-0.8s">
-                    <span>공지사항이 없습니다!</span>
-                    <img src="/static/assets/images/embarrassed.png" alt="">
-                </div>
-              {%endif%}
-            </div>
-            <div class="add-notice" onclick="location.href='/home/myclass/teacher/{{room_pk}}/makenotice'">
-                <img src="/static/assets/images/add.png" alt="">
-                <div><span>공지사항 추가</span></div>
+                {%endif%}
+              </div>
+              <div class="add-notice" onclick="location.href='/home/myclass/teacher/{{room_pk}}/makenotice'">
+                  <img src="/static/assets/images/add.png" alt="">
+                  <div><span>공지사항 추가</span></div>
+              </div>
             </div>
         </div>
     </div>
