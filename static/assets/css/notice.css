@@ -1,0 +1,75 @@
+.makenotice{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.title{
+    text-align: center;
+}
+.title{
+    margin: 30px 0 30px 0;
+}
+
+.title input{
+    width: 700px;
+    height: 40px;
+    background-color: #e9ecef;
+    border: 1px solid gray;
+    margin-left: 10px;
+    padding: 0 10px 0 px;
+}
+.title input:focus{
+    border: 2px solid black;
+}
+.description{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.description textarea{
+    width: 700px;
+    height:350px;
+    background-color: #e9ecef;
+    border: 1px solid gray;
+    overflow-y: scroll;
+}
+
+.descriptionLabel{
+    margin-bottom: 330px;
+    margin-right: 10px;
+}
+
+.description textarea:focus{
+    border: 2px solid black;
+}
+.makenotice-btns{
+    margin-top: 10px;
+}
+.makenotice-btns button{
+    width: 55px;
+    height: 30px;
+    border-radius: 5px;
+    margin-right: 10px;
+    background-color: white;
+    border: 1px solid black;
+}
+.save-btn{
+    margin-left: 500px;
+}
+.cancel-btn{
+    margin-left: 0px;
+}
+.reset-btn{
+    margin-left: 160px;
+}
+.save-btn:hover{
+    background-color: #b2f2bb;
+}
+.cancel-btn:hover{
+    background-color: #ffc9c9;
+}
+.reset-btn:hover{
+    background-color: #ffd8a8;
+}

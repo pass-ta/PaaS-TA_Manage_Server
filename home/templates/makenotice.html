@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/static/assets/css/list.css">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="/static/assets/css/classList.css">
+    <link rel="stylesheet" href="/static/assets/css/notice.css?after">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="/static/assets/css/owl.css">
 </head>
@@ -53,27 +54,38 @@
     <!-- ***** Header Area End ***** -->
     <div class="main">
         <div class="inner">
-            <div class="img-menu">
-                <div><img src="/static/assets/images/bell.png" alt="" onclick="location.href='/home/myclass/teacher/{{room_pk}}'"></div>
-                <div><img src="/static/assets/images/speech-bubble (1).png" alt=""  onclick="location.href='/home/myclass/teacher/quiz'"></div>
-                <div><img src="/static/assets/images/bar-graph (1).png" alt=""  onclick="location.href='/home/myclass/teacher/analytics'"></div>
-            </div>
-            <div class="list-wapper-text">
-              <span class="animate__animated animate__rubberBand" id="list-wapper-text">{{room_name}} 공지사항</span>
-            </div>
-            <div class="notice-section">
-                <form method="POST" id="makenotice" name="makenotice">
-                    {% csrf_token %}
-                    <label for="">제목:
-                        <input type="text" id="title" name="title"></label>
-                    <label for="">내용:
-                        <input type="text" id="description" name="description"></label>
-                    <input type="submit" value="저장">
-                </form>
-            </div>
-            <div class="add-notice" onclick="location.href='/home/myclass/teacher/{{room_pk}}/makenotice'">
-                <img src="/static/assets/images/add.png" alt="">
-                <div><span>공지사항 추가</span></div>
+            <div class="makenotice">
+              <div class="img-menu">
+                  <div><img src="/static/assets/images/bell.png" alt="" onclick="location.href='/home/myclass/teacher/{{room_pk}}'"></div>
+                  <div><img src="/static/assets/images/speech-bubble (1).png" alt=""  onclick="location.href='/home/myclass/teacher/quiz'"></div>
+                  <div><img src="/static/assets/images/bar-graph (1).png" alt=""  onclick="location.href='/home/myclass/teacher/analytics'"></div>
+              </div>
+              <div class="list-wapper-text">
+                <span class="animate__animated animate__rubberBand" id="list-wapper-text">{{room_name}} 공지사항</span>
+              </div>
+              <div class="notice-section">
+                  <form method="POST" id="makenotice" name="makenotice">
+                      {% csrf_token %}
+                      <div class="title">
+                        <label for="">제목:
+                            <input type="text" id="title" name="title"></label>
+                      </div>
+              
+                      <div class="description">
+                        <div class="descriptionLabel"><span >내용:</span></div>
+                        <div><textarea name="description" id="description" cols="30" rows="10"></textarea></div>
+                      </div>
+                      <div class="makenotice-btns">
+                        <button type="reset" class="reset-btn">초기화</button>
+                        <button type="submit" class="cancel-btn" onclick="location.href='/home/myclass/teacher/{{room_pk}}'">취소</button>
+                        <button type="submit" class="save-btn">저장</button>
+                      </div>
+                  </form>
+              </div>
+              <div class="add-notice" onclick="location.href='/home/myclass/teacher/{{room_pk}}/makenotice'">
+                  <img src="/static/assets/images/add.png" alt="">
+                  <div><span>공지사항 추가</span></div>
+              </div>
             </div>
         </div>
     </div>
