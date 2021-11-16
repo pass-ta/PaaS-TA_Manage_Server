@@ -28,8 +28,8 @@ class NoticeAdmin(admin.ModelAdmin):
 admin.site.register(Notice, NoticeAdmin)
 
 class QuizAdmin(admin.ModelAdmin):
-    list_display = ('id', 'maker', 'room_id', 'question',
-                    'item1', 'item2', 'item3', 'item4', 'answer')
+    list_display = ('id', 'maker','makername', 'room_id', 'question',
+                    'item1', 'item2', 'item3', 'item4', 'answer','make_date')
 
 
 admin.site.register(Quiz, QuizAdmin)

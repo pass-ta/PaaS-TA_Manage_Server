@@ -67,7 +67,8 @@ class Notice(models.Model):
 
 class Quiz(models.Model):
     id = models.AutoField(verbose_name="질문 아이디", primary_key=True)
-    maker = models.CharField(max_length=64, verbose_name='생성자', null=True)
+    maker = models.EmailField(max_length=64, verbose_name='생성자 이메일', null=True)
+    makername = models.CharField(max_length=128, verbose_name="생성자 이름",default="NULL")
     room_id = models.CharField(
         max_length=128, verbose_name="방 아이디", default=None)
     question = models.CharField(max_length=64, verbose_name='질문')
@@ -76,6 +77,8 @@ class Quiz(models.Model):
     item3 = models.CharField(max_length=128, verbose_name='질문지3')
     item4 = models.CharField(max_length=128, verbose_name='질문지4')
     answer = models.IntegerField(verbose_name='정답', default=None)
+    make_date = models.DateTimeField(auto_now_add=True, verbose_name='생성 날짜')
+
 
     def __str__(self):
         return self.question

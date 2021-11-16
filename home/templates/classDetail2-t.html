@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/static/assets/css/list.css">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="/static/assets/css/classList.css">
+    <link rel="stylesheet" href="/static/assets/css/notice.css?after?after">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="/static/assets/css/owl.css">
 </head>
@@ -53,12 +54,33 @@
     <!-- ***** Header Area End ***** -->
     <div class="main">
         <div class="inner">
+          <div class="noticeList-wapper">
             <div class="img-menu">
                 <div><img src="/static/assets/images/bell (1).png" alt="" onclick="location.href='/home/myclass/teacher/{{room_pk}}'"></div>
                 <div><img src="/static/assets/images/speech-bubble.png" alt="" onclick="location.href='/home/myclass/teacher/quiz'"></div>
                 <div><img src="/static/assets/images/bar-graph (1).png" alt="" onclick="location.href='/home/myclass/teacher/analytics'"></div>
             </div>
-            {{room_name}} 학생들 퀴즈
+            <div class="list-wapper-text">
+              <span class="animate__animated animate__rubberBand" id="list-wapper-text">{{room_name}} Quiz</span>
+            </div>
+            <div class="notice-list">
+              {% if page.object_list %}
+                <div class="noticeList-caption">
+                  <span class="numm">번호</span><span class="question-text" id="title-text">문제</span><span class="makername">생성자</span><span class="date-textt" id="date-text">생성일</span>
+                </div>
+                {% for Quiz in page.object_list %}
+                  <div class="noticeList" onclick="location.href='/home/myclass/teacher/{{room_pk}}/{{Notice.pk}}'">
+                    <span class="numm">{{Quiz.pk}}</span><span class="question-text">{{Quiz.question}}</span><span class="makername">{{Quiz.makername}}</span><span class="date-textt">{{Quiz.make_date|date:'Y년 n월 j일 G:i'}}</span>
+                  </div>
+                {% endfor%}
+              {% else %}
+                <div id="noroom" class="animate__animated animate__rubberBand animate__delay-0.8s">
+                    <span>생성된 Quiz가 없습니다!</span>
+                    <img src="/static/assets/images/embarrassed.png" alt="">
+                </div>
+              {%endif%}
+            </div>
+          </div>
         </div>
     </div>
 </div>

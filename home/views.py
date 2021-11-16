@@ -538,8 +538,19 @@ def makeNotice(request,pk):
 def classDetail2_t(request):
     room_session = request.session.get('room_id')
     room = Room.objects.get(room_id=room_session)
+    res_data={}
 
-    res_data = {}
+    page = request.GET.get("page",1)
+    quiz_list = models.Quiz.objects.filter(room_id = room.room_id).order_by('-make_date')
+    paginator = Paginator(quiz_list,100,orphans=5)
+    try:
+        quiz = paginator.page(int(page))
+    except EmptyPage:
+        pass
+    res_data["page"] = quiz
+    for i in quiz_list:
+        print(i.question,"!!!!!!!!!!!!!!!!!!!!!")
+
     res_data['room_pk'] = room.pk
     res_data['room_name'] = room.room_name
     if request.method == 'GET':
@@ -1084,7 +1095,7 @@ def make_quiz(request):
                 myquiz = Quiz.objects.get(id=id)
                 myquiz.delete()
             
-            quiz = Quiz(room_id=room.room_id, maker=user, question=question,
+            quiz = Quiz(room_id=room.room_id, maker=user.email, makername = user.username, question=question,
                         item1=item1, item2=item2, item3=item3, item4=item4, answer=answer)
             quiz.save()
 

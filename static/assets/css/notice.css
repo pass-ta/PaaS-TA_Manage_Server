@@ -134,6 +134,20 @@
 .date-text{
     width: 20%;
 }
+.numm{
+    width: 6%;
+    text-align: center;
+}
+.question-text{
+    width: 65%;
+}
+.makername{
+    width:9%;
+}
+.date-textt{
+    width: 20%;
+}
+
 #title-text{
     text-align: center;
 }
