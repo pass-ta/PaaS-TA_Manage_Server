@@ -132,7 +132,7 @@
                     },0)
                     setTimeout(function(){
                       correct_lotties.style.display='none'
-                      //window.location.href = 'classout/student'
+                      window.location.href = 'home/classout/student/analytics'
                     },1800)
                     //alert("정답입니다!");
                 }else if (data['result'] == "no"){
@@ -145,7 +145,7 @@
                       console.log(count_retry);
                       if(count_retry==3){
                         alert('정답은 ' + data['answer']+'번입니다.');
-                        //window.location.href = '/home/enterclass/student3'
+                        window.location.href = 'home/classout/student/analytics'
                       }
                     },1800)
                 }
