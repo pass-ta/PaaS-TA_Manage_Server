@@ -22,6 +22,7 @@ urlpatterns = [
     path('myclass/teacher/<int:pk>/<int:pkk>',views.classDetail_Detail_t),    # 공지사항 세부 페이지
     path('myclass/teacher/<int:pk>/makenotice',views.makeNotice),    # 공지사항 만들기
     path('myclass/teacher/quiz',views.classDetail2_t),       # 퀴즈
+    path('myclass/teacher/quiz/<int:pk>',views.classDetail2_Detail2_t),       # 퀴즈 상세보기
     path('myclass/teacher/analytics',views.classDetail3_t),  # 통계 자료
     path('myclass/teacher/analytics/<int:pk>',views.analyticsDetail),
 

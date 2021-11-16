@@ -558,6 +558,27 @@ def classDetail2_t(request):
     elif request.method == 'POST':
         return render(request, 'classDetail2-t.html', res_data)
 
+def classDetail2_Detail2_t(request,pk):
+    room_session = request.session.get('room_id')
+    room = Room.objects.get(room_id = room_session)
+    res_data = {}
+    res_data['room_pk'] = room.pk
+    res_data['room_name'] = room.room_name
+
+    quiz = Quiz.objects.get(pk =pk, room_id = room.room_id)
+    res_data['makername'] = quiz.makername
+    res_data['question'] = quiz.question
+    res_data['item1'] = quiz.item1
+    res_data['item2'] = quiz.item2
+    res_data['item3'] = quiz.item3
+    res_data['item4'] = quiz.item4
+    res_data['answer'] = quiz.answer
+    res_data['date'] = quiz.make_date
+
+    if request.method == 'GET':
+        return render(request,'classDetail2-Detail2-t.html',res_data)
+    elif request.method == 'POST':
+        return  render(request,'classDetail2-Detail2-t.html',res_data)
 
 def classDetail3_t(request):
     room_session = request.session.get('room_id')
