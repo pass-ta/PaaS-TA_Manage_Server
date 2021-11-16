@@ -690,7 +690,7 @@ def analyticsDetail(request, pk):
         dataSource["data"] = []  # chartdata는 json형식이다.
         dataSource["data"].append({"label": '앱 차단', "value": analytics.app})
         dataSource["data"].append({"label": '자리이탈', "value": analytics.person})
-        dataSource["data"].append({"label": '퀴즈', "value": analytics.time})
+        dataSource["data"].append({"label": '퀴즈', "value": analytics.quiz})
 
         chartConfig = OrderedDict()
         chartConfig["caption"] = "집중도 통계"
@@ -704,8 +704,8 @@ def analyticsDetail(request, pk):
             "column2d", "myFirstChart", "500", "400", "chart-1", "json", dataSource)
         res_data['output'] = column2D.render()
 
-        res_data['count'] = analytics.count
-        res_data['rate'] = analytics.rate
+        # res_data['count'] = analytics.count
+        # res_data['rate'] = analytics.rate
         res_data['level'] = analytics.level
         if request.method == 'GET':
             return render(request, 'analyticsDetail.html', res_data)
@@ -769,6 +769,119 @@ def classOut_s(request):
             else:
                 res_data['check'] = "차단 해제가 완료되지 않았습니다."
                 return render(request, 'roomout.html', res_data)
+    else:
+        return redirect('/login')
+
+
+def analytics(request,quiz):
+    res_data={}
+    fs = FileSystemStorage()
+    user_session = request.session.get('user')
+    room_session = request.session.get('room_id')
+    if user_session:
+        user = User.objects.get(pk=user_session)    # 로그인 체크
+        res_data['username'] = user.username        # mypage 정보
+        res_data['email'] = user.email
+        res_data['register'] = user.registerd_date
+        res_data['userimg'] = fs.url(user.image)
+        res_data['role'] = user.role
+        if res_data['userimg'] == "/media/":               # 이미지 체크
+            res_data['img_check'] = 0
+        else:
+            res_data['img_check'] = 1
+
+        analytics = Analytics.objects.filter(email = user.email,room_id = room_session).last() # 해당 class의 user의 최근 통계자료
+
+
+
+
+        # level 판별
+        appPoint = analytics.app
+        personPoint = analytics.person
+        quizPoint = 100- (quiz *10) 
+
+        if (appPoint + personPoint + quizPoint >= 299):
+            level = 10
+            list = 1
+        elif (appPoint + personPoint + quizPoint >= 270 and appPoint + personPoint + quizPoint < 299):
+            level = 9
+            list = 1
+        elif (appPoint + personPoint + quizPoint >= 240 and appPoint + personPoint + quizPoint < 270):
+            level = 8
+            list = 2
+        elif (appPoint + personPoint + quizPoint >= 210 and appPoint + personPoint + quizPoint < 240):
+            level = 7
+            list = 2
+        elif (appPoint + personPoint + quizPoint >= 180 and appPoint + personPoint + quizPoint < 210):
+            level = 6
+            list = 3
+        elif (appPoint + personPoint + quizPoint >= 150 and appPoint + personPoint + quizPoint < 180):
+            level = 5
+            list = 3
+        elif (appPoint + personPoint + quizPoint >= 120 and appPoint + personPoint + quizPoint < 150):
+            level = 4
+            list = 3
+        elif (appPoint + personPoint + quizPoint >= 90 and appPoint + personPoint + quizPoint < 120):
+            level = 3
+            list = 3
+        elif (appPoint + personPoint + quizPoint >= 60 and appPoint + personPoint + quizPoint < 90):
+            level = 2
+            list = 3
+        elif (appPoint + personPoint + quizPoint < 60 and appPoint + personPoint + quizPoint >= 30):
+            level = 1
+            list = 3
+        elif (appPoint + personPoint + quizPoint == 0 ):
+            level = 0
+            list = 3    
+        else:
+            level = 0
+            list = 3
+
+        analytics.level = level
+        analytics.list = list
+        analytics.quiz = quizPoint
+        analytics.save()
+
+
+        # # 2. rate 판별  (모두 다 나왔을때, 나오지 않았을때 고려 해야함)
+        # room_name = request.session.get('room_name')
+        # analytic = Analytics.objects.filter(room_name = room_name).order_by('-level')  #세션에 있는 room_name과 같은 통계 자료를 가져옴
+        # num = 0
+        # for x in analytic:
+        #     if x.email == user.email:
+        #         x.rate = num + 1
+        #         x.save()
+        #     else:
+        #         num = num+1
+
+        dataSource = OrderedDict()
+        dataSource["data"] = [] #chartdata는 json형식이다.
+        dataSource["data"].append({"label": '앱 차단', "value": appPoint})
+        dataSource["data"].append({"label": '자리이탈', "value": personPoint})
+        dataSource["data"].append({"label": '퀴즈점수', "value": quizPoint})
+
+        chartConfig = OrderedDict()
+        chartConfig["caption"] = "집중도 통계"  
+        chartConfig["numberSuffix"] = "점" #y축 숫자단위
+        chartConfig["theme"] = "fusion" #테마
+
+        dataSource["chart"] = chartConfig # 그래프 특징 설정
+
+        column2D = FusionCharts("column2d", "myFirstChart", "500", "400", "chart-1", "json", dataSource)
+        res_data['output'] = column2D.render() 
+
+        # analytics = Analytics.objects.filter(email = user.email).last()
+        # res_data['count'] = Analytics.objects.filter(room_name = room_name).count()
+        # analytics.count = res_data['count']
+        # analytics.save()
+        # res_data['rate'] = analytics.rate
+        res_data['level'] = analytics.level
+        res_data['analyticUser'] = analytics.username
+        del(request.session['room_id'])  # Class가 이제 끝났으니 room session 삭제!!!!
+        if request.method == 'GET':
+            return render(request,'analyticsDetail.html',res_data)
+        elif request.method == 'POST':  # 집중도에 사용할 데이터 받는 POST
+            return  render(request,'analyticsDetail.html',res_data)
     else:
         return redirect('/login')
 
@@ -940,6 +1053,7 @@ def make_quiz(request):
         res_data['email'] = user.email
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
+        res_data['role'] = user.role
 
         # room을 만든 사람 username 가져오기
         room_session = request.session.get('room_id')
@@ -1122,18 +1236,23 @@ def app_checkimg(request):
 def app_sendcount(request):
     if request.method == "POST":
         email = request.POST.get('email', None)
-        count = request.POST.get('count', None)  # 앱 접근횟수
+        app = request.POST.get('count', None)  # 앱 접근횟수
         nonperson = request.POST.get('nonperson', None)  # 자리이탈횟수
         roomname = request.POST.get('roomname', None)
-        print(count)
-        count_point = int(100) - (int(count)*10)
+        print(app)
+        app_point = int(100) - (int(app)*10)
         nonperson_point = int(100)-(int(nonperson)*5)
         output = ''
         print(nonperson)
         print(roomname)
+
         myuser = User.objects.get(email=email)
         myuser.check = False
         myuser.save()
+
+        analytics = Analytics(room_id=roomname, email=email,username=myuser.username, person=nonperson_point, app=app_point)
+        analytics.save()
+
         # analytics = Analytics.objects.filter(room_name=roomname)
         # if analytics:  # 해당 룸의 row가 있다.
         #     for x in analytics:
@@ -1143,7 +1262,7 @@ def app_sendcount(request):
         #             output = 'NO'
         # elif not(analytics):  # 해당 룸의 row가 없다 -> 내가 제일 처음 -> 바로 생성
         #     analytics = Analytics(
-        #         room_name=roomname, email=email, person=nonperson_point, app=count_point)
+        #         room_id=roomname, email=email, person=nonperson_point, app=app_point)
         #     analytics.save()
 
         # if output == 'YES':  # 해당 룸의 row 중에 내 아이디의 row가 있다.

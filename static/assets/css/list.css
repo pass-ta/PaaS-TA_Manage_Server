@@ -161,9 +161,8 @@
     margin-left: 40px;
 }
 .list-detail-text1{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
+    margin-top: 90px;
 }
 .list-detail-text2{
     display: flex;

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after">
     <link rel="stylesheet" href="/static/assets/css/home.css?after?after">
     <link rel="stylesheet" href="/static/assets/css/makeroom.css">
-    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after?after?after?after?after?after">
+    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after?after?after?after?after?after?after">
     <link rel="stylesheet" href="/static/assets/css/list.css">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -30,12 +30,20 @@
                 <nav class="main-nav">
                   <!-- ***** Logo Start ***** -->
                   <a href="/home" class="logo">
-                    <h4>HiClass <img src="/static/assets/images/student.png" alt="" class="auto_logo"><span class="teachers_text">Students</span></h4>
+                    {% if role == "teacher"%}
+                        <h4>HiClass <img src="/static/assets/images/teacher (1).png" alt="" class="auto_logo"><span class="teachers_text">Teachers</span></h4>
+                    {% elif role == "student"%}
+                        <h4>HiClass <img src="/static/assets/images/student.png" alt="" class="auto_logo"><span class="teachers_text">Students</span></h4>
+                    {%endif%}
                   <!-- ***** Logo End ***** -->
                   <!-- ***** Menu Start ***** -->
                   <ul class="nav">
-                    <li class="scroll-to-section"><a href="/main">Home</a></li>
-                    <li class="scroll-to-section"><a href="/main/list">My List</a></li>
+                    <li class="scroll-to-section"><a href="/home">Home</a></li>
+                    {% if role == "teacher"%}
+                      <li class="scroll-to-section"><a href="/home/myclass/teacher">My Class</a></li>
+                    {% elif role == "student"%}
+                      <li class="scroll-to-section"><a href="/home/myclass/student">My Class</a></li>
+                    {%endif%}
                     <li class="scroll-to-section"><a href="/logout">Logout</a></li>
                     <li class="scroll-to-section"><div class="main-blue-button"><a id="nav_mypage2" name="nav_mypage2">{{username}}님 안녕하세요.</a></div></li>
                   </ul>

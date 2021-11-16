@@ -13,8 +13,8 @@ urlpatterns = [
     path('class/makequiz',views.make_quiz),        # 퀴즈 만들기 
     path('enterclass/teacher',views.teacher),    # 버튼 누르면 webrtc 입장
     path('enterclass/student1',views.student1),
-    path('enterclass/studentquiz',views.student_quiz),
     path('enterclass/student2',views.student2, name='student2'),
+    path('enterclass/studentquiz',views.student_quiz),
     path('enterclass/student3',views.student3),
 
     path('myclass/teacher',ClassList_t.as_view()),         # 선생님 calss list
@@ -35,7 +35,7 @@ urlpatterns = [
     path('classout/teacher', views.classOut_t),
     path('classout/student', views.classOut_s),
     path('classout/student/teacherquiz', views.teacher_quiz),       # 유림 퀴즈 푸는 url
-    #path('classout/student/analytics', views.),  # 한식 통계자료 url
+    path('classout/student/analytics/<int:quiz>', views.analytics),  # 한식 통계자료 url
 
        #APP
     path('app_enter_room', views.app_enterroom),

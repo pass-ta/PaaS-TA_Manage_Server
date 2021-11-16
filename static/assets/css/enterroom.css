@@ -118,7 +118,15 @@
   font-size: large;
   text-align: center;
 }
-
+#makequiz_question:focus::placeholder{  /*  클릭시 text 없어짐 */
+  color: transparent;
+}
+#makequiz_question:focus{
+  border-color: #f59f00;
+}
+.input-quiz-content input:focus::placeholder{
+  color: transparent;
+}
 #makequiz_content1 {
   border: 3px solid #adb5bd;
   margin-left: 10px;
@@ -159,10 +167,25 @@
   font-size: large;
   text-align: center;
 }
+#makequiz_content1:focus{
+  border: 3px solid #f59f00;
+}
+#makequiz_content2:focus{
+  border: 3px solid #f59f00;
+}
+#makequiz_content3:focus{
+  border: 3px solid #f59f00;
+}
+#makequiz_content4:focus{
+  border: 3px solid #f59f00;
+}
 .makequiz .select-answer {
   justify-content: right;
   text-align: right;
   margin-right: 145px;
+}
+#answer{
+  background-color: #ced4da;
 }
 
 .makequiz .next {

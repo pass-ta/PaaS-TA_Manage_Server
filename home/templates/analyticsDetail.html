@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/static/assets/css/home.css">
     <link rel="stylesheet" href="/static/assets/css/makeroom.css">
     <link rel="stylesheet" href="/static/assets/css/enterroom.css?after">
-    <link rel="stylesheet" href="/static/assets/css/list.css?after">
+    <link rel="stylesheet" href="/static/assets/css/list.css?after?after?after">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="/static/assets/css/owl.css">
@@ -67,12 +67,12 @@
             <img src="/static/assets/images/previous.png" alt="" class="back" onclick="location.href='/home/myclass/student/analytics'">
           {%endif%}
           <div id="detail-explain" class="animate__animated animate__rubberBand animate__delay-0.8s">
-            <span >{{analyticUser}}님의 집중도는 <span style="color: #5f3dc4;">level {{level}}</span> 입니다!</span>
+            <span >{{analyticUser}}님의 집중도 그래프 </span>
           </div>
           <div class="list-detail">
             <div class="list-detail-text">
               <div class="list-detail-text1">
-                <span class="list-detail-main">해당 수업의 {{count}}명중 <span style="color: #5f3dc4;">{{rate}}등</span> 입니다!</span>
+                <span style="font-size: 25px;">집중도 <br><span style="color: #5f3dc4; font-size: 33px; font-weight: 700;">level {{level}}</span></span>
               </div>
               <div class="list-detail-text2">
                 <span class="list-detail-sub"> 모든 점수의 최고점은 100점이며, <br> 퀴즈는 틀린 횟수×10 만큼 감점 됩니다.</span>
