@@ -955,9 +955,6 @@ def app_enterroom(request):
             print(room.room_id)
             if password == room.room_password:
                 print(room.room_password)
-                # 세션도 딕셔너리 변수 사용과 똑같이 사용하면 된다.
-                # 세션 user라는 key에 방금 로그인한 id를 저장한것.
-                # room_type(exam mode, study mode)구분해서 들고오기
                 return HttpResponse("success")
             else:
                 # 방 비번 불일치
@@ -982,38 +979,40 @@ def app_attendance(request):
         print(member_number)
         # room DB-member_list로 회원번호 확인 및 index 추출
         room = Room.objects.get(room_id=room_id)
-        # member_list = room.member_list  # 회원번호만 적힌 리스트
-        # member_list = member_list[1:-1].split(', ')
-        # print(member_list)
+        member_list = room.member_list  # 회원번호만 적힌 리스트
+        member_list = member_list[1:-1].split(', ')
+        print(member_list)
 
         # CHECK NUMBER
         # Correct NUMBER
-        # if (member_number in member_list):
-        #     member_index = member_list.index(member_number) + 1
-        #     print('member_index:'+str(member_index))
+        if (member_number in member_list):
+            member_index = member_list.index(member_number) + 1
+            print('member_index:'+str(member_index))
 
-        #     # 해당방의 DB속 명단Excel파일 조회
-        #     room = Room.objects.get(room_name=room_name)
-        #     member_file = room.file  # 명단
+            # 해당방의 DB속 명단Excel파일 조회
+            room = Room.objects.get(room_name=room.room_name)
+            member_file = room.file  # 명단
 
-        #     member = load_workbook("media/" + str(member_file))
-        #     sheet = member['Sheet1']
-        #     member_file_name = sheet['B'+str(member_index)].value
+            member = load_workbook("media/" + str(member_file))
+            sheet = member['Sheet1']
+            member_file_name = sheet['B'+str(member_index)].value
 
-        #     # CHECK NAME
-        #     # Wrong NAME
-        #     if member_file_name != member_name:
-        #         print('app_enterEXAM_info_no_match_name_num')
-        #         return HttpResponse(simplejson.dumps({"roomname": "no",  "password": "no"}))
-        #     # Correct NAME
-        #     else:
-        #         print('app_enterEXAM_info_success')
-        #         return HttpResponse(simplejson.dumps({"roomname": "yes", "password": member_index}))
+            # CHECK NAME
+            # Wrong NAME
+            if member_file_name != member_name:
+                print('app_enterEXAM_info_no_match_name_num')
+                return HttpResponse("nomatch")
 
-        # # Wrong NUMBER
-        # else:
-        #     print('app_enterEXAM_info_no_num')
-        #     return HttpResponse(simplejson.dumps({"roomname": "fail", "password": "no"}))
+            # Correct NAME
+            else:
+                print('app_enterEXAM_info_success')
+                return HttpResponse(member_index)
+
+        # Wrong NUMBER
+        else:
+            print('app_enterEXAM_info_no_num')
+            return HttpResponse("nonum")
+
 
         return HttpResponse("success")
 
@@ -1033,44 +1032,43 @@ def app_checkimg(request):
 
         # image.name 에서 분리
         l = capture_image.name.split('_')
-        room_name = l[0]
+        room_id = l[0]
         member_index = l[1]
 
         print("Get All DATA ")
 
-        # # Room DB - excel 파일
-        # room = Room.objects.get(room_name=room_name)
-        # member_file = room.file  # 명단
-        # member = load_workbook("media/" + str(member_file))
-        # sheet = member['Sheet1']
+        # Room DB - excel 파일
+        room = Room.objects.get(room_id=room_id)
+        member_file = room.file  # 명단
+        member = load_workbook("media/" + str(member_file))
+        sheet = member['Sheet1']
 
-        # # exel 명단 속 이미지
-        # image_loader = SheetImageLoader(sheet)
-        # image = image_loader.get('C'+str(member_index))
-        # member_file_image_path = (room_name+"_"+str(member_index)+".jpg")
-        # image.save("media/capture/"+member_file_image_path)
-        # fs = FileSystemStorage()
+        # exel 명단 속 이미지
+        image_loader = SheetImageLoader(sheet)
+        image = image_loader.get('C'+str(member_index))
+        member_file_image_path = (room_id+"_"+str(member_index)+".jpg")
+        image.save("media/capture/"+member_file_image_path)
+        fs = FileSystemStorage()
 
-        # # Face Recognition
-        # a = (fs.location + str("/capture/") + member_file_image_path)
-        # b = (fs.location + str("/capture/") + capture_image.name)
-        # # luxand API
-        # luxand_client = luxand("12a42a8efedf4e24b84730ce440e5429")
-        # member_file_image = luxand_client.add_person(
-        #     str(member_index), photos=[a])
-        # result = luxand_client.verify(member_file_image, photo=b)
-        # print(result)
-        # os.remove(os.path.join(settings.MEDIA_ROOT +
-        #                        "/capture/", capture_image.name))
-        # # Recognition RESULT
-        # if result['status'] == 'success':
-        #     print("Recognition_SUCCESS")
-        #     return HttpResponse(simplejson.dumps({"image": "ok"}))  # 이미지 전송완료
-        # else:
-        #     print("Recognition_FAIL")
-        #     return HttpResponse(simplejson.dumps({"image": "no"}))  # 이미지 전송실패
+        # Face Recognition
+        a = (fs.location + str("/capture/") + member_file_image_path)
+        b = (fs.location + str("/capture/") + capture_image.name)
+        # luxand API
+        luxand_client = luxand("eed3a1c052394c12ac437d78651522f6")
+        member_file_image = luxand_client.add_person(
+            str(member_index), photos=[a])
+        result = luxand_client.verify(member_file_image, photo=b)
+        print(result)
+        os.remove(os.path.join(settings.MEDIA_ROOT +
+                               "/capture/", capture_image.name))
+        # Recognition RESULT
+        if result['status'] == 'success':
+            print("Recognition_SUCCESS")
+            return HttpResponse("success")  # 이미지 전송완료
+        else:
+            print("Recognition_FAIL")
+            return HttpResponse("fail") # 이미지 전송실패
 
-        return HttpResponse("success")
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -1081,6 +1079,7 @@ def app_sendcount(request):
         nonperson = request.POST.get('nonperson', None)  # 자리이탈횟수
         roomname = request.POST.get('roomname', None)
         print(count)
+        print(email)
         count_point = int(100) - (int(count)*10)
         nonperson_point = int(100)-(int(nonperson)*5)
         output = ''
