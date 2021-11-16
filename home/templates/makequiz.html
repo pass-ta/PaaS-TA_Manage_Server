@@ -114,7 +114,7 @@
         }
         $.ajax({                       
             type: 'POST',
-            url: '/home/makequiz',
+            url: '/home/class/makequiz',
             data: { 'question' : question.value,
                     'item1' : item1.value,
                     'item2' : item2.value,
@@ -128,7 +128,7 @@
                     return;
                 }else if (data['result'] == "student"){
                     alert("복습 퀴즈가 생성되었습니다.");
-                    window.location.href = '/home/teacherquiz'
+                    window.location.href = '/home/classout/student/teacherquiz'
                     return;
                 }
                 else if (data['result'] == "no"){

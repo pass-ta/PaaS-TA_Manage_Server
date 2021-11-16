@@ -220,7 +220,7 @@ def enterclass(request):
                     if user.role == 'student':
                         return redirect('/home/enterclass/student1')
                     elif user.role == 'teacher':
-                        return redirect('/home/makequiz')
+                        return redirect('/home/class/makequiz')
                 else:
                     res_data['error'] = '비밀번호가 틀렸습니다.'
                     return render(request, 'enterclass.html', res_data)
@@ -310,7 +310,7 @@ def student2(request):
         res_data['email'] = user.email
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
-
+        print(user.username)
         # room을 만든 사람 username 가져오기
         room_session = request.session.get('room_id')
         room = Room.objects.get(room_id=room_session)
@@ -720,7 +720,7 @@ def classOut_s(request):
             return render(request, 'roomout.html', res_data)
         elif request.method == 'POST':
             if user.check == False:
-                return redirect('/home/makequiz')
+                return redirect('/home/class/makequiz')
             else:
                 res_data['check'] = "차단 해제가 완료되지 않았습니다."
                 return render(request, 'roomout.html', res_data)
@@ -757,7 +757,7 @@ def student_quiz(request):
                 email=user.email).order_by('-make_date')
             print(past_class)
             quiz = Quiz.objects.filter(room_id=past_class[0].room_id)
-
+            print(quiz)
             # 학생 복습퀴즈시 자신이 낸 문제는 제외
 
             except_quiz = []
@@ -838,20 +838,21 @@ def teacher_quiz(request):
             # print(room_session)
 
             quiz_all = Quiz.objects.filter(room_id=room.room_id)
-
+            print(quiz_all)
+            teacher_quiz = []
             for i in quiz_all:
-                if(i.maker == room.maker):
-                    quiz = i
+                if(i.maker==room_maker.email):
+                    teacher_quiz.append(i)
 
-            print(quiz)
+            print(teacher_quiz)
 
-            res_data['question'] = quiz.question
-            res_data['item1'] = quiz.item1
-            res_data['item2'] = quiz.item2
-            res_data['item3'] = quiz.item3
-            res_data['item4'] = quiz.item4
+            res_data['question'] = teacher_quiz[0].question
+            res_data['item1'] = teacher_quiz[0].item1
+            res_data['item2'] = teacher_quiz[0].item2
+            res_data['item3'] = teacher_quiz[0].item3
+            res_data['item4'] = teacher_quiz[0].item4
             res_data['maker'] = "선생님"
-            res_data['id'] = quiz.id
+            res_data['id'] = teacher_quiz[0].id
             res_data['room_name'] = room.room_name
             print(room.room_name)
 
@@ -916,14 +917,14 @@ def make_quiz(request):
 
             # 나의 기존 퀴즈 삭제
             quiz_all = Quiz.objects.filter(room_id=room.room_id)
-
+            id="NULL"
             for i in quiz_all:
-                if(i.maker == room.maker):
-                    myquiz = i
-
-            if(myquiz != "NULL"):
+                if(i.maker == user.email):
+                    id=i.id
+            if(id!="NULL"):
+                myquiz = Quiz.objects.get(id=id)
                 myquiz.delete()
-
+            
             quiz = Quiz(room_id=room.room_id, maker=user, question=question,
                         item1=item1, item2=item2, item3=item3, item4=item4, answer=answer)
             quiz.save()

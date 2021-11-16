@@ -179,8 +179,20 @@
                     'member_number' : member_number.value,
                     'member_name' : member_name.value },
             success: function (data){
-    
-                window.location.href = '/home/studentquiz'
+
+                if (data['result'] == "NO_NAME" || data['result'] == "NO_MEMBER"){
+                  setTimeout(function(){
+                    alert("출석부에 포함 되어 있지 않습니다!");
+                    return;
+                  },4900)
+                }else if (data['result'] == "NO_IMAGE_MATCH"){
+                    alert("출석에 실패 하였습니다!");
+                    return;
+                }else{
+                    alert("출석에 성공 하였습니다!");
+                    window.location.href = '/home/enterclass/studentquiz'
+                    return;
+                }
             }
         })
     }
