@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after">
     <link rel="stylesheet" href="/static/assets/css/home.css?after?after">
     <link rel="stylesheet" href="/static/assets/css/makeroom.css">
-    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after?after?after?after">
+    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after?after?after?after?after">
     <link rel="stylesheet" href="/static/assets/css/list.css">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -62,12 +62,12 @@
                     <div class="camera">
                       <video id="video" autoplay playsinline>Video stream not available.</video>
                     </div>
-                    <canvas id="canvas">
+                    <canvas id="canvas" style="display: none;">
                     </canvas>
                   </div>
                   <img id="photo" alt="3초 후 사진이 촬영 됩니다.">
                 </div>
-                <div id="count" class="count" style="margin-bottom: 30px;">
+                <div id="count" class="count">
                   <lottie-player src="/static/assets/images/countdown.json" background="transparent" style="width: 300px; height: 225px;" speed="0.7" loop autoplay>
                   </lottie-player>
                 </div>
@@ -82,7 +82,7 @@
                   </div>
                 </div>
               </div>
-              <div class="exam2-btn" id="exam2-btn">
+              <div class="exam2-btn" id="exam2-btn" style="margin-top: 40px;">
                 <button type="button" id="recapture" name="recapture">재촬영</button>
                 <button type="button" class ="next2" id="bt_enter_room_recognition" onclick="bt_enter_room_recognition_func()" >Next</button>
               </div>
@@ -220,18 +220,24 @@
 <script>
   let input = document.getElementById('main-input')
   let count = document.getElementById('count')
+  let canvas = document.getElementById('canvas')
+  let video = document.getElementById('video')
+  let photo = document.getElementById('photo')
+  let recapture = document.getElementById('recapture')
+  let section = document.getElementById('exam2-btn')
+
   window.addEventListener('load',function(){
     setTimeout(function(){
       count.style.display = 'none'
       input.style.display = 'inline-block'
+      section.style.marginTop = '60px'
     },4300)
   })
-
-  let recapture = document.getElementById('recapture')
   recapture.addEventListener('click',function(){
     setTimeout(function(){
       count.style.display = 'flex'
       input.style.display = 'none'
+      photo.style.display = 'none'
     },0)
     setTimeout(function(){
       count.style.display = 'none'

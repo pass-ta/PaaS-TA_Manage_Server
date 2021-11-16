@@ -377,7 +377,7 @@ button.enter:hover{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 80px;
 }
 .main-camera{
   display: inline-block;
@@ -404,19 +404,23 @@ button.enter:hover{
   width: 120px;
   height: 60px;
   display: none;
-  background-color: #4771cb;
+  background-color: #37b24d;
   font-weight: 370;
   font-size: 26px;
   color: #fff;
   text-transform: capitalize;
   border-radius: 23px;
   letter-spacing: 0.25px;
-  border-bottom: 3px solid #33ccc5!important;
+  border-bottom: 3px solid #2b8a3e!important;
   transition: all .3s;
 }
-#recapture:hover, .next2:hover{
+.next2:hover{
   background-color: #e67700;
   border-bottom: 3px solid #f59f00!important;
+}
+#recapture:hover{
+  background-color: #2b8a3e;
+  border-bottom: 3px solid #37b24d!important;
 }
 .main-input{
   display: none;
@@ -455,6 +459,7 @@ button.enter:hover{
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: 0.5s;
 }
 
 #lotties{
