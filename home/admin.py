@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Room, Analytics, Enrol, Notice
+from .models import Room, Analytics, Enrol, Notice,SolvedQuiz
 from .models import Room
 from .models import Quiz
 # Register your models here.
@@ -31,5 +31,10 @@ class QuizAdmin(admin.ModelAdmin):
     list_display = ('id', 'maker','makername', 'room_id', 'question',
                     'item1', 'item2', 'item3', 'item4', 'answer','make_date')
 
-
 admin.site.register(Quiz, QuizAdmin)
+
+class SolvedQuizAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user','makername', 'room_id', 'question',
+                    'item1', 'item2', 'item3', 'item4', 'answer','make_date')
+
+admin.site.register(SolvedQuiz, SolvedQuizAdmin)

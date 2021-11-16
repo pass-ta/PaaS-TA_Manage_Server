@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko" id="html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HiClass</title>
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/static/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after?after">
+    <link rel="stylesheet" href="/static/assets/css/home.css?after">
+    <link rel="stylesheet" href="/static/assets/css/makeroom.css">
+    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after">
+    <link rel="stylesheet" href="/static/assets/css/classDetail-t.css">
+    <link rel="stylesheet" href="/static/assets/css/list.css">
+    <link rel="stylesheet" href="/static/assets/css/animated.css">
+    <link rel="stylesheet" href="/static/assets/css/classList.css">
+    <link rel="stylesheet" href="/static/assets/css/quizDetail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="/static/assets/css/owl.css">
+</head>
+<body>
+  <div class="king" id="king">
+    <!-- ***** Header Area Start ***** -->
+    <div class="animate__animated animate__fadeInDown animate__delay-0.8s">
+      <header class="header-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                  <!-- ***** Logo Start ***** -->
+                  <a href="/home" class="logo">
+                    <h4>HiClass <img src="/static/assets/images/student.png" alt="" class="auto_logo"><span class="teachers_text">Students</span></h4>
+                  </a>
+                  <!-- ***** Logo End ***** -->
+                  <!-- ***** Menu Start ***** -->
+                  <ul class="nav">
+                    <li class="scroll-to-section"><a href="/home">Home</a></li>
+                    <li class="scroll-to-section"><a href="/home/myclass/student">My Class</a></li>
+                    <li class="scroll-to-section"><a href="/logout">Logout</a></li>
+                    <li class="scroll-to-section"></li>
+                  </ul>
+                  <a class='menu-trigger'>
+                      <span>Menu</span>
+                  </a>
+                  <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+    <!-- ***** Header Area End ***** -->
+    <div class="main">
+      <div class="inner">
+        <div class="noticeList-wapper">
+            <div class="img-menu">
+                <div><img src="/static/assets/images/bell (1).png" alt="" onclick="location.href='/home/myclass/student/{{enrol_pk}}'"></div>
+                <div><img src="/static/assets/images/speech-bubble.png" alt="" onclick="location.href='/home/myclass/student/quiz'"></div>
+                <div><img src="/static/assets/images/bar-graph (1).png" alt="" onclick="location.href='/home/myclass/student/analytics'"></div>
+            </div>
+            <div class="forborder">
+              <div class="list-wapper-text">
+                <span class="animate__animated animate__rubberBand" id="list-wapper-textt">{{room_name}} 퀴즈</span>
+              </div>
+            </div>
+          <div class="quiz-header">
+            <span>작성자: {{makername}}</span> <span id="quiz-date-text">작성일: {{date}}</span>
+          </div>
+          <div class="quiz-detail">
+            <div class="quiz-wapper">
+              <div class="quiz-title">
+                <span>Q. {{question}}</span>
+              </div>
+              <div class="quiz-content">
+                <div class="item1">
+                  <span>1.&nbsp&nbsp&nbsp&nbsp{{item1}}</span>
+                </div>
+                <div class="item2">
+                  <span>2.&nbsp&nbsp&nbsp&nbsp{{item2}}</span>
+                </div>
+                <div class="item3">
+                  <span>3.&nbsp&nbsp&nbsp&nbsp{{item3}}</span>
+                </div>
+                <div class="item4">
+                  <span>4.&nbsp&nbsp&nbsp&nbsp{{item4}}</span>
+                </div>
+                <div class="quiz-answer">
+                  <span>정답은&nbsp</span><span class="quizAnswer">{{answer}}번</span><span>&nbsp입니다.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+</body>
+</html>

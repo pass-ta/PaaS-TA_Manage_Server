@@ -30,6 +30,7 @@ urlpatterns = [
     path('myclass/student/<int:pk>',views.classDetail_s),    # 공지사항
     path('myclass/student/<int:pk>/<int:pkk>',views.classDetail_Detail_s),    # 공지사항 세부 페이지
     path('myclass/student/quiz',views.classDetail2_s),       # 퀴즈
+    path('myclass/student/quiz/<int:pk>',views.classDetail2_Detail2_s),       # 퀴즈 상세보기
     path('myclass/student/analytics',views.classDetail3_s),  # 통계 자료
     path('myclass/student/analytics/<int:pk>',views.analyticsDetail),
 

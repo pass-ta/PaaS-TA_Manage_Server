@@ -64,6 +64,11 @@ class Notice(models.Model):
     title =  models.CharField(max_length=128, verbose_name="제목",default="NULL")
     description = models.CharField(max_length=1000, verbose_name="내용",default="NULL")
     make_date = models.DateTimeField(auto_now_add=True, verbose_name='작성 날짜')
+    class Meta:
+        db_table = 'notice'
+        verbose_name = '공지사항'
+        verbose_name_plural = '공지사항'
+
 
 class Quiz(models.Model):
     id = models.AutoField(verbose_name="질문 아이디", primary_key=True)
@@ -79,7 +84,6 @@ class Quiz(models.Model):
     answer = models.IntegerField(verbose_name='정답', default=None)
     make_date = models.DateTimeField(auto_now_add=True, verbose_name='생성 날짜')
 
-
     def __str__(self):
         return self.question
 
@@ -87,3 +91,22 @@ class Quiz(models.Model):
         db_table = 'Quiz'
         verbose_name = 'Quiz 명단'
         verbose_name_plural = 'Quiz 명단'
+
+
+class SolvedQuiz(models.Model):
+    id = models.AutoField(verbose_name="질문 아이디", primary_key=True)
+    user = models.EmailField(max_length=64, verbose_name='사용자 이메일', null=True)
+    makername = models.CharField(max_length=128, verbose_name="생성자 이름",default="NULL")
+    room_id = models.CharField(max_length=128, verbose_name="방 아이디", default=None)
+    question = models.CharField(max_length=64, verbose_name='질문', default='aaa')
+    item1 = models.CharField(max_length=128, verbose_name='질문지1', default='aaa')
+    item2 = models.CharField(max_length=128, verbose_name='질문지2', default='aaa')
+    item3 = models.CharField(max_length=128, verbose_name='질문지3', default='aaa')
+    item4 = models.CharField(max_length=128, verbose_name='질문지4', default='aaa')
+    answer = models.IntegerField(verbose_name='정답', default='0')
+    make_date = models.DateTimeField(auto_now_add=True, verbose_name='학습 날짜')
+
+    class Meta:
+        db_table = 'SolvedQuiz'
+        verbose_name = '학습한 Quiz'
+        verbose_name_plural = '학습한 Quiz'
