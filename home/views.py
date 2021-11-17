@@ -669,6 +669,8 @@ def classDetail2_s(request):
     page = request.GET.get("page",1)
     solvedQuiz_list = models.SolvedQuiz.objects.filter(room_id = room.room_id,user = user.email).order_by('-make_date')
     paginator = Paginator(solvedQuiz_list,100,orphans=5)
+    res_data['count'] = len(solvedQuiz_list)
+    print(len(solvedQuiz_list),"몇번????????????????????????")
     try:
         solvedQuiz = paginator.page(int(page))
     except EmptyPage:

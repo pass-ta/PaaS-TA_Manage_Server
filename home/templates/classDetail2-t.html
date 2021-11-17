@@ -70,7 +70,7 @@
                 </div>
                 {% for Quiz in page.object_list %}
                   <div class="noticeList" onclick="location.href='/home/myclass/teacher/quiz/{{Quiz.pk}}'">
-                    <span class="numm">{{Quiz.pk}}</span><span class="question-text">{{Quiz.question}}</span><span class="makername">{{Quiz.makername}}</span><span class="date-textt">{{Quiz.make_date|date:'Y년 n월 j일 G:i'}}</span>
+                    <span class="numm">{{forloop.revcounter}}</span><span class="question-text">{{Quiz.question}}</span><span class="makername">{{Quiz.makername}}</span><span class="date-textt">{{Quiz.make_date|date:'Y년 n월 j일 G:i'}}</span>
                   </div>
                 {% endfor%}
               {% else %}
