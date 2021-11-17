@@ -78,7 +78,7 @@
         {% if img_check == 0 %}
           <img src="/static/assets/images/face-recognition.png" alt="" id="user-img">
         {% elif img_check == 1%}
-          <img src="{{userimg}}" alt="" id="user-img">
+          <img src="/media/profile{{userimg}}" alt="" id="user-img">
         {%endif%}
         <div class="user-email">
           <img src="/static/assets/images/email.png" alt="" class="info"><span class="main-span">Email: </span><span class="sub-span">{{email}}</span>
@@ -98,19 +98,12 @@
       </div>
     </div>
     
-
-
     <script>
       // 모달 이벤트
+      console.log(document.getElementById('user-img').value)
       let my = document.getElementById('mypage');  // my page
       let btn2 = document.getElementById('nav_mypage2'); // 상단바의 두번째 my page 버튼
-      let btn = document.getElementById('nav_mypage');  // 상단바의 mypage 버튼
       let king = document.getElementById('king');  // background 설정
-      btn.addEventListener('click', function(){
-        my.style.display ='flex';
-        king.style.opacity = '0.5';
-        king.style.pointerEvents = 'none';
-      })
      btn2.addEventListener('click',function(){
         my.style.display ='flex';
         king.style.opacity = '0.5';

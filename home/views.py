@@ -48,15 +48,15 @@ def home(request):
         res_data['username'] = user.username                # mypage 정보
         res_data['email'] = user.email
         res_data['register'] = user.registerd_date
-        print(user.image)
         res_data['userimg'] = fs.url(user.image)
-
-        print(res_data['userimg'], "!!!!!!!!!!!!!!!!!!!!")
-
+       
         if res_data['userimg'] == "/media/face-recognition.png":               # 이미지 체크
             res_data['img_check'] = 0                      # 이미지 널
         else:
             res_data['img_check'] = 1
+            imgUrl=fs.url(user.image)[15:]
+            res_data['userimg'] = imgUrl
+            
 
         if request.method == 'GET':
             if user.role == 'student':
@@ -90,7 +90,7 @@ def makeclass(request):
             string.ascii_uppercase + string.digits)for _ in range(7))  # 랜덤 문자열 생성
         res_data['userimg'] = fs.url(user.image)
 
-        if res_data['userimg'] == "/media/":               # 이미지가 있는지 체크
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지가 있는지 체크
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
@@ -160,7 +160,7 @@ def make_success(request):
 
         res_data['userimg'] = fs.url(user.image)
 
-        if res_data['userimg'] == "/media/":               # 이미지 체크
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지 체크
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
@@ -187,7 +187,7 @@ def enterclass(request):
         res_data['userimg'] = fs.url(user.image)
         res_data['role'] = user.role
 
-        if res_data['userimg'] == "/media/":               # 이미지 체크
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지 체크
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
@@ -244,7 +244,7 @@ def teacher(request):
         res_data['userimg'] = fs.url(user.image)
         res_data['role'] = user.role
 
-        if res_data['userimg'] == "/media/":               # 이미지 체크
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지 체크
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
@@ -284,7 +284,7 @@ def student1(request):
         room_maker = User.objects.get(email=room.maker)
         res_data['room_maker'] = room_maker.username
 
-        if res_data['userimg'] == "/media/":               # 이미지 체크
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지 체크
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
@@ -319,7 +319,7 @@ def student2(request):
         room_maker = User.objects.get(email=room.maker)
         res_data['room_maker'] = room_maker.username
 
-        if res_data['userimg'] == "/media/":               # 이미지 체크
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지 체크
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
@@ -425,7 +425,7 @@ def student3(request):
         room_maker = User.objects.get(email=room.maker)
         res_data['room_maker'] = room_maker.username
 
-        if res_data['userimg'] == "/media/":               # 이미지 체크
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지 체크
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
@@ -748,7 +748,7 @@ def analyticsDetail(request, pk):
         res_data['role'] = user.role
         res_data['analyticUser'] = analytics.username
 
-        if res_data['userimg'] == "/media/":               # 이미지 체크
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지 체크
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
@@ -795,7 +795,7 @@ def classOut_t(request):
         res_data['userimg'] = fs.url(user.image)
         res_data['role'] = user.role
 
-        if res_data['userimg'] == "/media/":               # 이미지 체크
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지 체크
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
@@ -824,7 +824,7 @@ def classOut_s(request):
         res_data['maker'] = users.username
         res_data['maker']
 
-        if res_data['userimg'] == "/media/":               # 이미지 체크
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지 체크
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
@@ -853,7 +853,7 @@ def analytics(request,quiz):
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
         res_data['role'] = user.role
-        if res_data['userimg'] == "/media/":               # 이미지 체크
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지 체크
             res_data['img_check'] = 0
         else:
             res_data['img_check'] = 1
@@ -964,6 +964,11 @@ def student_quiz(request):
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
 
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지가 있는지 체크
+            res_data['img_check'] = 0
+        else:
+            res_data['img_check'] = 1
+
         # room을 만든 사람 username 가져오기
         room_session = request.session.get('room_id')
         room = Room.objects.get(room_id=room_session)
@@ -1058,6 +1063,11 @@ def teacher_quiz(request):
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
 
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지가 있는지 체크
+            res_data['img_check'] = 0
+        else:
+            res_data['img_check'] = 1
+
         # room을 만든 사람 username 가져오기
         room_session = request.session.get('room_id')
         room = Room.objects.get(room_id=room_session)
@@ -1129,6 +1139,11 @@ def make_quiz(request):
         res_data['register'] = user.registerd_date
         res_data['userimg'] = fs.url(user.image)
         res_data['role'] = user.role
+
+        if res_data['userimg'] == "/media/face-recognition.png":               # 이미지가 있는지 체크
+            res_data['img_check'] = 0
+        else:
+            res_data['img_check'] = 1
 
         # room을 만든 사람 username 가져오기
         room_session = request.session.get('room_id')

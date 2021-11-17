@@ -60,7 +60,7 @@
     <div class="main">
       <div class="inner">
         <div class="makequiz">
-          <span class="animate__animated animate__rubberBand" id="make-quiz-text">수업 후 학생들이 풀 복습 퀴즈를 만들어 주세요!</span>
+          <span class="animate__animated animate__rubberBand" id="make-quiz-text">오늘의 학습 확인 Quiz를 만들어 주세요!</span>
               {% csrf_token %}      
               <div class="quiz-input">
                   <label class="enter_quiz_question">Q. 
@@ -93,10 +93,55 @@
               </div>
 
               <div class="btn_makequiz_enter">
-                  <button class="next" onclick="btn_next_make_quiz()">Enter</button>
+                  <button class="next" onclick="btn_next_make_quiz()">Next</button>
               </div>
-
         </div>
+      </div>
+    </div>
+  </div>
+    <div class="animate__animated animate__slideInRight" id="mypage">
+      <div class="mypage-inner">
+        <img src="/static/assets/images/cancel.png" alt="" class="cancel" id="cancel" name="cancel">
+        <span class="my_text">My Page</span>
+        {% if img_check == 0 %}
+          <img src="/static/assets/images/face-recognition.png" alt="" id="user-img">
+        {% elif img_check == 1%}
+          <img src="{{userimg}}" alt="" id="user-img">
+        {%endif%}
+        <div class="user-email">
+          <img src="/static/assets/images/email.png" alt="" class="info"><span class="main-span">Email: </span><span class="sub-span">{{email}}</span>
+        </div>
+        <div class="user-name">
+          <img src="/static/assets/images/user.png" alt="" class="info"><span class="main-span">Name: </span><span class="sub-span">{{username}}</span>
+        </div>
+        <div class="user-register">
+          <img src="/static/assets/images/schedule.png" alt="" class="info"><span class="main-span">Date: </span><span class="sub-span">{{register}}</span>
+        </div>
+        <div class="modal-text">
+           <span>이미지 변경은 Home 화면에서 가능합니다!</span>
+        </div>
+      </div>
+    </div>
+  
+  
+  
+  <script>
+    //모달 이벤트
+    let my = document.getElementById('mypage'); // my page
+    let btn2 = document.getElementById('nav_mypage2'); // 상단바의 두번째 my page 버튼
+    let king = document.getElementById('king'); // background 설정
+    btn2.addEventListener('click', function () {
+    my.style.display = 'flex';
+    king.style.opacity = '0.5';
+    king.style.pointerEvents = 'none';
+    })
+    let exit = document.getElementById('cancel');
+    exit.addEventListener('click', function () {
+    king.style.opacity = '1';
+    king.style.pointerEvents = 'all';
+    my.style.display = 'none';
+    })
+  </script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 

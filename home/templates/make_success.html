@@ -73,29 +73,11 @@
                 </div>
                 <div class="section4"><div><span class="sub-text4">Class Owner: </span></div><div><span class="main-text4">{{maker}}</span></div></div>
             </div>
-            <!-- <div class="rn r1">
-                <div class="img-background">
-                    <img src="/static/assets/images/door_name.png" alt="">
-                </div>
-                <span class="sub-text1">Room Name: </span><span class="main-text1">{{room_name}}</span>
-            </div>
-            <div class="rn r2">
-                <div class="img-background">
-                    <img src="/static/assets/images/keys.png" alt="">
-                </div>
-                <span class="sub-text2">Room Password: </span><span class="main-text2">{{room_password}}</span>
-            </div>
-            <div class="rn r3">
-                <div class="img-background">
-                    <img src="/static/assets/images/name.png" alt="">
-                </div>
-                <span class="sub-text4">ID: </span><span class="main-text4">{{maker}}</span>
-            </div> -->
             <div class="success-btn">
                 <form method="POST">
                     {% csrf_token %}
                     <input type="button" id="move-home-btn" value="← 홈으로 이동" onclick="location.href='/home'">
-                    <button>Room 입장 →</button>
+                    <button onclick="location.href='/home/enterclass/teacher'">Room 입장 →</button>
                 </form>
             </div>
         </div>
