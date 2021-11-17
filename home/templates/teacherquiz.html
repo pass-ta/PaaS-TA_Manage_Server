@@ -132,7 +132,7 @@
                     },0)
                     setTimeout(function(){
                       correct_lotties.style.display='none'
-                      window.location.href = 'http://127.0.0.1/home/classout/student/analytics'
+                      window.location.href = '/home/classout/student/analytics'
                     },1800)
                     return;
                     //alert("정답입니다!");
@@ -146,7 +146,7 @@
                       console.log(count_retry);
                       if(count_retry==3){
                         alert('정답은 ' + data['answer']+'번입니다.');
-                        window.location.href = 'http://127.0.0.1/home/classout/student/analytics'
+                        window.location.href = '/home/classout/student/analytics'
                       }
                     },1800)
                     return;
