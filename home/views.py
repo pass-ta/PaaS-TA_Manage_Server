@@ -389,8 +389,8 @@ def student2(request):
 
                     # Recognition RESULT
                     if result['status'] == 'success':
-                          info['result'] = "OK"
-                          print("Recognition_SUCCESS")
+                        info['result'] = "OK"
+                        print("Recognition_SUCCESS")
                     else:
                         info['result'] = "NO_IMAGE_MATCH"
                         print("Recognition_FAIL")
