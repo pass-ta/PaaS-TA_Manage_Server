@@ -953,13 +953,13 @@ def analytics(request,quiz):
     else:
         return redirect('/login')
 
-
 @csrf_exempt
 def student_quiz(request):
 
     res_data = {}
     fs = FileSystemStorage()
     user_session = request.session.get('user')
+
     if user_session:
         user = User.objects.get(pk=user_session)    # 로그인 체크
         res_data['username'] = user.username        # mypage 정보
@@ -973,76 +973,76 @@ def student_quiz(request):
         room_maker = User.objects.get(email=room.maker)
         res_data['room_maker'] = room_maker.username
 
-        if request.method == 'GET':
+        past_class = Enrol.objects.filter(email=user.email).order_by('-make_date')
+        print(past_class)
 
-            # 룸ID 받아오기
-            # room_session = request.session.get('room_id')
-            # print(room_session)
-            past_class = Enrol.objects.filter(
-                email=user.email).order_by('-make_date')
-            print(past_class)
-            quiz = Quiz.objects.filter(room_id=past_class[0].room_id)
-            print(quiz)
-            # 학생 복습퀴즈시 자신이 낸 문제는 제외
+        
+        if past_class.exists():
 
-            except_quiz = []
-            for i in quiz:
-                if(i.maker != user.email and i.maker != room_maker):
-                    except_quiz.append(i)
+            if request.method == 'GET':
 
-            print(except_quiz)
+                quiz = Quiz.objects.filter(room_id=past_class[0].room_id)
 
-            random_num = random.randint(1, len(except_quiz))
+                ex_room = Room.objects.get(room_id=past_class[0].room_id)
 
-            print(random_num)
+                # 학생 복습퀴즈시 자신이 낸 문제는 제외
 
-            maker = except_quiz[random_num-1].maker
-            quiz_ower = User.objects.get(email=maker)
-            room_id = except_quiz[random_num-1].room_id
-            room = Room.objects.get(room_id=room_id)
-            res_data['question'] = except_quiz[random_num-1].question
-            res_data['item1'] = except_quiz[random_num-1].item1
-            res_data['item2'] = except_quiz[random_num-1].item2
-            res_data['item3'] = except_quiz[random_num-1].item3
-            res_data['item4'] = except_quiz[random_num-1].item4
-            res_data['maker'] = quiz_ower.username
-            res_data['id'] = except_quiz[random_num-1].id
-            res_data['room_name'] = room.room_name
-            print(room.room_name)
-            return render(request, 'quiz.html', res_data)
-        elif request.method == 'POST':
-            info = {}
-            id = request.POST.get('id')
-            answer = request.POST.get('check')
-            print(id)
-            try:
-                quiz = Quiz.objects.get(id=id)
-            except Quiz.DoesNotExist:
-                return messages.warning(request, '존재 하는 Class가 없습니다.')
+                except_quiz = []
+                for i in quiz:
+                    if(i.maker != user.email and i.maker != ex_room.maker):
+                        except_quiz.append(i)
 
+                random_num = random.randint(1, len(except_quiz))
 
-            try:
-                solvedQuiz = SolvedQuiz.objects.get(id=quiz.pk,user= user.email)  # 그 문제를 이 user가 풀었는지 보고
-            except SolvedQuiz.DoesNotExist:                                  # 안 풀었을 때만 저장
-                solvedQuiz = SolvedQuiz(id = id, user = user.email,makername= quiz.makername,room_id = room.room_id, question = quiz.question,
-                 item1 = quiz.item1, item2 = quiz.item2, item3 = quiz.item3, item4 = quiz.item4, answer = quiz.answer)
-                solvedQuiz.save()
+                print(random_num)
 
+                maker = except_quiz[random_num-1].maker
+                quiz_ower = User.objects.get(email=maker)
+                room_id = except_quiz[random_num-1].room_id
+                room = Room.objects.get(room_id=room_id)
+                res_data['question'] = except_quiz[random_num-1].question
+                res_data['item1'] = except_quiz[random_num-1].item1
+                res_data['item2'] = except_quiz[random_num-1].item2
+                res_data['item3'] = except_quiz[random_num-1].item3
+                res_data['item4'] = except_quiz[random_num-1].item4
+                res_data['maker'] = quiz_ower.username
+                res_data['id'] = except_quiz[random_num-1].id
+                res_data['room_name'] = room.room_name
+                print(room.room_name)
+                return render(request, 'quiz.html', res_data)
 
-            quiz_answer = quiz.answer
-            print(quiz_answer)
+            elif request.method == 'POST':
+                info = {}
 
-            if answer == str(quiz_answer):
-                info['result'] = "yes"
-            elif answer != str(quiz_answer):
-                info['answer'] = quiz_answer
-                info['result'] = "no"
+                answer = request.POST.get('check')
+                id = request.POST.get('id')
 
+                try:
+                    quiz = Quiz.objects.get(id=id)
+                except Quiz.DoesNotExist:
+                    return messages.warning(request, '존재 하는 Class가 없습니다.')
 
-            solvedQuiz = SolvedQuiz(id = id, user = user.email,room_id = room.room_id)
-            solvedQuiz.save()
+                try:
+                    solvedQuiz = SolvedQuiz.objects.get(id=quiz.pk,user= user.email)  # 그 문제를 이 user가 풀었는지 보고
+                except SolvedQuiz.DoesNotExist:                                  # 안 풀었을 때만 저장
+                    solvedQuiz = SolvedQuiz(id = id, user = user.email,makername= quiz.makername,room_id = room.room_id, question = quiz.question,
+                    item1 = quiz.item1, item2 = quiz.item2, item3 = quiz.item3, item4 = quiz.item4, answer = quiz.answer)
+                    solvedQuiz.save()
 
-            return JsonResponse(info)
+                quiz_answer = quiz.answer
+
+                if answer == str(quiz_answer):
+                    info['result'] = "yes"
+                elif answer != str(quiz_answer):
+                    info['answer'] = quiz_answer
+                    info['result'] = "no"
+
+                # solvedQuiz = SolvedQuiz(id = id, user = user.email,room_id = room.room_id)
+                # solvedQuiz.save()
+
+                return JsonResponse(info)
+        else:
+            return redirect('/home/enterclass/student3')
 
     else:
         return redirect('/login')
@@ -1067,28 +1067,32 @@ def teacher_quiz(request):
         room = Room.objects.get(room_id=room_session)
         room_maker = User.objects.get(email=room.maker)
         res_data['room_maker'] = room_maker.username
-        # 룸ID 받아오기
+
+        if request.method == 'GET':
+
+            # 룸ID 받아오기
             # room_session = request.session.get('room_id')
             # print(room_session)
 
-        quiz_all = Quiz.objects.filter(room_id=room.room_id)
-        print(quiz_all)
-        teacher_quiz = []
-        for i in quiz_all:
-            if(i.maker==room_maker.email):
-                teacher_quiz.append(i)
+            quiz_all = Quiz.objects.filter(room_id=room.room_id)
+            print(quiz_all)
+            teacher_quiz = []
+            for i in quiz_all:
+                if(i.maker==room_maker.email):
+                    teacher_quiz.append(i)
 
-        res_data['question'] = teacher_quiz[0].question
-        res_data['item1'] = teacher_quiz[0].item1
-        res_data['item2'] = teacher_quiz[0].item2
-        res_data['item3'] = teacher_quiz[0].item3
-        res_data['item4'] = teacher_quiz[0].item4
-        res_data['maker'] = "선생님"
-        res_data['id'] = teacher_quiz[0].id
-        res_data['room_name'] = room.room_name
-        print(room.room_name)
+            print(teacher_quiz)
 
-        if request.method == 'GET':
+            res_data['question'] = teacher_quiz[0].question
+            res_data['item1'] = teacher_quiz[0].item1
+            res_data['item2'] = teacher_quiz[0].item2
+            res_data['item3'] = teacher_quiz[0].item3
+            res_data['item4'] = teacher_quiz[0].item4
+            res_data['maker'] = "선생님"
+            res_data['id'] = teacher_quiz[0].id
+            res_data['room_name'] = room.room_name
+            print(room.room_name)
+
             return render(request, 'teacherquiz.html', res_data)
         elif request.method == 'POST':
             answer = request.POST.get('check')
@@ -1100,13 +1104,12 @@ def teacher_quiz(request):
             except Quiz.DoesNotExist:
                 return messages.warning(request, '존재 하는 Class가 없습니다.')
 
-
-            try:
-                solvedQuiz = SolvedQuiz.objects.get(id=quiz.pk,user= user.email)  # 그 문제를 이 user가 풀었는지 보고
-            except SolvedQuiz.DoesNotExist:                                  # 안 풀었을 때만 저장
-                solvedQuiz = SolvedQuiz(id = id, user = user.email,makername= quiz.makername,room_id = room.room_id, question = quiz.question,
-                 item1 = quiz.item1, item2 = quiz.item2, item3 = quiz.item3, item4 = quiz.item4, answer = quiz.answer)
-                solvedQuiz.save()
+            # try:
+            #     solvedQuiz = SolvedQuiz.objects.get(id=quiz.pk,user= user.email)  # 그 문제를 이 user가 풀었는지 보고
+            # except SolvedQuiz.DoesNotExist:                                  # 안 풀었을 때만 저장
+            #     solvedQuiz = SolvedQuiz(id = id, user = user.email,makername= quiz.makername,room_id = room.room_id, question = quiz.question,
+            #     item1 = quiz.item1, item2 = quiz.item2, item3 = quiz.item3, item4 = quiz.item4, answer = quiz.answer)
+            #     solvedQuiz.save()
 
             quiz_answer = quiz.answer
             print(quiz_answer)
@@ -1222,40 +1225,40 @@ def app_attendance(request):
         print(member_number)
         # room DB-member_list로 회원번호 확인 및 index 추출
         room = Room.objects.get(room_id=room_id)
-        # member_list = room.member_list  # 회원번호만 적힌 리스트
-        # member_list = member_list[1:-1].split(', ')
-        # print(member_list)
+        member_list = room.member_list  # 회원번호만 적힌 리스트
+        member_list = member_list[1:-1].split(', ')
+        print(member_list)
 
         # CHECK NUMBER
         # Correct NUMBER
-        # if (member_number in member_list):
-        #     member_index = member_list.index(member_number) + 1
-        #     print('member_index:'+str(member_index))
+        if (member_number in member_list):
+            member_index = member_list.index(member_number) + 1
+            print('member_index:'+str(member_index))
 
-        #     # 해당방의 DB속 명단Excel파일 조회
-        #     room = Room.objects.get(room_name=room_name)
-        #     member_file = room.file  # 명단
+            # 해당방의 DB속 명단Excel파일 조회
+            room = Room.objects.get(room_name=room.room_name)
+            member_file = room.file  # 명단
 
-        #     member = load_workbook("media/" + str(member_file))
-        #     sheet = member['Sheet1']
-        #     member_file_name = sheet['B'+str(member_index)].value
+            member = load_workbook("media/" + str(member_file))
+            sheet = member['Sheet1']
+            member_file_name = sheet['B'+str(member_index)].value
 
-        #     # CHECK NAME
-        #     # Wrong NAME
-        #     if member_file_name != member_name:
-        #         print('app_enterEXAM_info_no_match_name_num')
-        #         return HttpResponse(simplejson.dumps({"roomname": "no",  "password": "no"}))
-        #     # Correct NAME
-        #     else:
-        #         print('app_enterEXAM_info_success')
-        #         return HttpResponse(simplejson.dumps({"roomname": "yes", "password": member_index}))
+            # CHECK NAME
+            # Wrong NAME
+            if member_file_name != member_name:
+                print('app_enterEXAM_info_no_match_name_num')
+                return HttpResponse("nomatch")
 
-        # # Wrong NUMBER
-        # else:
-        #     print('app_enterEXAM_info_no_num')
-        #     return HttpResponse(simplejson.dumps({"roomname": "fail", "password": "no"}))
+            # Correct NAME
+            else:
+                print('app_enterEXAM_info_success')
+                return HttpResponse(member_index)
 
-        return HttpResponse("success")
+        # Wrong NUMBER
+        else:
+            print('app_enterEXAM_info_no_num')
+            return HttpResponse("nonum")
+
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -1273,45 +1276,42 @@ def app_checkimg(request):
 
         # image.name 에서 분리
         l = capture_image.name.split('_')
-        room_name = l[0]
+        room_id = l[0]
         member_index = l[1]
 
         print("Get All DATA ")
 
-        # # Room DB - excel 파일
-        # room = Room.objects.get(room_name=room_name)
-        # member_file = room.file  # 명단
-        # member = load_workbook("media/" + str(member_file))
-        # sheet = member['Sheet1']
+        # Room DB - excel 파일
+        room = Room.objects.get(room_id=room_id)
+        member_file = room.file  # 명단
+        member = load_workbook("media/" + str(member_file))
+        sheet = member['Sheet1']
 
-        # # exel 명단 속 이미지
-        # image_loader = SheetImageLoader(sheet)
-        # image = image_loader.get('C'+str(member_index))
-        # member_file_image_path = (room_name+"_"+str(member_index)+".jpg")
-        # image.save("media/capture/"+member_file_image_path)
-        # fs = FileSystemStorage()
+        # exel 명단 속 이미지
+        image_loader = SheetImageLoader(sheet)
+        image = image_loader.get('C'+str(member_index))
+        member_file_image_path = (room_id+"_"+str(member_index)+".jpg")
+        image.save("media/capture/"+member_file_image_path)
+        fs = FileSystemStorage()
 
-        # # Face Recognition
-        # a = (fs.location + str("/capture/") + member_file_image_path)
-        # b = (fs.location + str("/capture/") + capture_image.name)
-        # # luxand API
-        # luxand_client = luxand("12a42a8efedf4e24b84730ce440e5429")
-        # member_file_image = luxand_client.add_person(
-        #     str(member_index), photos=[a])
-        # result = luxand_client.verify(member_file_image, photo=b)
-        # print(result)
-        # os.remove(os.path.join(settings.MEDIA_ROOT +
-        #                        "/capture/", capture_image.name))
-        # # Recognition RESULT
-        # if result['status'] == 'success':
-        #     print("Recognition_SUCCESS")
-        #     return HttpResponse(simplejson.dumps({"image": "ok"}))  # 이미지 전송완료
-        # else:
-        #     print("Recognition_FAIL")
-        #     return HttpResponse(simplejson.dumps({"image": "no"}))  # 이미지 전송실패
-
-        return HttpResponse("success")
-
+        # Face Recognition
+        a = (fs.location + str("/capture/") + member_file_image_path)
+        b = (fs.location + str("/capture/") + capture_image.name)
+        # luxand API
+        luxand_client = luxand("eed3a1c052394c12ac437d78651522f6")
+        member_file_image = luxand_client.add_person(
+            str(member_index), photos=[a])
+        result = luxand_client.verify(member_file_image, photo=b)
+        print(result)
+        os.remove(os.path.join(settings.MEDIA_ROOT +
+                               "/capture/", capture_image.name))
+        # Recognition RESULT
+        if result['status'] == 'success':
+            print("Recognition_SUCCESS")
+            return HttpResponse("success")  # 이미지 전송완료
+        else:
+            print("Recognition_FAIL")
+            return HttpResponse("fail") # 이미지 전송실패
 
 @method_decorator(csrf_exempt, name='dispatch')
 def app_sendcount(request):
