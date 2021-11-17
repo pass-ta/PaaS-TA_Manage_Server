@@ -170,7 +170,7 @@ def make_success(request):
             if user.role == "student":
                 return redirect('/home/enterclass/student1')
             elif user.role == "teacher":
-                return redirect('/home/enterclass/teacher')
+                return redirect('/home/enterclass/makequiz')
     else:
         return redirect('/login')
 

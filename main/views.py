@@ -88,20 +88,14 @@ def app_login(request):
     if request.method == "POST":
         email = request.POST.get('email', None)
         password = request.POST.get('password', None)
-        role = request.POST.get('role', None)
 
         print(email)
         if User.objects.filter(email=email).exists():
             myuser = User.objects.get(email=email)
             # db에서 꺼내는 명령.Post로 받아온 username으로 , db의 username을 꺼내온다.
-            if(str(role) == myuser.role):
-                if check_password(password, myuser.password):
-
-                    return HttpResponse(simplejson.dumps({"email": email, "password": password, "name": myuser.username, "image": str(myuser.image)}))
-                else:
-                    return HttpResponse(simplejson.dumps({"email": email, "password": password, "name": "Fail", "image": "Fail"}))
+            if check_password(password, myuser.password):
+                return HttpResponse(simplejson.dumps({"email": email, "password": password, "name": myuser.username, "image": str(myuser.image)}))
             else:
-
                 return HttpResponse(simplejson.dumps({"email": email, "password": password, "name": "Fail", "image": "Fail"}))
         else:
             return HttpResponse(simplejson.dumps({"email": "aa", "password": "aa", "name": "no", "image": "Fail"}))
