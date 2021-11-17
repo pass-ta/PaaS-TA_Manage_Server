@@ -389,8 +389,8 @@ def student2(request):
 
                     # Recognition RESULT
                     if result['status'] == 'success':
-                        info['result'] = "OK"
-                        print("Recognition_SUCCESS")
+                          info['result'] = "OK"
+                          print("Recognition_SUCCESS")
                     else:
                         info['result'] = "NO_IMAGE_MATCH"
                         print("Recognition_FAIL")
@@ -748,64 +748,66 @@ def student_quiz(request):
         room_maker = User.objects.get(email=room.maker)
         res_data['room_maker'] = room_maker.username
 
-        if request.method == 'GET':
+        past_class = Enrol.objects.filter(email=user.email).order_by('-make_date')
+        print(past_class)
 
-            # 룸ID 받아오기
-            # room_session = request.session.get('room_id')
-            # print(room_session)
-            past_class = Enrol.objects.filter(
-                email=user.email).order_by('-make_date')
-            print(past_class)
-            quiz = Quiz.objects.filter(room_id=past_class[0].room_id)
-            print(quiz)
-            # 학생 복습퀴즈시 자신이 낸 문제는 제외
+        
+        if past_class.exists():
 
-            except_quiz = []
-            for i in quiz:
-                if(i.maker != user.email and i.maker != room_maker):
-                    except_quiz.append(i)
+            if request.method == 'GET':
 
-            print(except_quiz)
+                quiz = Quiz.objects.filter(room_id=past_class[0].room_id)
 
-            random_num = random.randint(1, len(except_quiz))
+                # 학생 복습퀴즈시 자신이 낸 문제는 제외
 
-            print(random_num)
+                except_quiz = []
+                for i in quiz:
+                    if(i.maker != user.email and i.maker != room_maker):
+                        except_quiz.append(i)
 
-            maker = except_quiz[random_num-1].maker
-            quiz_ower = User.objects.get(email=maker)
-            room_id = except_quiz[random_num-1].room_id
-            room = Room.objects.get(room_id=room_id)
-            res_data['question'] = except_quiz[random_num-1].question
-            res_data['item1'] = except_quiz[random_num-1].item1
-            res_data['item2'] = except_quiz[random_num-1].item2
-            res_data['item3'] = except_quiz[random_num-1].item3
-            res_data['item4'] = except_quiz[random_num-1].item4
-            res_data['maker'] = quiz_ower.username
-            res_data['id'] = except_quiz[random_num-1].id
-            res_data['room_name'] = room.room_name
-            print(room.room_name)
-            return render(request, 'quiz.html', res_data)
-        elif request.method == 'POST':
-            info = {}
+                random_num = random.randint(1, len(except_quiz))
 
-            answer = request.POST.get('check')
-            id = request.POST.get('id')
-            print(id)
-            try:
-                quiz = Quiz.objects.get(id=id)
-            except Quiz.DoesNotExist:
-                return messages.warning(request, '존재 하는 Class가 없습니다.')
+                print(random_num)
 
-            quiz_answer = quiz.answer
-            print(quiz_answer)
+                maker = except_quiz[random_num-1].maker
+                quiz_ower = User.objects.get(email=maker)
+                room_id = except_quiz[random_num-1].room_id
+                room = Room.objects.get(room_id=room_id)
+                res_data['question'] = except_quiz[random_num-1].question
+                res_data['item1'] = except_quiz[random_num-1].item1
+                res_data['item2'] = except_quiz[random_num-1].item2
+                res_data['item3'] = except_quiz[random_num-1].item3
+                res_data['item4'] = except_quiz[random_num-1].item4
+                res_data['maker'] = quiz_ower.username
+                res_data['id'] = except_quiz[random_num-1].id
+                res_data['room_name'] = room.room_name
+                print(room.room_name)
+                return render(request, 'quiz.html', res_data)
 
-            if answer == str(quiz_answer):
-                info['result'] = "yes"
-            elif answer != str(quiz_answer):
-                info['answer'] = quiz_answer
-                info['result'] = "no"
 
-            return JsonResponse(info)
+            elif request.method == 'POST':
+                info = {}
+
+                answer = request.POST.get('check')
+                id = request.POST.get('id')
+                print(id)
+                try:
+                    quiz = Quiz.objects.get(id=id)
+                except Quiz.DoesNotExist:
+                    return messages.warning(request, '존재 하는 Class가 없습니다.')
+
+                quiz_answer = quiz.answer
+                print(quiz_answer)
+
+                if answer == str(quiz_answer):
+                    info['result'] = "yes"
+                elif answer != str(quiz_answer):
+                    info['answer'] = quiz_answer
+                    info['result'] = "no"
+
+                return JsonResponse(info)
+        else:
+            return redirect('/home/enterclass/student3')
 
     else:
         return redirect('/login')
