@@ -292,7 +292,7 @@ def student1(request):
         if request.method == 'GET':
             return render(request, 'enter_student1.html', res_data)
         elif request.method == 'POST':
-            if user.check == True:
+            if user.check == False:
                 return redirect('/home/enterclass/student2')
             else:
                 res_data['check'] = "차단이 완료되지 않았습니다."
