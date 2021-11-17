@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after">
     <link rel="stylesheet" href="/static/assets/css/home.css?after?after">
     <link rel="stylesheet" href="/static/assets/css/makeroom.css">
-    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after?after?after">
+    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after?after?after?after?after?after?after">
     <link rel="stylesheet" href="/static/assets/css/list.css">
     <link rel="stylesheet" href="/static/assets/css/animated.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -52,35 +52,37 @@
     <div class="main">
       <div class="inner">
         <div class="solve_quiz">
-
-                <span class="animate__animated animate__rubberBand" id="quiz-text">Today's Review Quiz</span>
-                <div class="quiz_content">
-                   <div class="id" id="id" value="{{id}}">{{id}}</div>
-                    <div class="question">Q. {{question}}</div>
-                    <div class= "radio_button">
-                        <div>
-                        <input class="radio_content" id= "radio1" type="radio" name="quiz" id="us" value=1>
-                        <label> &nbsp 1.&nbsp&nbsp{{item1}}</label>
-                        </div>
-                        <div>
-                        <input class="radio_content" id= "radio2" type="radio" name="quiz" id="kr" value=2>
-                        <label> &nbsp 2.&nbsp&nbsp{{item2}}</label>
-                        </div>
-                        <div>
-                        <input class="radio_content" id= "radio3" type="radio" name="quiz" id="ch" value=3>
-                        <label> &nbsp 3.&nbsp&nbsp{{item3}}</label>
-                        </div>
-                        <div>
-                        <input class="radio_content" id= "radio4" type="radio" name="quiz" id="ch" value=4>
-                        <label> &nbsp 4.&nbsp&nbsp{{item4}}</label>
-                        </div>
-                    </div>
-                    {% comment %} <form action ="quiz" method="GET" class="form-next" enctype="multipart/form-data">
-                        {% csrf_token %} {% endcomment %}
-                        <button class="next" onclick="btn_next_check_answer()">Next</button>
-                    {% comment %} </form> {% endcomment %}
-                </div>
+          <span class="animate__animated animate__rubberBand" id="quiz-text">오늘의 학습 확인 Quiz</span>
+          <div class="quiz-subtitle"><span style="margin-left: 600px; font-size: 15px;">{{room_maker}} 선생님이 생성한 문제 입니다.</span></div>
+          <div class="quiz_content" style="margin-top: 30px;">
+              <div class="id" id="id" value="{{id}}" style="display: none;">{{id}}</div>
+              <div class="question">Q. {{question}}</div>
+              <div class= "radio_button">
+                  <div>
+                  <input class="radio_content" id= "radio1" type="radio" name="quiz" id="us" value=1>
+                  <label> &nbsp 1.&nbsp&nbsp{{item1}}</label>
+                  </div>
+                  <div>
+                  <input class="radio_content" id= "radio2" type="radio" name="quiz" id="kr" value=2>
+                  <label> &nbsp 2.&nbsp&nbsp{{item2}}</label>
+                  </div>
+                  <div>
+                  <input class="radio_content" id= "radio3" type="radio" name="quiz" id="ch" value=3>
+                  <label> &nbsp 3.&nbsp&nbsp{{item3}}</label>
+                  </div>
+                  <div>
+                  <input class="radio_content" id= "radio4" type="radio" name="quiz" id="ch" value=4>
+                  <label> &nbsp 4.&nbsp&nbsp{{item4}}</label>
+                  </div>
+              </div>
+              {% comment %} <form action ="quiz" method="GET" class="form-next" enctype="multipart/form-data">
+                  {% csrf_token %} {% endcomment %}
+                  <button class="next" onclick="btn_next_check_answer()">Next</button>
+              {% comment %} </form> {% endcomment %}
+          </div>
         </div>
+      </div>
+    </div>
 
   <div id="correct_lotties" style="position:absolute; top: calc(50vh - 112.5px); left: calc(50vw - 150px); display:none">
     <lottie-player src="/static/assets/images/correct.json" background="transparent" style="width: 300px; height: 225px;" speed="1.5" loop autoplay>
@@ -132,7 +134,7 @@
                     },0)
                     setTimeout(function(){
                       correct_lotties.style.display='none'
-                      window.location.href = '/home/classout/student/analytics'
+                      window.location.href = '/home/classout/student/analytics/'+count_retry
                     },1800)
                     //alert("정답입니다!");
                 }else if (data['result'] == "no"){
@@ -145,7 +147,7 @@
                       console.log(count_retry);
                       if(count_retry==3){
                         alert('정답은 ' + data['answer']+'번입니다.');
-                        window.location.href = '/home/classout/student/analytics'
+                        window.location.href = '/home/classout/student/analytics/'+count_retry
                       }
                     },1800)
                 }

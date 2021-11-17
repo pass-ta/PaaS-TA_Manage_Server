@@ -12,6 +12,15 @@
 .back:hover{
     content: url(/static/assets/images/previous\ \(1\).png);
 }
+.cancell{
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+    display: inline;
+}
+.cancell:hover{
+    content: url(/static/assets/images/cancell\ \(1\).png);
+}
 .makeroom #main-text{
     font-size: 25px;
     color:  #f8c018;

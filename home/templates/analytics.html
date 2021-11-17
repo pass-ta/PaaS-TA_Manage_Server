@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko" id="html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HiClass</title>
+    <link href="/static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="/static/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="/static/assets/css/templatemo-seo-dream.css?after">
+    <link rel="stylesheet" href="/static/assets/css/home.css">
+    <link rel="stylesheet" href="/static/assets/css/makeroom.css?after?after">
+    <link rel="stylesheet" href="/static/assets/css/enterroom.css?after?after">
+    <link rel="stylesheet" href="/static/assets/css/list.css?after?after?after">
+    <link rel="stylesheet" href="/static/assets/css/animated.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="/static/assets/css/owl.css">
+    <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/fusioncharts.js"></script>
+    <script type="text/javascript" src="//cdn.fusioncharts.com/fusioncharts/latest/themes/fusioncharts.theme.fusion.js"></script>
+</head>
+<body>
+    <!-- ***** Header Area Start ***** -->
+    <div class="animate__animated animate__fadeInDown animate__delay-0.8s">
+      <header class="header-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                  <!-- ***** Logo Start ***** -->
+                  <a href="/home" class="logo">
+                    {% if role == "teacher"%}
+                        <h4>HiClass <img src="/static/assets/images/teacher (1).png" alt="" class="auto_logo"><span class="teachers_text">Teachers</span></h4>
+                    {% elif role == "student"%}
+                        <h4>HiClass <img src="/static/assets/images/student.png" alt="" class="auto_logo"><span class="teachers_text">Students</span></h4>
+                    {%endif%}
+                  </a>
+                  <!-- ***** Logo End ***** -->
+                  <!-- ***** Menu Start ***** -->
+                  <ul class="nav">
+                    <li class="scroll-to-section"><a href="/home">Home</a></li>
+                    {% if role == "teacher"%}
+                      <li class="scroll-to-section"><a href="/home/myclass/teacher">My Class</a></li>
+                    {% elif role == "student"%}
+                      <li class="scroll-to-section"><a href="/home/myclass/student">My Class</a></li>
+                    {%endif%}
+                    <li class="scroll-to-section"><a href="/logout">Logout</a></li>
+                    <li class="scroll-to-section"></li>
+                  </ul>
+                  <a class='menu-trigger'>
+                      <span>Menu</span>
+                  </a>
+                  <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+    <!-- ***** Header Area End ***** -->
+    <div class="main">
+      <div class="inner">
+        <div class="list-detail-wapper">
+            <img src="/static/assets/images/cancell.png" alt="" class="cancell" onclick="location.href='/home'">
+          <div id="detail-explain" class="animate__animated animate__rubberBand animate__delay-0.8s">
+            <span >{{analyticUser}}님의 집중도 그래프 </span>
+          </div>
+          <div class="list-detail">
+            <div class="list-detail-text">
+              <div class="list-detail-text1">
+                <span style="font-size: 25px;">집중도 <br><span style="color: #5f3dc4; font-size: 33px; font-weight: 700;">level {{level}}</span></span>
+              </div>
+              <div class="list-detail-text2">
+                <span class="list-detail-sub"> 모든 점수의 최고점은 100점이며, <br> 퀴즈는 틀린 횟수×10 만큼 감점 됩니다.</span>
+              </div>
+            </div>
+            <h3>{{ chartTitle|safe }}</h3 >
+            <div id="chart-1">{{ output|safe }}</div>
+            <div id="chart-2">{{ output_2|safe }}</div>
+          </div>
+        </div>
+      </div> 
+    </div>
+</body>
+</html>

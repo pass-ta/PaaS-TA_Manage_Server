@@ -1,22 +1,18 @@
 {%extends 'base.html'%}
 {% block content%}
 <div class="enter_exam1">
-    <span class="animate__animated animate__rubberBand" id="enter1-text">{{room_maker}}님의 Class로 입장!</span>
-    <div class="down-arrow3"><img src="/static/assets/images/down-arrow (1).png" alt=""></div>
-    <div class="progress-icon">
-        <img src="/static/assets/images/android (1).png" alt="">
-        <span class="border"></span>
-        <img src="/static/assets/images/face (1).png" alt="">
-        <span class="border"></span>
-        <img src="/static/assets/images/running (1).png" alt="">
+    <span class="animate__animated animate__rubberBand" id="enter-teacher-text">{{room_maker}}님의 Class로 입장!</span>
+    <div class="progress-icon-teacher">
+        <lottie-player src="/static/assets/images/online-class.json" background="transparent" style="width: 400px; height: 300px;" speed="0.5" loop autoplay>
+        </lottie-player>
     </div>
-    <div class="explain">입장 준비가 성공적으로 완료 되었습니다.</div>
+    <div class="teacher-explain">입장 준비가 성공적으로 완료 되었습니다.</div>
     <div class="animate__animated animate__shakeX animate__delay-1s" id="check">
         <span class="check">{{check}}</span>
     </div>
-    <form action="" method="POST" class="form-next">
+    <form action="" method="POST" class="teacher-form-next">
         {% csrf_token %}
-        <button class="next">Room Enter</button>
+        <button class="teacher-next" value="toSsimong" id="enterRoom" name="enterRoom">Enter Room</button>
     </form>
 </div>
 {% endblock%}
