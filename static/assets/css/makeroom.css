@@ -118,7 +118,6 @@ input[type="checkbox"]{
 }
 
 button.creat{
-    margin-top: 50px;
     margin-left: 320px;
     width: 180px;
     height: 50px;
@@ -126,7 +125,7 @@ button.creat{
     font-weight: 400;
     font-size: large;
     color: #fff;
-    margin-top: 40px;
+    margin-top: 10px;
     text-transform: capitalize;
     padding: 12px 25px;
     border-radius: 23px;
