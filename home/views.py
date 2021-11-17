@@ -440,13 +440,10 @@ def student3(request):
             room = Room.objects.get(room_id=room_session)
 
             try:
-                enrol = Enrol.objects.get(
-                    email=user.email, room_id=room.room_id)  # 수강 목록을 살펴 보고
-            # 없으면 등록에 추가(중복 방지)
-            except Enrol.DoesNotExist:
-                enrol = Enrol(email=user.email, room_id=room.room_id, room_password=room.room_password,
-                              room_name=room.room_name)  # 방 입장하면 학생의 수강 list를 위해
-                # enrol에 추가
+                enrol = Enrol.objects.get(email=user.email, room_id=room.room_id)  # 수강 목록을 살펴 보고
+            
+            except Enrol.DoesNotExist:                                             # 없으면 enrol에 추가(중복 방지)
+                enrol = Enrol(email=user.email, room_id=room.room_id, room_password=room.room_password,room_name=room.room_name)
                 enrol.save()
 
             roomid = room.room_id
