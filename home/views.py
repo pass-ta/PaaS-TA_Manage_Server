@@ -982,10 +982,9 @@ def student_quiz(request):
         if past_class.exists():
 
             if request.method == 'GET':
-
-                quiz = Quiz.objects.filter(room_id=past_class[0].room_id)
-
-                ex_room = Room.objects.get(room_id=past_class[0].room_id)
+                print(past_class[0],"룸 리스트 첫번째!!!!!!!!")
+                quiz = Quiz.objects.filter(room_id=room.room_id)
+                ex_room = Room.objects.get(room_id=room.room_id)
 
                 # 학생 복습퀴즈시 자신이 낸 문제는 제외
 
@@ -994,6 +993,7 @@ def student_quiz(request):
                     if(i.maker != user.email and i.maker != ex_room.maker):
                         except_quiz.append(i)
                 if not except_quiz:
+                    print("퀴즈 없음!!!!!!!!!!")
                     return redirect('/home/enterclass/student3')
                 else:
                     random_num = random.randint(1, len(except_quiz))
@@ -1043,6 +1043,7 @@ def student_quiz(request):
 
                 return JsonResponse(info)
         else:
+            print("수강 목록에 없음!!!!!!!!!!")
             return redirect('/home/enterclass/student3')
 
     else:
