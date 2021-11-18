@@ -1340,26 +1340,4 @@ def app_sendcount(request):
         analytics = Analytics(room_id=roomname, email=email,username=myuser.username, person=nonperson_point, app=app_point)
         analytics.save()
 
-        # analytics = Analytics.objects.filter(room_name=roomname)
-        # if analytics:  # 해당 룸의 row가 있다.
-        #     for x in analytics:
-        #         if(x.email == myuser.email):   # 해당 룸의 내 email을 가진 row가 있다.
-        #             output = 'YES'
-        #         else:
-        #             output = 'NO'
-        # elif not(analytics):  # 해당 룸의 row가 없다 -> 내가 제일 처음 -> 바로 생성
-        #     analytics = Analytics(
-        #         room_id=roomname, email=email, person=nonperson_point, app=app_point)
-        #     analytics.save()
-
-        # if output == 'YES':  # 해당 룸의 row 중에 내 아이디의 row가 있다.
-        #     analytics = Analytics.objects.filter(email=email).last()
-        #     analytics.person = nonperson_point
-        #     analytics.app = count_point
-        #     analytics.save()
-        # elif output == 'NO':  # 해당 룸의 row 중에 내 아이디의 row가 없다.
-        #     analytics = Analytics(
-        #         room_name=roomname, email=email, person=nonperson_point, app=count_point)
-        #     analytics.save()
-
         return HttpResponse("success")
