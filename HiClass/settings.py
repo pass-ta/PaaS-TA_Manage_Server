@@ -52,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 ]
 
 ROOT_URLCONF = 'HiClass.urls'
@@ -90,7 +92,7 @@ WSGI_APPLICATION = 'HiClass.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / 'db.sqlite3'),
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -117,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'ko'
+LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -127,15 +129,59 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = os.path.dirname(BASE_DIR)
+
+# static files
+STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+
+
+
+
+# # STATIC_ROOT = django가 아닌 서버가 이용
+# #  :: 정적 파일을 직접 제공(serving)할 웹 서버가 접근
+# STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'staticfiles'))
+# print("static_root : " ,STATIC_ROOT)
+
+# # STATIC_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# # STATICFILES_DIRS = (
+# #     os.path.join(STATIC_BASE_DIR, '../static'),
+# # )
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# print("STATICFILES_DIRS : " ,STATICFILES_DIRS)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'staticfiles'))
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_URL = '/static/'
+# # STATICFILES_DIRS = []
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# ############
+# STATIC_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# STATICFILES_DIRS = (
+#     os.path.join(STATIC_BASE_DIR, '../static/resources'),
+# )
+# STATIC_ROOT = 'staticfiles' 
+# #    STATIC_BASE_DIR는 애플리케이션의 경로를 의미한다. 본 문서의 안내대로 진행했다면 애플리케이션의 경로는 '..\my_sampleproject\my_sampleapp'가 된다. 개방형  클라우드 플랫폼에 애플리케이션을 배포할 때, STATIC_BASE_DIR의 상위 디렉토리의 static/resources 경로에 위치한 파일들이 STATIC_ROOT로 정의된 'staticfiles' 디렉토리에 모이게 된다.
+# -STATIC_URL = '/static/'  #다음과 같이 수정
+# STATIC_URL = '/resources/'
+# #    샘플의 템플릿에서 사용하는 리소스에 접근할 수 있는 URL
+# #################
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 
 FILE_URL = '/files/'
 FILE_ROOT = os.path.join(BASE_DIR, 'files')
