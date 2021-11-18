@@ -53,10 +53,7 @@ def home(request):
         if res_data['userimg'] == "/media/face-recognition.png":               # 이미지 체크
             res_data['img_check'] = 0                      # 이미지 널
         else:
-            res_data['img_check'] = 1
-            imgUrl=fs.url(user.image)[15:]
-            res_data['userimg'] = imgUrl
-            
+            res_data['img_check'] = 1            
 
         if request.method == 'GET':
             if user.role == 'student':
