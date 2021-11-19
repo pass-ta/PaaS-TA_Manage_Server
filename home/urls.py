@@ -44,5 +44,6 @@ urlpatterns = [
     path('app_enter_room', views.app_enterroom),
     path('app_attendance', views.app_attendance),
     path('app_checkimg', views.app_checkimg),
+    path('app_checkin', views.app_checkin),
     path('app_sendcount', views.app_sendcount),
 ]

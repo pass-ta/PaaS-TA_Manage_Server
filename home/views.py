@@ -1320,6 +1320,19 @@ def app_checkimg(request):
             return HttpResponse("fail") # 이미지 전송실패
 
 @method_decorator(csrf_exempt, name='dispatch')
+def app_checkin(request):
+    if request.method == "POST":
+        email = request.POST.get('email', None)
+        print(email)
+        myuser = User.objects.get(email=email)
+        myuser.check = True
+    
+        myuser.save()
+        print(myuser.check)
+
+        return HttpResponse("yes")
+
+@method_decorator(csrf_exempt, name='dispatch')
 def app_sendcount(request):
     if request.method == "POST":
         email = request.POST.get('email', None)
